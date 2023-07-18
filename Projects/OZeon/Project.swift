@@ -36,7 +36,7 @@ let appTargets: [Target] = AppFactory(
     )
 ).build(
     payload: AppFactory.Payload(
-        bundleID: "kr.ddd.ozeon.\(appName)",
+        bundleID: "kr.byunghak.\(appName)",
         name: appName,
         platform: .iOS,
         infoPlist: infoPlist
@@ -52,7 +52,7 @@ let project = ProjectFactory(
 ).build(
     payload: ProjectFactory.Payload(
         name: appName,
-        organizationName: "kr.ddd.ozeon"
+        organizationName: "kr.byunghak"
     )
 )
 

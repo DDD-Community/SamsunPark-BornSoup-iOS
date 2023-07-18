@@ -3,7 +3,7 @@
 //  PresentationKit
 //
 //  Created by 고병학 on 2023/07/18.
-//  Copyright © 2023 organizationName: "kr.ddd.ozeon". All rights reserved.
+//  Copyright © 2023 kr.byunghak. All rights reserved.
 //
 
 import SwiftUI

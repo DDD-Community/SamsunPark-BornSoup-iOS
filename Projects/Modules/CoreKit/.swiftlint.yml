@@ -1,0 +1,13 @@
+opt_in_rules:
+  - sorted_imports
+
+disabled_rules:
+  - trailing_whitespace
+  - function_body_length
+  - identifier_name
+
+excluded:
+  - Derived
+  - Plugins
+  - Project.swift
+  - Tuist

@@ -68,3 +68,6 @@ Derived/
 
 ### Tuist managed dependencies ###
 Tuist/Dependencies
+Tuist/master.key
+*.p12
+*.cer

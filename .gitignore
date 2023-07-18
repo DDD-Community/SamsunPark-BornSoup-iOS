@@ -71,3 +71,4 @@ Tuist/Dependencies
 Tuist/master.key
 *.p12
 *.cer
+Tuist/Signing

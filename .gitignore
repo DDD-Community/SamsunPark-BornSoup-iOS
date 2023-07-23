@@ -72,3 +72,4 @@ Tuist/master.key
 *.p12
 *.cer
 Tuist/Signing
+BuildConfigurations

@@ -1,14 +1,14 @@
 import SwiftUI
-
 import PresentationKit
+import ComposableArchitecture
 
 @main
 struct OZeonApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(store: .init(
-                initialState: Store.State(),
-                reducer: Store()
+            RootView(store: .init(
+                initialState: Root.State(),
+                reducer: Root()
             ))
         }
     }

@@ -28,15 +28,18 @@ public struct FrameworkFactory {
         let name: String
         let platform: Platform
         let product: Product
+        let infoPlist: [String: InfoPlist.Value]
         
         public init(
             name: String,
             platform: Platform,
-            product: Product
+            product: Product,
+            infoPlist: [String: InfoPlist.Value] = [:]
         ) {
             self.name = name
             self.platform = platform
             self.product = product
+            self.infoPlist = infoPlist
         }
     }
     
@@ -54,7 +57,7 @@ public struct FrameworkFactory {
             product: payload.product,
             bundleId: payload.name,
             deploymentTarget: deploymentTarget,
-            infoPlist: .default,
+            infoPlist: .extendingDefault(with: payload.infoPlist),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             scripts: [.SwiftLintString],
@@ -67,7 +70,7 @@ public struct FrameworkFactory {
             product: .unitTests,
             bundleId: payload.name + "Tests",
             deploymentTarget: deploymentTarget,
-            infoPlist: .default,
+            infoPlist: .extendingDefault(with: payload.infoPlist),
             sources: ["Tests/**"],
             resources: [],
             dependencies: [

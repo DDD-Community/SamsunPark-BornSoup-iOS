@@ -35,6 +35,6 @@ let project = ProjectFactory(
 ).build(
     payload: .init(
         name: frameworkName,
-        organizationName: "kr.byunghak"
+        organizationName: "kr.ddd.ozeon"
     )
 )

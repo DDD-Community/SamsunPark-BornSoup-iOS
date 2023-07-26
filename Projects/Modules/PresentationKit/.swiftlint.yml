@@ -5,6 +5,7 @@ disabled_rules:
   - trailing_whitespace
   - function_body_length
   - identifier_name
+  - type_name
 
 excluded:
   - Derived

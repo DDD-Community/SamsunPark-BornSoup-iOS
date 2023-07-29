@@ -14,13 +14,15 @@ struct MainView: View {
     let store: StoreOf<Main>
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { _ in
             VStack {
-                Button {
-                    viewStore.send(.fetchButtonTapped)
-                } label: {
-                    Text("Button")
-                }
+                MainRecommendView(
+                    store: self.store.scope(
+                        state: \.mainRecommend,
+                        action: Main.Action.mainRecommendAction
+                    )
+                )
+                .cornerRadius(20)
             }
             
         }

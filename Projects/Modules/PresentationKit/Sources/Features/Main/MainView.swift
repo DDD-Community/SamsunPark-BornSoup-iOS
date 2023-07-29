@@ -14,7 +14,7 @@ struct MainView: View {
     let store: StoreOf<Main>
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { _ in
             VStack {
                 MainRecommendView(
                     store: self.store.scope(

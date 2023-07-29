@@ -6,8 +6,9 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import ComposableArchitecture
+
+import SwiftUI
 
 public struct TermAgreement: ReducerProtocol {
     public struct State: Equatable {

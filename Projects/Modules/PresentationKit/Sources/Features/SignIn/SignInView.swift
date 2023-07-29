@@ -6,8 +6,9 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import ComposableArchitecture
+
+import SwiftUI
 
 struct SignInView: View {
     
@@ -26,7 +27,7 @@ struct SignInView: View {
                 }
             }
             .navigationTitle("Root")
-        } destination: { initialState in
+        } destination: { _ in
             TermAgreementView()
         }
     }

@@ -6,4 +6,11 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+
+extension Image {
+    enum Icon {
+        static let arrowDown: Image = PresentationKitAsset.arrowDown.swiftUIImage
+    }
+}
+

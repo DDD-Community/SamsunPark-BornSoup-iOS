@@ -20,7 +20,7 @@ extension Color {
     static let ozWhite = Color(hex: 0xFFFFFF, opacity: 1)
     static let mainLinear = Color(hex: 0xFF8F00, opacity: 1).gradient
     
-    static let error = Color(hex: 0xFFF8E1, opacity: 1)
+    static let error = Color(hex: 0xF10000, opacity: 1)
     
     static let orangeGray1 = Color(hex: 0x302D29, opacity: 1)
     static let orangeGray2 = Color(hex: 0x534F4B, opacity: 1)

@@ -10,45 +10,52 @@ import SwiftUI
 
 extension Font {
     
-    class Head0 {
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 34)
+    enum Size {
+        static let head0: CGFloat = 34
+        static let head1: CGFloat = 28
+        static let head2: CGFloat = 22
+        static let title1: CGFloat = 20
+        static let title2: CGFloat = 18
+        static let body1: CGFloat = 16
+        static let body2: CGFloat = 14
+        static let body3: CGFloat = 12
     }
     
-    class Head1 {
+    enum Head0 {
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: Font.Size.head0)
+    }
+    
+    enum Head1 {
         static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 28)
     }
     
-    class Head2 {
+    enum Head2 {
         static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 22)
         static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 22)
     }
     
-    class Title1 {
+    enum Title1 {
         static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 20)
         static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 20)
     }
     
-    class Title2 {
+    enum Title2 {
         static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 18)
-        
         static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 18)
     }
     
-    class Body1 {
+    enum Body1 {
         static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 16)
-        
         static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 16)
     }
     
-    class Body2 {
+    enum Body2 {
         static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 14)
-        
         static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 14)
     }
     
-    class Body3 {
+    enum Body3 {
         static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 12)
-        
         static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 12)
     }
 }

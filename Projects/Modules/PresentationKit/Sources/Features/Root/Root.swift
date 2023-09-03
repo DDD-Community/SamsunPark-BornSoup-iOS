@@ -2,63 +2,28 @@
 //  Root.swift
 //  PresentationKit
 //
-//  Created by 신의연 on 2023/07/23.
+//  Created by 고병학 on 2023/09/03.
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
 import ComposableArchitecture
 
-import SwiftUI
+import Foundation
 
-public enum SignInStatus: Equatable {
-    case signed
-    case unsigned
-}
-
-public struct Root: ReducerProtocol {
-    
-    public init() { }
-    
+public struct Root: Reducer {
+    public init() {}
     public struct State: Equatable {
-        var selectedTab = TabbarMenu.main
-        var main = Main.State()
-        var signIn = SignIn.State()
-        var signInStatus: SignInStatus = .unsigned
-        
-        public init() { }
+        public init() {}
     }
-    
-    public enum Action: Equatable {
-        case tabSelected(TabbarMenu)
-        case changeToMainView(SignInStatus)
-        case onAppear
+    public enum Action {
         
-        case mainAction(Main.Action)
-        case signInAction(SignIn.Action)
     }
-    
-    struct Environment { }
-    
-    public var body: some ReducerProtocol<State, Action> {
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                print("root onAppear")
-                state = .init()
-                return .none
-            case .changeToMainView(let signInStatus):
-                state.signInStatus = signInStatus
-                return .none
             default:
                 return .none
             }
         }
-        Scope(state: \.main, action: /Action.mainAction) {
-            Main()
-        }
-        Scope(state: \.signIn, action: /Action.signInAction) {
-            SignIn()
-        }
     }
-    
 }

@@ -7,10 +7,9 @@ import SwiftUI
 struct OZeonApp: App {
     var body: some Scene {
         WindowGroup {
-            RootView(store: .init(
-                initialState: Root.State(),
-                reducer: Root()
-            ))
+            RootView(store: Store(initialState: Root.State()) {
+                Root()
+            })
         }
     }
 }

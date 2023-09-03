@@ -20,8 +20,8 @@ public struct PrimaryButton: View {
         
         enum Colors {
             static let SystemWhite: Color = .white
-            static let ActivatedBackground: Color = Color(red: 1, green: 0.56, blue: 0)
-            static let DeactivatedBackground: Color = Color(red: 0.82, green: 0.8, blue: 0.78)
+            static let ActivatedBackground: Color = .main1
+            static let DeactivatedBackground: Color = .orangeGray6
         }
     }
     
@@ -39,25 +39,24 @@ public struct PrimaryButton: View {
     public var isActivated: Bool
     public var action: (() -> Void)?
     
+    private var buttonColor: Color {
+        isActivated ?
+        Constants.Colors.ActivatedBackground
+        : Constants.Colors.DeactivatedBackground
+    }
+    
     public var body: some View {
         Button {
             action?()
         } label: {
             Text(title)
-                .font(
-                    Font.custom("Pretendard", size: 18)
-                        .weight(.semibold)
-                )
+                .font(.Title2.semiBold)
                 .multilineTextAlignment(.center)
                 .foregroundColor(Constants.Colors.SystemWhite)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal, Constants.Sizes.HorizontalPadding)
                 .padding(.vertical, Constants.Sizes.VerticalPadding)
-                .background(
-                    isActivated ?
-                    Constants.Colors.ActivatedBackground
-                    : Constants.Colors.DeactivatedBackground
-                )
+                .background(buttonColor)
                 .cornerRadius(Constants.Sizes.FullRadius)
         }
         .disabled(!isActivated)

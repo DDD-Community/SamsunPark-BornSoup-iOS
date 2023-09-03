@@ -22,40 +22,40 @@ extension Font {
     }
     
     enum Head0 {
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: Font.Size.head0)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: Font.Size.head0)
     }
     
     enum Head1 {
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 28)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 28)
     }
     
     enum Head2 {
-        static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 22)
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 22)
+        static let regular = PresentationKitFontFamily.Pretendard.regular.swiftUIFont(size: 22)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 22)
     }
     
     enum Title1 {
-        static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 20)
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 20)
+        static let regular = PresentationKitFontFamily.Pretendard.regular.swiftUIFont(size: 20)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 20)
     }
     
     enum Title2 {
-        static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 18)
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 18)
+        static let regular = PresentationKitFontFamily.Pretendard.regular.swiftUIFont(size: 18)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 18)
     }
     
     enum Body1 {
-        static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 16)
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 16)
+        static let regular = PresentationKitFontFamily.Pretendard.regular.swiftUIFont(size: 16)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 16)
     }
     
     enum Body2 {
-        static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 14)
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 14)
+        static let regular = PresentationKitFontFamily.Pretendard.regular.swiftUIFont(size: 14)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 14)
     }
     
     enum Body3 {
-        static let regular = PresentationKitFontFamily.Pretendard.regular.font(size: 12)
-        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.font(size: 12)
+        static let regular = PresentationKitFontFamily.Pretendard.regular.swiftUIFont(size: 12)
+        static let semiBold = PresentationKitFontFamily.Pretendard.semiBold.swiftUIFont(size: 12)
     }
 }

@@ -11,6 +11,7 @@ import SwiftUI
 extension Image {
     enum Icon {
         static let arrowDown: Image = PresentationKitAsset.arrowDown.swiftUIImage
+        static let search: Image = PresentationKitAsset.search.swiftUIImage
+        static let delete: Image = PresentationKitAsset.delete.swiftUIImage
     }
 }
-

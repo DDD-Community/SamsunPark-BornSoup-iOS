@@ -6,4 +6,19 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+
+struct OZTextView: View {
+    @State var text = ""
+    var body: some View {
+        VStack {
+            TextEditor(text: $text)
+        }
+    }
+}
+
+struct OZTextView_Previews: PreviewProvider {
+    static var previews: some View {
+        OZTextView()
+    }
+}

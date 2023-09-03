@@ -11,7 +11,7 @@ import SwiftUI
 /// 참고링크
 /// https://www.figma.com/file/1bD6fyajIDwiYmJVWzG5Mt/%EC%98%A4%3A%EC%A0%84?type=design&node-id=1102-17872&mode=dev
 public struct PrimaryButton: View {
-    private struct Constants {
+    private enum Constants {
         enum Sizes {
             static let FullRadius: CGFloat = 100
             static let HorizontalPadding: CGFloat = 24

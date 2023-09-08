@@ -13,9 +13,7 @@ let frameworkName: String = "DesignSystemKit"
 
 let frameworkTargets: [Target] = FrameworkFactory(
     dependency: .init(
-        frameworkDependencies: [
-            Dep.Project.DIKit
-        ],
+        frameworkDependencies: [],
         unitTestsDependencies: []
     )
 ).build(

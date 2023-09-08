@@ -45,6 +45,7 @@ public struct CalendarDateNumberView: View {
     private enum Constants {
         enum Sizes {
             static let fullRadius: CGFloat = 100
+            static let dateSize: CGFloat = 20
         }
     }
     
@@ -63,7 +64,11 @@ public struct CalendarDateNumberView: View {
         Text("\(dateNumber)")
             .font(.Body3.semiBold)
             .foregroundColor(dateType.foregroundColor)
-            .frame(width: 20, height: 20, alignment: .center)
+            .frame(
+                width: Constants.Sizes.dateSize,
+                height: Constants.Sizes.dateSize,
+                alignment: .center
+            )
             .background(dateType.backgroundColor)
             .cornerRadius(Constants.Sizes.fullRadius)
     }

@@ -9,15 +9,12 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 import UtilityPlugin
 
-let frameworkName: String = "PresentationKit"
+let frameworkName: String = "DesignSystemKit"
 
 let frameworkTargets: [Target] = FrameworkFactory(
     dependency: .init(
         frameworkDependencies: [
-            Dep.Project.DIKit,
-            Dep.Project.DesignSystemKit,
-            Dep.Project.DomainKit,
-            Dep.Project.CoreKit
+            Dep.Project.DIKit
         ],
         unitTestsDependencies: []
     )

@@ -23,7 +23,7 @@ struct OZTextFieldStyle: TextFieldStyle {
     
     func _body(configuration: TextField<Self._Label>) -> some View {
         HStack {
-            Image.Icon.search
+            DesignSystemKitAsset.icSearch16.swiftUIImage
                 .renderingMode(.template)
             
             configuration
@@ -34,8 +34,8 @@ struct OZTextFieldStyle: TextFieldStyle {
             Button {
                 text = ""
             } label: {
-                if text.count > 0 && isFocused && !invalidation {
-                    Image.Icon.delete
+                if text.count > 0 && isFocused {
+                    DesignSystemKitAsset.icSearchDelete18.swiftUIImage
                 }
             }
         }
@@ -88,6 +88,9 @@ struct OZTextField: View {
 
 struct OZTextField_Previews: PreviewProvider {
     static var previews: some View {
-        OZTextField(title: "플레이스 홀더", text: .constant("123"), invalidation: .constant(false))
+        VStack {
+            OZTextField(title: "플레이스 홀더", text: .constant("123"), invalidation: .constant(true))
+            OZTextField(title: "플레이스 홀더", text: .constant("123"), invalidation: .constant(false))
+        }
     }
 }

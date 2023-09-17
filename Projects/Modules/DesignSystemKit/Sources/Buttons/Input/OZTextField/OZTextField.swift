@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct OZTextFieldStyle: TextFieldStyle {
-    
     @Binding var text: String
     @Binding var invalidation: Bool
     @FocusState private var isFocused: Bool

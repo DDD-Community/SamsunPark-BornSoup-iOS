@@ -13,9 +13,9 @@ struct OZTextView: View {
     enum Constant {
         static let lineWidth: CGFloat = 1
         static let cornerRadius: CGFloat = 10
+        static var textViewHeight: CGFloat = 97
         static let borderColor: Color = .orangeGray5
         static let invalidColor: Color = .error
-        static var textViewHeight: CGFloat = 97
     }
     
     @Binding var text: String

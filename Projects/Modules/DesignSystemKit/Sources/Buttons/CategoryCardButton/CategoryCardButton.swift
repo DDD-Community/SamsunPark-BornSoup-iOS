@@ -20,9 +20,7 @@ public struct CategoryCardButton: View {
             static let foregroundColor: Color = .orangeGray1
         }
         enum Images {
-            static let selectedImage: Image = DesignSystemKitAsset
-                .categoryCardButtonSelected
-                .swiftUIImage
+            static let selectedImage: Image = Image.DK.categoryCardButtonSelected.swiftUIImage
         }
     }
     

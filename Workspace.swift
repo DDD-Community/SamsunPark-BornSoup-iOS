@@ -9,6 +9,7 @@ let workspace = Workspace(
         "Projects/Modules/DomainKit",
         "Projects/Modules/CoreKit",
         "Projects/Modules/NetworkKit",
+        "Projects/Modules/DesignSystemKit",
         "Projects/Modules/PresentationKit",
         "Projects/Modules/ThirdPartyManager"
     ],
@@ -21,6 +22,7 @@ let workspace = Workspace(
                 .project(path: "Projects/Modules/DomainKit", target: "DomainKit"),
                 .project(path: "Projects/Modules/CoreKit", target: "CoreKit"),
                 .project(path: "Projects/Modules/NetworkKit", target: "NetworkKit"),
+                .project(path: "Projects/Modules/DesignSystemKit", target: "DesignSystemKit"),
                 .project(path: "Projects/Modules/PresentationKit", target: "PresentationKit"),
                 .project(path: "Projects/Modules/ThirdPartyManager", target: "ThirdPartyManager")
             ])

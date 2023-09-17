@@ -30,6 +30,7 @@ extension Dep.Project {
     public static let DomainKit         = Dep.module(name: "DomainKit")
     public static let CoreKit           = Dep.module(name: "CoreKit")
     public static let NetworkKit        = Dep.module(name: "NetworkKit")
+    public static let DesignSystemKit   = Dep.module(name: "DesignSystemKit")
     public static let PresentationKit   = Dep.module(name: "PresentationKit")
     public static let ThirdPartyManager = Dep.module(name: "ThirdPartyManager")
 }

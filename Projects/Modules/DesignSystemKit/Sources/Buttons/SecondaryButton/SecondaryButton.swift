@@ -18,12 +18,12 @@ public struct SecondaryButton: View {
         }
         enum Colors {
             enum Activated {
-                static let foregroundColor: Color = Color(red: 0.7, green: 0.68, blue: 0.66)
-                static let backgroundColor: Color = Color(red: 0.95, green: 0.93, blue: 0.91)
+                static let foregroundColor: Color = .orangeGray5
+                static let backgroundColor: Color = .orangeGray7
             }
             enum Deactivated {
-                static let foregroundColor: Color = Color(red: 0.19, green: 0.18, blue: 0.16)
-                static let backgroundColor: Color = Color(red: 0.98, green: 0.97, blue: 0.95)
+                static let foregroundColor: Color = .orangeGray1
+                static let backgroundColor: Color = .orangeGray9
             }
         }
     }
@@ -42,29 +42,29 @@ public struct SecondaryButton: View {
     public var isActivated: Bool
     public var action: (() -> Void)?
     
+    private var foregroundColor: Color {
+        isActivated ?
+        Constants.Colors.Activated.foregroundColor
+        : Constants.Colors.Deactivated.foregroundColor
+    }
+    private var backgroundColor: Color {
+        isActivated ?
+        Constants.Colors.Activated.backgroundColor
+        : Constants.Colors.Deactivated.backgroundColor
+    }
+    
     public var body: some View {
         Button {
             action?()
         } label: {
             Text(title)
-                .font(
-                    Font.custom("Pretendard", size: 18)
-                        .weight(.semibold)
-                )
+                .font(.Title2.semiBold)
                 .multilineTextAlignment(.center)
-                .foregroundColor(
-                    isActivated ?
-                    Constants.Colors.Activated.foregroundColor
-                    : Constants.Colors.Deactivated.foregroundColor
-                )
+                .foregroundColor(foregroundColor)
                 .frame(maxWidth: .infinity, alignment: .top)
                 .padding(.horizontal, Constants.Sizes.horizontalPadding)
                 .padding(.vertical, Constants.Sizes.verticalPadding)
-                .background(
-                    isActivated ?
-                    Constants.Colors.Activated.backgroundColor
-                    : Constants.Colors.Deactivated.backgroundColor
-                )
+                .background(backgroundColor)
                 .cornerRadius(Constants.Sizes.fullRadius)
         }
         .disabled(!isActivated)

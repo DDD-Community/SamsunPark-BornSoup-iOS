@@ -17,13 +17,13 @@ public struct ImageUploadButton: View {
         }
     }
     
-    public init(totalCount: Int, currentCount: Binding<Int>) {
+    public init(totalCount: Int, currentCount: Int) {
         self.totalCount = totalCount
-        self._currentCount = currentCount
+        self.currentCount = currentCount
     }
     
     private let totalCount: Int
-    @Binding private var currentCount: Int
+    private var currentCount: Int
     
     private var textColor: Color {
         totalCount == currentCount ? .main1 : .orangeGray5
@@ -65,7 +65,7 @@ public struct ImageUploadButtonWrapperView: View {
         VStack {
             ImageUploadButton(
                 totalCount: totalCount,
-                currentCount: $currentCount
+                currentCount: currentCount
             )
             HStack {
                 Button("-1") {

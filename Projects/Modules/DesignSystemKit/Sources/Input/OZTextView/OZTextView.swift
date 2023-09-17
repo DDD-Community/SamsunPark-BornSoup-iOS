@@ -59,6 +59,7 @@ struct OZTextView: View {
     }
 }
 
+#if DEBUG
 struct OZTextView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
@@ -72,3 +73,4 @@ struct OZTextView_Previews: PreviewProvider {
         }
     }
 }
+#endif

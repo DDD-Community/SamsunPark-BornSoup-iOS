@@ -85,7 +85,7 @@ struct OZTextField: View {
         )
     }
 }
-
+#if DEBUG
 struct OZTextField_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
@@ -94,3 +94,4 @@ struct OZTextField_Previews: PreviewProvider {
         }
     }
 }
+#endif

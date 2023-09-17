@@ -76,6 +76,7 @@ struct OZDropbox: View {
     }
 }
 
+#if DEBUG
 struct OZDropbox_Previews: PreviewProvider {
     static var previews: some View {
         OZDropbox(
@@ -86,3 +87,4 @@ struct OZDropbox_Previews: PreviewProvider {
         }
     }
 }
+#endif

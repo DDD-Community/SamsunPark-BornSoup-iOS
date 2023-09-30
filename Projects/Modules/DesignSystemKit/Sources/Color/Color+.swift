@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-extension Color {
+public extension Color {
     
     static let main1 = Color(hex: 0xFF8F00, opacity: 1)
     static let main2 = Color(hex: 0xFFB111, opacity: 1)

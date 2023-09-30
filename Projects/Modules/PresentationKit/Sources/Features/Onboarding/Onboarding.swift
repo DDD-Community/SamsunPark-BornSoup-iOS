@@ -34,6 +34,7 @@ public struct Onboarding: Reducer {
     public enum Action {
         case pressNextStep
         case presentLogin
+        case switchToMainTabBar
         
         case login(PresentationAction<Login.Action>)
     }
@@ -48,9 +49,14 @@ public struct Onboarding: Reducer {
                     return .send(.presentLogin)
                 }
                 return .none
+                
             case .presentLogin:
                 state.login = .init()
                 return .none
+                
+            case .login(.dismiss):
+                return .send(.switchToMainTabBar)
+                
             default:
                 return .none
             }

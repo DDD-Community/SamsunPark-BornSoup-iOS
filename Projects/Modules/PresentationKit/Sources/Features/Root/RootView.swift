@@ -19,20 +19,31 @@ public struct RootView: View {
     }
     
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            Text("Root View")
+        SwitchStore(store) { state in
+            switch state {
+            case .mainTabBar:
+                CaseLet(
+                    /Root.State.mainTabBar,
+                    action: Root.Action.mainTabBar
+                ) { store in
+                    MainTabBarView(store: store)
+                }
+            case .onboarding:
+                CaseLet(
+                    /Root.State.onboarding,
+                     action: Root.Action.onboarding
+                ) { store in
+                    OnboardingView(store: store)
+                }
+            }
         }
     }
 }
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(
-            store: Store(
-                initialState: Root.State(),
-                reducer: {
-                    Root()
-                })
-        )
+        RootView(store: Store(initialState: Root.State()) {
+            Root()
+        })
     }
 }

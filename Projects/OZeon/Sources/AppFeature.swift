@@ -16,30 +16,27 @@ public struct AppFeature: Reducer {
     
     public enum State: Equatable {
         case splash(Splash.State)
-        case onboarding(Onboarding.State)
+        case root(Root.State)
         
         public init() { self = .splash(Splash.State()) }
     }
     
     public enum Action {
         case presentSplashView
-        case presentOnboardingView
-        case presentMainTabView
+        case presentRootView
         
         case splash(Splash.Action)
-        case onboarding(Onboarding.Action)
+        case root(Root.Action)
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .splash(.presentOnboarding):
-                return .send(.presentOnboardingView)
-            case .splash(.presentMainTab):
-                return .send(.presentMainTabView)
+            case .splash(.presentRootView):
+                return .send(.presentRootView)
 
-            case .presentOnboardingView:
-                state = .onboarding(.init())
+            case .presentRootView:
+                state = .root(.init())
                 return .none
 
             default:
@@ -49,8 +46,8 @@ public struct AppFeature: Reducer {
         .ifCaseLet(/State.splash, action: /Action.splash) {
             Splash()
         }
-        .ifCaseLet(/State.onboarding, action: /Action.onboarding) {
-            Onboarding()
+        .ifCaseLet(/State.root, action: /Action.root) {
+            Root()
         }
     }
 }

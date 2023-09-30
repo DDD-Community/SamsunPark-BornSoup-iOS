@@ -28,12 +28,12 @@ public struct AppView: View {
                 ) { store in
                     SplashView(store: store)
                 }
-            case .onboarding:
+            case .root:
                 CaseLet(
-                    /AppFeature.State.onboarding,
-                    action: AppFeature.Action.onboarding
+                    /AppFeature.State.root,
+                    action: AppFeature.Action.root
                 ) { store in
-                    OnboardingView(store: store)
+                    RootView(store: store)
                 }
             }
         }

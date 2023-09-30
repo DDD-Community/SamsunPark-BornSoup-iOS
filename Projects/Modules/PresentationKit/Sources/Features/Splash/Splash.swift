@@ -16,7 +16,6 @@ public struct Splash: Reducer {
     public struct State: Equatable {
         public init() {}
         var isNeedToDismiss: Bool = false
-        
         @BindingState var isLogoHidden: Bool = true
         @BindingState var isTextHidden: Bool = true
     }
@@ -24,9 +23,7 @@ public struct Splash: Reducer {
     public enum Action {
         case appearLogoImage
         case appearText
-        
-        case presentOnboarding
-        case presentMainTab
+        case presentRootView
     }
     
     @Dependency(\.continuousClock) var clock
@@ -43,16 +40,9 @@ public struct Splash: Reducer {
                 state.isTextHidden = false
                 return .run { send in
                     try await self.clock.sleep(for: .seconds(1))
-                    let isLoginUser: Bool = false
-                    if isLoginUser {
-                        await send(.presentMainTab)
-                    } else {
-                        await send(.presentOnboarding)
-                    }
+                    await send(.presentRootView)
                 }
-            case .presentOnboarding:
-                return .none
-            case .presentMainTab:
+            case .presentRootView:
                 return .none
             }
         }

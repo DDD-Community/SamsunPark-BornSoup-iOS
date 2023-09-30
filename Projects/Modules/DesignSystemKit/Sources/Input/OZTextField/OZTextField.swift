@@ -8,12 +8,16 @@
 
 import SwiftUI
 
-struct OZTextFieldStyle: TextFieldStyle {
+public struct OZTextFieldStyle: TextFieldStyle {
+    enum Constants {
+        static let textFieldPadding: CGFloat = 10
+    }
+    
     @Binding var text: String
     @Binding var invalidation: Bool
     @FocusState private var isFocused: Bool
     
-    init(
+    public init(
         text: Binding<String>,
         invalidation: Binding<Bool>
     ) {
@@ -21,7 +25,7 @@ struct OZTextFieldStyle: TextFieldStyle {
         self._invalidation = invalidation
     }
     
-    func _body(configuration: TextField<Self._Label>) -> some View {
+    public func _body(configuration: TextField<Self._Label>) -> some View {
         HStack {
             DesignSystemKitAsset.icSearch16.swiftUIImage
                 .renderingMode(.template)
@@ -42,11 +46,16 @@ struct OZTextFieldStyle: TextFieldStyle {
         .onChange(of: invalidation) { newValue in
             isFocused = false
         }
-        .padding(10)
+        .padding(Constants.textFieldPadding)
     }
 }
 
-struct OZTextField: View {
+public struct OZTextField: View {
+    enum Constants {
+        static let textFieldCornerRadius: CGFloat = 6
+        static let rectangleCornerRadius: CGFloat = 23
+        static let rectangleLineWidth: CGFloat = 1
+    }
     
     let title: any StringProtocol
     @Binding var text: String
@@ -63,17 +72,17 @@ struct OZTextField: View {
         self._invalidation = invalidation
     }
     
-    var body: some View {
+    public var body: some View {
         TextField(title, text: $text) { changed in
             changingValue = changed
         }
-        .cornerRadius(6)
+        .cornerRadius(Constants.textFieldCornerRadius)
         .overlay(
             Group {
-                RoundedRectangle(cornerRadius: 23)
+                RoundedRectangle(cornerRadius: Constants.rectangleCornerRadius)
                     .stroke(
                         invalidation ? Color.error : Color.orangeGray1,
-                        lineWidth: 1
+                        lineWidth: Constants.rectangleLineWidth
                     )
             }
         )
@@ -85,6 +94,7 @@ struct OZTextField: View {
         )
     }
 }
+
 #if DEBUG
 struct OZTextField_Previews: PreviewProvider {
     static var previews: some View {

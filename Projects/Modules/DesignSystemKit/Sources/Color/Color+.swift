@@ -9,7 +9,6 @@
 import SwiftUI
 
 public extension Color {
-    
     static let main1 = Color(hex: 0xFF8F00, opacity: 1)
     static let main2 = Color(hex: 0xFFB111, opacity: 1)
     static let main3 = Color(hex: 0xFFD740, opacity: 1)
@@ -33,7 +32,7 @@ public extension Color {
     static let orangeGray9 = Color(hex: 0xFBF7F2, opacity: 1)
     static let orangeGray10 = Color(hex: 0xFFFCF6, opacity: 1)
     
-    init(hex: Int, opacity: Double = 1.0) {
+    public init(hex: Int, opacity: Double = 1.0) {
         let red = Double((Int(hex) >> 16) & 0xff) / 255
         let green = Double((Int(hex) >> 8) & 0xff) / 255
         let blue = Double((Int(hex) >> 0) & 0xff) / 255

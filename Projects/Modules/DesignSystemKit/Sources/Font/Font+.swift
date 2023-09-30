@@ -9,7 +9,6 @@
 import SwiftUI
 
 public extension Font {
-    
     enum Size {
         static let head0: CGFloat = 34
         static let head1: CGFloat = 28

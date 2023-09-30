@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct OZTextView: View {
-    
     enum Constant {
         static let lineWidth: CGFloat = 1
         static let cornerRadius: CGFloat = 10

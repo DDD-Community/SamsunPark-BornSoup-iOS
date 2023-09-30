@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OZTextFieldStyle: TextFieldStyle {
     enum Constants {
-        static let textFieldPadding = 10
+        static let textFieldPadding: CGFloat = 10
     }
     
     @Binding var text: String
@@ -52,9 +52,9 @@ struct OZTextFieldStyle: TextFieldStyle {
 
 struct OZTextField: View {
     enum Constants {
-        static let textFieldCornerRadius = 6
-        static let rectangleCornerRadius = 23
-        static let rectangleLineWidth = 1
+        static let textFieldCornerRadius: CGFloat = 6
+        static let rectangleCornerRadius: CGFloat = 23
+        static let rectangleLineWidth: CGFloat = 1
     }
     let title: any StringProtocol
     @Binding var text: String

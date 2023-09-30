@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct OZTextFieldStyle: TextFieldStyle {
+    enum Constants {
+        static let textFieldPadding = 10
+    }
+    
     @Binding var text: String
     @Binding var invalidation: Bool
     @FocusState private var isFocused: Bool
@@ -42,12 +46,16 @@ struct OZTextFieldStyle: TextFieldStyle {
         .onChange(of: invalidation) { newValue in
             isFocused = false
         }
-        .padding(10)
+        .padding(Constants.textFieldPadding)
     }
 }
 
 struct OZTextField: View {
-    
+    enum Constants {
+        static let textFieldCornerRadius = 6
+        static let rectangleCornerRadius = 23
+        static let rectangleLineWidth = 1
+    }
     let title: any StringProtocol
     @Binding var text: String
     @Binding var invalidation: Bool
@@ -67,13 +75,13 @@ struct OZTextField: View {
         TextField(title, text: $text) { changed in
             changingValue = changed
         }
-        .cornerRadius(6)
+        .cornerRadius(Constants.textFieldCornerRadius)
         .overlay(
             Group {
-                RoundedRectangle(cornerRadius: 23)
+                RoundedRectangle(cornerRadius: Constants.rectangleCornerRadius)
                     .stroke(
                         invalidation ? Color.error : Color.orangeGray1,
-                        lineWidth: 1
+                        lineWidth: Constants.rectangleLineWidth
                     )
             }
         )

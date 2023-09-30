@@ -45,7 +45,7 @@ public struct LoginView: View {
     }
     
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { _ in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(spacing: 0) {
                 VStack {
                     Spacer()
@@ -78,7 +78,7 @@ public struct LoginView: View {
                 .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
 
                 Button(action: {
-                    print("둘러보기")
+                    viewStore.send(.didTapLookAround)
                 }, label: {
                     Text(Constants.Strings.lookAround)
                         .font(.Title2.regular)
@@ -94,11 +94,9 @@ public struct LoginView: View {
 #if DEBUG
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(
-            store: Store(initialState: Login.State()) {
-                Login()
-            }
-        )
+        LoginView(store: Store(initialState: Login.State()) {
+            Login()
+        })
     }
 }
 #endif

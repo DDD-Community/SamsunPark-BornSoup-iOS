@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct OZDropboxButtonStyle: ButtonStyle {
+public struct OZDropboxButtonStyle: ButtonStyle {
     enum Constant {
         static let lineWidth: CGFloat = 1
         static let cornerRadius: CGFloat = 10
@@ -16,13 +16,13 @@ struct OZDropboxButtonStyle: ButtonStyle {
     
     var invalidation: Bool
     
-    init(
+    pulbic init(
         invalidation: Bool = false
     ) {
         self.invalidation = invalidation
     }
     
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         configuration
             .label
             .overlay(
@@ -37,13 +37,12 @@ struct OZDropboxButtonStyle: ButtonStyle {
     }
 }
 
-struct OZDropbox: View {
-    
+public struct OZDropbox: View {
     public var title: String
     public var invalidation: Bool
     public var action: (() -> Void)?
     
-    init(
+    public init(
         title: String,
         invalidation: Bool = false,
         action: (() -> Void)?
@@ -53,7 +52,7 @@ struct OZDropbox: View {
         self.action = action
     }
     
-    var body: some View {
+    public var body: some View {
         Button {
             action?()
         } label: {

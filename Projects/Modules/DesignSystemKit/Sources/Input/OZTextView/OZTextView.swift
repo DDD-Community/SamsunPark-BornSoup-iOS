@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct OZTextView: View {
+public struct OZTextView: View {
     enum Constant {
         static let lineWidth: CGFloat = 1
         static let cornerRadius: CGFloat = 10
@@ -21,7 +21,12 @@ struct OZTextView: View {
     @State var placeholder: String = "placeholder"
     let textLimit: Int = 2000
     
-    var body: some View {
+    public init(text: Binding<String>, placeholder: String) {
+        self._text = text
+        self.placeholder = placeholder
+    }
+    
+    public var body: some View {
         VStack(spacing: 0) {
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
@@ -75,7 +80,7 @@ struct OZTextView: View {
 struct OZTextView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            OZTextView(text: .constant("sample text"))
+            OZTextView(text: .constant("sample text"), placeholder: "placeholder")
                 .padding()
         }
     }

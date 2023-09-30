@@ -68,6 +68,7 @@ public struct SplashView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     SplashView(
         store: Store(
@@ -77,3 +78,4 @@ public struct SplashView: View {
         }
     )
 }
+#endif

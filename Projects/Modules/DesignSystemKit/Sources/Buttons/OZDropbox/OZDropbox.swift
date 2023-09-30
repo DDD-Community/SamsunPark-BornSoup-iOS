@@ -16,7 +16,7 @@ public struct OZDropboxButtonStyle: ButtonStyle {
     
     var invalidation: Bool
     
-    pulbic init(
+    public init(
         invalidation: Bool = false
     ) {
         self.invalidation = invalidation

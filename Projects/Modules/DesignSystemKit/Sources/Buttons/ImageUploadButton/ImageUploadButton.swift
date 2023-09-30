@@ -15,6 +15,9 @@ public struct ImageUploadButton: View {
             static let circleSize: CGSize = .init(width: 90, height: 90)
             static let imageSize: CGSize = .init(width: 24, height: 24)
         }
+        enum Images {
+            static let blankImage: Image = Image.DK.blankImage.swiftUIImage
+        }
     }
     
     public init(totalCount: Int, currentCount: Int) {
@@ -31,11 +34,10 @@ public struct ImageUploadButton: View {
     
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            DesignSystemKitAsset.blankImage.swiftUIImage
-                .frame(
-                    width: Constants.Sizes.imageSize.width,
-                    height: Constants.Sizes.imageSize.height
-                )
+            Constants.Images.blankImage.frame(
+                width: Constants.Sizes.imageSize.width,
+                height: Constants.Sizes.imageSize.height
+            )
             Text("\(currentCount)/\(totalCount)")
                 .font(.Body1.regular)
                 .foregroundColor(textColor)

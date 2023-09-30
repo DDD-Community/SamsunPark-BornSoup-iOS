@@ -61,7 +61,7 @@ public struct SplashView: View {
             .onAppear {
                 viewStore.send(
                     .appearLogoImage,
-                    animation: .bouncy(duration: 1)
+                    animation: .easeOut(duration: 1)
                 )
             }
         }
@@ -69,13 +69,15 @@ public struct SplashView: View {
 }
 
 #if DEBUG
-#Preview {
-    SplashView(
-        store: Store(
-            initialState: Splash.State()
-        ) {
-            Splash()
-        }
-    )
+struct SplashView_Preview: PreviewProvider {
+    static var previews: some View {
+        SplashView(
+            store: Store(
+                initialState: Splash.State()
+            ) {
+                Splash()
+            }
+        )
+    }
 }
 #endif

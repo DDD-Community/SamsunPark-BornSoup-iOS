@@ -16,6 +16,8 @@ public struct Onboarding: Reducer {
     public struct State: Equatable {
         public init() {}
         
+        @PresentationState var login: Login.State?
+        
         var contentStep: Int = 0
         var contents: [String] = [
             "전통문화콘텐츠 정보에 특화",
@@ -31,6 +33,9 @@ public struct Onboarding: Reducer {
     
     public enum Action {
         case pressNextStep
+        case presentLogin
+        
+        case login(PresentationAction<Login.Action>)
     }
     
     public var body: some ReducerOf<Self> {
@@ -39,9 +44,19 @@ public struct Onboarding: Reducer {
             case .pressNextStep:
                 if state.contentStep < 2 {
                     state.contentStep += 1
+                } else if state.contentStep == 2 {
+                    return .send(.presentLogin)
                 }
                 return .none
+            case .presentLogin:
+                state.login = .init()
+                return .none
+            default:
+                return .none
             }
+        }
+        .ifLet(\.$login, action: /Action.login) {
+            Login()
         }
     }
 }

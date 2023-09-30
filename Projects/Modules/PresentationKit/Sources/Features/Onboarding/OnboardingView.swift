@@ -32,41 +32,47 @@ public struct OnboardingView: View {
     
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            GeometryReader { geometry in
-                VStack(alignment: .center, spacing: 0) {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: geometry.size.width, height: geometry.size.width)
-                        .background(Color.orangeGray6)
-                        .padding(.vertical, Constants.Sizes.imageVerticalPadding)
-                    
-                    PageIndicator(
-                        numberOfPages: viewStore.contents.count,
-                        currentPage: viewStore.contentStep
-                    )
-                    .padding(.bottom, Constants.Sizes.indicatorBottomPadding)
-                    
-                    Text(viewStore.contents[safe: viewStore.contentStep] ?? "")
-                        .font(.Head2.semiBold)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.orangeGray1)
-                        .padding(.bottom, Constants.Sizes.contentBottomPadding)
-                    
-                    Text(viewStore.subContents[safe: viewStore.contentStep] ?? "")
-                        .font(.Body1.regular)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.orangeGray1)
-                    
-                    Spacer()
-                    
-                    PrimaryButton(
-                        title: Constants.Strings.nextButtonTitle,
-                        isActivated: true
-                    ) {
-                        viewStore.send(.pressNextStep)
+            NavigationStack {
+                GeometryReader { geometry in
+                    VStack(alignment: .center, spacing: 0) {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: geometry.size.width, height: geometry.size.width)
+                            .background(Color.orangeGray6)
+                            .padding(.vertical, Constants.Sizes.imageVerticalPadding)
+                        
+                        PageIndicator(
+                            numberOfPages: viewStore.contents.count,
+                            currentPage: viewStore.contentStep
+                        )
+                        .padding(.bottom, Constants.Sizes.indicatorBottomPadding)
+                        
+                        Text(viewStore.contents[safe: viewStore.contentStep] ?? "")
+                            .font(.Head2.semiBold)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.orangeGray1)
+                            .padding(.bottom, Constants.Sizes.contentBottomPadding)
+                        
+                        Text(viewStore.subContents[safe: viewStore.contentStep] ?? "")
+                            .font(.Body1.regular)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.orangeGray1)
+                        
+                        Spacer()
+                        
+                        PrimaryButton(
+                            title: Constants.Strings.nextButtonTitle,
+                            isActivated: true
+                        ) {
+                            viewStore.send(.pressNextStep)
+                        }
+                        .padding(.horizontal, Constants.Sizes.nextButtonHorizontalPadding)
                     }
-                    .padding(.horizontal, Constants.Sizes.nextButtonHorizontalPadding)
                 }
+                .navigationDestination(
+                    store: store.scope(state: \.$login, action: { .login($0) }),
+                    destination: LoginView.init
+                )
             }
         }
     }

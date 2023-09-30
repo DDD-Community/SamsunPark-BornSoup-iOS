@@ -1,5 +1,4 @@
 import ComposableArchitecture
-import PresentationKit
 
 import SwiftUI
 
@@ -7,8 +6,8 @@ import SwiftUI
 struct OZeonApp: App {
     var body: some Scene {
         WindowGroup {
-            RootView(store: Store(initialState: Root.State()) {
-                Root()
+            AppView(store: Store(initialState: AppFeature.State()) {
+                AppFeature()
             })
         }
     }

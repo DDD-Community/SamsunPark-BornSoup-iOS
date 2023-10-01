@@ -15,10 +15,16 @@ public struct Login: Reducer {
     
     public struct State: Equatable {
         public init() {}
+        
+        @PresentationState var privacyPolicy: PrivacyPolicy.State?
     }
     
     public enum Action {
+        case didTapKakaoLoginButton
+        case didTapAppleLoginButton
         case didTapLookAround
+        
+        case privacyPolicy(PresentationAction<PrivacyPolicy.Action>)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -26,13 +32,21 @@ public struct Login: Reducer {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .didTapKakaoLoginButton:
+                state.privacyPolicy = .init()
+                return .none
+                
             case .didTapLookAround:
                 return .run { _ in
                     await self.dismiss()
                 }
+
             default:
                 return .none
             }
+        }
+        .ifLet(\.$privacyPolicy, action: /Action.privacyPolicy) {
+            PrivacyPolicy()
         }
     }
 }

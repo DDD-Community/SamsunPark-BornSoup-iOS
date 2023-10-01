@@ -66,13 +66,13 @@ public struct LoginView: View {
                 }
                 
                 SNSLoginButton(snsType: .KAKAO) {
-                    print("카카오로 로그인")
+                    viewStore.send(.didTapKakaoLoginButton)
                 }
                 .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
                 .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
                 
                 SNSLoginButton(snsType: .APPLE) {
-                    print("애플로 로그인")
+                    viewStore.send(.didTapAppleLoginButton)
                 }
                 .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
                 .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
@@ -87,6 +87,12 @@ public struct LoginView: View {
                 .padding(.vertical, Constants.Sizes.loginButtonBottomPadding)
             }
             .navigationBarBackButtonHidden()
+            .sheet(store: store.scope(
+                state: \.$privacyPolicy,
+                action: Login.Action.privacyPolicy
+            )) {
+                PrivacyPolicyView(store: $0)
+            }
         }
     }
 }

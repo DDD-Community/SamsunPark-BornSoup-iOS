@@ -20,7 +20,22 @@ public struct OnboardingNicknameView: View {
     
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-           Text("hello")
+            VStack {
+                PaginationNavBar(
+                    title: "회원가입",
+                    numberOfPages: 3,
+                    currentPage: 0,
+                    backButtonAction: { viewStore.send(.didTapBackButton) }
+                )
+                Spacer()
+                Text("hello")
+                Spacer()
+                PrimaryButton(title: "다음", isActivated: false) {
+                    viewStore.send(.didTapConfirmButton)
+                }
+                .padding(.horizontal, 16)
+            }
+            .navigationBarBackButtonHidden()
         }
     }
 }

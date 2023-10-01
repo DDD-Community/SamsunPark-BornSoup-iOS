@@ -46,52 +46,61 @@ public struct LoginView: View {
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(spacing: 0) {
-                VStack {
-                    Spacer()
-                    DesignSystemKitAsset.icOzeonLogo.swiftUIImage
-                        .resizable()
-                        .frame(
-                            width: Constants.Sizes.logoWidth,
-                            height: Constants.Sizes.logoHeight
-                        )
-                        .padding(.bottom, Constants.Sizes.bottomPaddingOfLogo)
-                    Text(Constants.Strings.appName)
-                        .font(Font.Head1.semiBold)
-                        .padding(.bottom, Constants.Sizes.textBottomPadding)
-                    Text(Constants.Strings.appSubtitle)
-                        .font(Font.Body1.regular)
-                        .foregroundStyle(Color.orangeGray5)
-                    Spacer()
+            NavigationStack {
+                VStack(spacing: 0) {
+                    VStack {
+                        Spacer()
+                        DesignSystemKitAsset.icOzeonLogo.swiftUIImage
+                            .resizable()
+                            .frame(
+                                width: Constants.Sizes.logoWidth,
+                                height: Constants.Sizes.logoHeight
+                            )
+                            .padding(.bottom, Constants.Sizes.bottomPaddingOfLogo)
+                        Text(Constants.Strings.appName)
+                            .font(Font.Head1.semiBold)
+                            .padding(.bottom, Constants.Sizes.textBottomPadding)
+                        Text(Constants.Strings.appSubtitle)
+                            .font(Font.Body1.regular)
+                            .foregroundStyle(Color.orangeGray5)
+                        Spacer()
+                    }
+                    
+                    SNSLoginButton(snsType: .KAKAO) {
+                        viewStore.send(.didTapKakaoLoginButton)
+                    }
+                    .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
+                    .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
+                    
+                    SNSLoginButton(snsType: .APPLE) {
+                        viewStore.send(.didTapAppleLoginButton)
+                    }
+                    .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
+                    .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
+                    
+                    Button(action: {
+                        viewStore.send(.didTapLookAround)
+                    }, label: {
+                        Text(Constants.Strings.lookAround)
+                            .font(.Title2.regular)
+                            .foregroundStyle(Color.orangeGray5)
+                    })
+                    .padding(.vertical, Constants.Sizes.loginButtonBottomPadding)
                 }
-                
-                SNSLoginButton(snsType: .KAKAO) {
-                    viewStore.send(.didTapKakaoLoginButton)
+                .navigationBarBackButtonHidden()
+                .sheet(store: store.scope(
+                    state: \.$privacyPolicy,
+                    action: Login.Action.privacyPolicy
+                )) {
+                    PrivacyPolicyView(store: $0)
                 }
-                .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
-                .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
-                
-                SNSLoginButton(snsType: .APPLE) {
-                    viewStore.send(.didTapAppleLoginButton)
-                }
-                .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
-                .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
-
-                Button(action: {
-                    viewStore.send(.didTapLookAround)
-                }, label: {
-                    Text(Constants.Strings.lookAround)
-                        .font(.Title2.regular)
-                        .foregroundStyle(Color.orangeGray5)
-                })
-                .padding(.vertical, Constants.Sizes.loginButtonBottomPadding)
-            }
-            .navigationBarBackButtonHidden()
-            .sheet(store: store.scope(
-                state: \.$privacyPolicy,
-                action: Login.Action.privacyPolicy
-            )) {
-                PrivacyPolicyView(store: $0)
+                .navigationDestination(
+                    store: store.scope(
+                        state: \.$onboardingNickname,
+                        action: Login.Action.onboardingNickname
+                    )) {
+                        OnboardingNicknameView(store: $0)
+                    }
             }
         }
     }

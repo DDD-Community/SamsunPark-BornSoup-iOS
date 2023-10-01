@@ -18,12 +18,19 @@ public struct OnboardingNickname: Reducer {
     }
     
     public enum Action {
-        
+        case didTapBackButton
+        case didTapConfirmButton
     }
+    
+    @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .didTapBackButton:
+                return .run { _ in
+                    await self.dismiss()
+                }
             default:
                 return .none
             }

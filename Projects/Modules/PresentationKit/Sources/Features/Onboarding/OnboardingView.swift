@@ -70,7 +70,7 @@ public struct OnboardingView: View {
                     }
                 }
                 .navigationDestination(
-                    store: store.scope(state: \.$login, action: { .login($0) }),
+                    store: store.scope(state: \.$login, action: Onboarding.Action.login),
                     destination: LoginView.init
                 )
             }

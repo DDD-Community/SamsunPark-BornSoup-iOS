@@ -8,26 +8,6 @@
 
 import SwiftUI
 
-public struct TextButtonContent {
-    public init(text: String, action: @escaping () -> Void) {
-        self.text = text
-        self.action = action
-    }
-    
-    public let text: String
-    public let action: () -> Void
-}
-
-public struct ImageButtonContent {
-    public init(image: Image, action: @escaping () -> Void) {
-        self.image = image
-        self.action = action
-    }
-    
-    public let image: Image
-    public let action: () -> Void
-}
-
 public struct CustomTabNavBar: View {
     
     public init(

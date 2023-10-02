@@ -32,7 +32,7 @@ public extension Color {
     static let orangeGray9 = Color(hex: 0xFBF7F2, opacity: 1)
     static let orangeGray10 = Color(hex: 0xFFFCF6, opacity: 1)
     
-    public init(hex: Int, opacity: Double = 1.0) {
+    init(hex: Int, opacity: Double = 1.0) {
         let red = Double((Int(hex) >> 16) & 0xff) / 255
         let green = Double((Int(hex) >> 8) & 0xff) / 255
         let blue = Double((Int(hex) >> 0) & 0xff) / 255

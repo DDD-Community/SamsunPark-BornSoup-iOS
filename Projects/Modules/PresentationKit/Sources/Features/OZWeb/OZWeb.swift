@@ -25,7 +25,7 @@ public struct OZWeb: Reducer {
     @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
-        Reduce { state, action in
+        Reduce { _, action in
             switch action {
             case .didTapBackButton:
                 return .run { _ in

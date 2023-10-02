@@ -40,8 +40,8 @@ public struct PrivacyPolicyView: View {
                             viewStore.send(.didTapAgreeAllPolicy)
                         }, label: {
                             (viewStore.isAllAgreed ?
-                             DesignSystemKitAsset.imgBadgeCheck22On.swiftUIImage
-                             : DesignSystemKitAsset.imgBadgeCheck22Off.swiftUIImage)
+                             Image.DK.imgBadgeCheck22On.swiftUIImage
+                             : Image.DK.imgBadgeCheck22Off.swiftUIImage)
                             .frame(width: 24, height: 24)
                         })
                         .padding(.top, 4)
@@ -73,8 +73,8 @@ public struct PrivacyPolicyView: View {
                                 viewStore.send(.didTapAgreeServicePolicy)
                             }, label: {
                                 (viewStore.isServicePolicyAgreed ?
-                                 DesignSystemKitAsset.imgBadgeCheck22On.swiftUIImage
-                                 : DesignSystemKitAsset.imgBadgeCheck22Off.swiftUIImage)
+                                 Image.DK.imgBadgeCheck22On.swiftUIImage
+                                 : Image.DK.imgBadgeCheck22Off.swiftUIImage)
                                 .frame(width: 22, height: 22)
                             })
                             
@@ -102,8 +102,8 @@ public struct PrivacyPolicyView: View {
                                 viewStore.send(.didTapAgreePrivacyPolicy)
                             }, label: {
                                 (viewStore.isPrivacyPolicyAgreed ?
-                                 DesignSystemKitAsset.imgBadgeCheck22On.swiftUIImage
-                                 : DesignSystemKitAsset.imgBadgeCheck22Off.swiftUIImage)
+                                 Image.DK.imgBadgeCheck22On.swiftUIImage
+                                 : Image.DK.imgBadgeCheck22Off.swiftUIImage)
                                 .frame(width: 22, height: 22)
                             })
                             

@@ -50,7 +50,7 @@ public struct LoginView: View {
                 VStack(spacing: 0) {
                     VStack {
                         Spacer()
-                        DesignSystemKitAsset.icOzeonLogo.swiftUIImage
+                        Image.DK.icOzeonLogo.swiftUIImage
                             .resizable()
                             .frame(
                                 width: Constants.Sizes.logoWidth,

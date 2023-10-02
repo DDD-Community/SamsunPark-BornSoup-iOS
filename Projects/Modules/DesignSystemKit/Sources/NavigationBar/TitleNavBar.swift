@@ -27,7 +27,7 @@ public struct TitleNavBar: View {
         ZStack {
             HStack {
                 Button(action: backButtonAction, label: {
-                    DesignSystemKitAsset.icBack24.swiftUIImage
+                    Image.DK.icBack24.swiftUIImage
                         .frame(width: 24, height: 24)
                 })
                 Spacer()
@@ -60,7 +60,7 @@ struct TitleNavBar_Previews: PreviewProvider {
         TitleNavBar(
             title: "추천",
             rightButtons: [
-                .init(image: DesignSystemKitAsset.icSearch24.swiftUIImage, action: {})
+                .init(image: Image.DK.icSearch24.swiftUIImage, action: {})
             ],
             backButtonAction: {}
         )

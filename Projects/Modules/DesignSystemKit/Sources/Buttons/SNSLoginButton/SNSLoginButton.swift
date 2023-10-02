@@ -51,9 +51,9 @@ public enum SNSType {
     var buttonImage: Image {
         switch self {
         case .KAKAO:
-            return DesignSystemKitAsset.icKakaoLogin.swiftUIImage
+            return Image.DK.icKakaoLogin.swiftUIImage
         case .APPLE:
-            return DesignSystemKitAsset.icAppleLogin.swiftUIImage
+            return Image.DK.icAppleLogin.swiftUIImage
         }
     }
 }

@@ -30,7 +30,7 @@ public struct PaginationNavBar: View {
         ZStack {
             HStack {
                 Button(action: backButtonAction, label: {
-                    DesignSystemKitAsset.icBack24.swiftUIImage
+                    Image.DK.icBack24.swiftUIImage
                         .frame(width: 24, height: 24)
                 })
                 Spacer()

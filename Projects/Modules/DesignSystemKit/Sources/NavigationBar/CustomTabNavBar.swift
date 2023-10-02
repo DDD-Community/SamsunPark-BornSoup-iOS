@@ -67,15 +67,15 @@ struct CustomTabNavBar_PreViews: PreviewProvider {
             selectedTab: 1,
             buttons: [
                 ImageButtonContent(
-                    image: DesignSystemKitAsset.icShare24.swiftUIImage,
+                    image: Image.DK.icShare24.swiftUIImage,
                     action: {}
                 ),
                 ImageButtonContent(
-                    image: DesignSystemKitAsset.icSearch24.swiftUIImage,
+                    image: Image.DK.icSearch24.swiftUIImage,
                     action: {}
                 ),
                 ImageButtonContent(
-                    image: DesignSystemKitAsset.icFilter24.swiftUIImage,
+                    image: Image.DK.icFilter24.swiftUIImage,
                     action: {}
                 )
             ]

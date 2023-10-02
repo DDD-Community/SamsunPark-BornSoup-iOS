@@ -44,7 +44,7 @@ public struct OZWebView: View {
                         Button(action: {
                             viewStore.send(.didTapBackButton)
                         }, label: {
-                            DesignSystemKitAsset.icBack24.swiftUIImage
+                            Image.DK.icBack24.swiftUIImage
                                 .frame(width: 24, height: 24)
                         })
                     }

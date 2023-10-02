@@ -62,7 +62,7 @@ public struct OZDropbox: View {
                     .font(.Body1.regular)
                     .foregroundColor(.orangeGray5)
                 Spacer()
-                DesignSystemKitAsset.icCaredown22.swiftUIImage
+                Image.DK.icCaredown22.swiftUIImage
                     .renderingMode(.template)
                     .foregroundColor(.orangeGray3)
             }

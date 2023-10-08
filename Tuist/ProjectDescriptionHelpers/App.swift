@@ -68,6 +68,7 @@ public struct AppFactory {
             infoPlist: .extendingDefault(with: payload.infoPlist),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
+            entitlements: "OZeon.entitlements",
             scripts: [.SwiftLintString],
             dependencies: self.dependency.appDependencies,
             settings: .settings(configurations: [

@@ -28,10 +28,35 @@ public struct OnboardingNicknameView: View {
                     backButtonAction: { viewStore.send(.didTapBackButton) }
                 )
                 Spacer()
-                Text("hello")
-                Spacer()
-                PrimaryButton(title: "다음", isActivated: false) {
-                    viewStore.send(.didTapConfirmButton)
+                
+                VStack(alignment: .leading) {
+                    Text("가입을 축하드려요!\n어떻게 불러드리면 될까요?")
+                      .font(.Head1.semiBold)
+                      .foregroundColor(Color.orangeGray1)
+                      .frame(maxWidth: .infinity, alignment: .topLeading)
+                    
+                    OZTextField(
+                        title: "입력해주세요.",
+                        text: viewStore.$nickname,
+                        invalidation: viewStore.$isNicknameInvalid
+                    )
+                    .padding(.top, 48)
+                    
+                    if viewStore.isNicknameInvalid {
+                        Text("8자 이내로 작성해주세요")
+                            .font(.Body1.regular)
+                            .foregroundColor(Color.red)
+                            .padding(.top, 10)
+                    }
+                    
+                    Spacer()
+                    
+                    PrimaryButton(
+                        title: "다음",
+                        isActivated: viewStore.state.isNextButtonActivated
+                    ) {
+                        viewStore.send(.didTapConfirmButton)
+                    }
                 }
                 .padding(.horizontal, 16)
             }

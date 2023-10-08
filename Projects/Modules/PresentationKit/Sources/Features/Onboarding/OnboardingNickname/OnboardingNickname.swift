@@ -15,22 +15,39 @@ public struct OnboardingNickname: Reducer {
     
     public struct State: Equatable {
         public init() {}
+        
+        @BindingState var nickname: String = ""
+        @BindingState var isNicknameInvalid: Bool = false
+        
+        var isNextButtonActivated: Bool = false
     }
     
-    public enum Action {
+    public enum Action: BindableAction {
         case didTapBackButton
         case didTapConfirmButton
+        case binding(BindingAction<State>)
     }
     
     @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
-        Reduce { _, action in
+        BindingReducer()
+        
+        Reduce { state, action in
             switch action {
             case .didTapBackButton:
                 return .run { _ in
                     await self.dismiss()
                 }
+                
+            case .binding(\.$nickname):
+                state.isNicknameInvalid = state.nickname.count > 8
+                state.isNextButtonActivated = 1...8 ~= state.nickname.count
+                return .none
+                
+            case .binding:
+                return .none
+
             default:
                 return .none
             }

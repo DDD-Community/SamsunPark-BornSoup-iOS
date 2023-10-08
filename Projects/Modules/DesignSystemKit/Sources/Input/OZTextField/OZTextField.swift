@@ -62,7 +62,7 @@ public struct OZTextField: View {
     @Binding var invalidation: Bool
     @State private var changingValue: Bool = false
     
-    init(
+    public init(
         title: any StringProtocol,
         text: Binding<String>,
         invalidation: Binding<Bool> = .constant(true)

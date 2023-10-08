@@ -44,6 +44,7 @@ public struct Login: Reducer {
                 
             case .didTapAppleLoginButton:
                 print("didTapAppleLoginButton")
+                state.privacyPolicy = .init()
                 return .none
                 
             case .didTapLookAround:

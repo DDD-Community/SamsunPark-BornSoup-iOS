@@ -16,6 +16,8 @@ public struct Login: Reducer {
     public struct State: Equatable {
         public init() {}
         
+        @BindingState var isSignUpDialogPresented: Bool = false
+    
         @PresentationState var privacyPolicy: PrivacyPolicy.State?
     }
     
@@ -25,6 +27,8 @@ public struct Login: Reducer {
         case didTapLookAround
         
         case didTapBackButton
+        case didTapDialogContinueButton
+        case didTapDialogSignUpButton
         
         case privacyPolicy(PresentationAction<PrivacyPolicy.Action>)
     }
@@ -35,7 +39,7 @@ public struct Login: Reducer {
         Reduce { state, action in
             switch action {
             case .didTapKakaoLoginButton:
-                state.privacyPolicy = .init()
+                print("didTapKakaoLoginButton")
                 return .none
                 
             case .didTapAppleLoginButton:
@@ -43,10 +47,19 @@ public struct Login: Reducer {
                 return .none
                 
             case .didTapLookAround:
-                return .run { _ in
+                state.isSignUpDialogPresented = true
+                return .none
+
+            case .didTapDialogContinueButton:
+                state.isSignUpDialogPresented = false
+                return .run { _ async in
                     await self.dismiss()
                 }
-
+                
+            case .didTapDialogSignUpButton:
+                state.isSignUpDialogPresented = false
+                return .none
+                
             default:
                 return .none
             }

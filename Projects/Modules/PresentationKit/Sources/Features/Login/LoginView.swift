@@ -47,52 +47,70 @@ public struct LoginView: View {
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
-                VStack(spacing: 0) {
-                    VStack {
-                        Spacer()
-                        Image.DK.icOzeonLogo.swiftUIImage
-                            .resizable()
-                            .frame(
-                                width: Constants.Sizes.logoWidth,
-                                height: Constants.Sizes.logoHeight
+                ZStack {
+                    VStack(spacing: 0) {
+                        VStack {
+                            Spacer()
+                            Image.DK.icOzeonLogo.swiftUIImage
+                                .resizable()
+                                .frame(
+                                    width: Constants.Sizes.logoWidth,
+                                    height: Constants.Sizes.logoHeight
+                                )
+                                .padding(.bottom, Constants.Sizes.bottomPaddingOfLogo)
+                            Text(Constants.Strings.appName)
+                                .font(Font.Head1.semiBold)
+                                .padding(.bottom, Constants.Sizes.textBottomPadding)
+                            Text(Constants.Strings.appSubtitle)
+                                .font(Font.Body1.regular)
+                                .foregroundStyle(Color.orangeGray5)
+                            Spacer()
+                        }
+                        
+                        SNSLoginButton(snsType: .KAKAO) {
+                            viewStore.send(.didTapKakaoLoginButton)
+                        }
+                        .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
+                        .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
+                        
+                        SNSLoginButton(snsType: .APPLE) {
+                            viewStore.send(.didTapAppleLoginButton)
+                        }
+                        .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
+                        .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
+                        
+                        Button(action: {
+                            viewStore.send(
+                                .didTapLookAround,
+                                animation: .easeOut(duration: 0.2)
                             )
-                            .padding(.bottom, Constants.Sizes.bottomPaddingOfLogo)
-                        Text(Constants.Strings.appName)
-                            .font(Font.Head1.semiBold)
-                            .padding(.bottom, Constants.Sizes.textBottomPadding)
-                        Text(Constants.Strings.appSubtitle)
-                            .font(Font.Body1.regular)
-                            .foregroundStyle(Color.orangeGray5)
-                        Spacer()
+                        }, label: {
+                            Text(Constants.Strings.lookAround)
+                                .font(.Title2.regular)
+                                .foregroundStyle(Color.orangeGray5)
+                        })
+                        .padding(.vertical, Constants.Sizes.loginButtonBottomPadding)
+                    }
+                    .background(.white)
+                    .navigationBarBackButtonHidden()
+                    .navigationDestination(store: store.scope(
+                        state: \.$privacyPolicy,
+                        action: Login.Action.privacyPolicy
+                    )) {
+                        PrivacyPolicyView(store: $0)
                     }
                     
-                    SNSLoginButton(snsType: .KAKAO) {
-                        viewStore.send(.didTapKakaoLoginButton)
+                    OZDialogView(
+                        title: "회원가입하면\n나에게 맞춘 전통 콘텐츠를 만날 수 있어요!\n회원가입 하시겠어요?",
+                        cancelString: "둘러볼게요",
+                        confirmString: "가입할게요"
+                    ) {
+                        viewStore.send(.didTapDialogContinueButton)
+                    } confirmAction: {
+                        viewStore.send(.didTapDialogSignUpButton)
                     }
-                    .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
-                    .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
-                    
-                    SNSLoginButton(snsType: .APPLE) {
-                        viewStore.send(.didTapAppleLoginButton)
-                    }
-                    .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
-                    .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
-                    
-                    Button(action: {
-                        viewStore.send(.didTapLookAround)
-                    }, label: {
-                        Text(Constants.Strings.lookAround)
-                            .font(.Title2.regular)
-                            .foregroundStyle(Color.orangeGray5)
-                    })
-                    .padding(.vertical, Constants.Sizes.loginButtonBottomPadding)
-                }
-                .navigationBarBackButtonHidden()
-                .navigationDestination(store: store.scope(
-                    state: \.$privacyPolicy,
-                    action: Login.Action.privacyPolicy
-                )) {
-                    PrivacyPolicyView(store: $0)
+                    .opacity(viewStore.state.isSignUpDialogPresented ? 1 : 0)
+                    .ignoresSafeArea()
                 }
             }
         }

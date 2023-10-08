@@ -54,7 +54,7 @@ public struct Onboarding: Reducer {
                 state.login = .init()
                 return .none
                 
-            case .login(.presented(.didTapLookAround)):
+            case .login(.presented(.didTapDialogContinueButton)):
                 state.login = nil
                 return .send(.switchToMainTabBar)
                 

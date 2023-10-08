@@ -21,13 +21,10 @@ public struct PrivacyPolicyView: View {
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(alignment: .center, spacing: 0) {
-                PaginationNavBar(
-                    title: "회원가입",
-                    numberOfPages: 3,
-                    currentPage: 0
-                ) {
+                LargeTitleNavBar(title: "회원가입") {
                     viewStore.send(.didTapBackButton)
                 }
+                
                 VStack(alignment: .center, spacing: 0) {
                     Text("약관에 동의해주세요")
                         .font(.Head2.semiBold)

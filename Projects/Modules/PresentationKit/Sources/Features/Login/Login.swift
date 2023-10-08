@@ -17,7 +17,6 @@ public struct Login: Reducer {
         public init() {}
         
         @PresentationState var privacyPolicy: PrivacyPolicy.State?
-        @PresentationState var onboardingNickname: OnboardingNickname.State?
     }
     
     public enum Action {
@@ -25,8 +24,9 @@ public struct Login: Reducer {
         case didTapAppleLoginButton
         case didTapLookAround
         
+        case didTapBackButton
+        
         case privacyPolicy(PresentationAction<PrivacyPolicy.Action>)
-        case onboardingNickname(PresentationAction<OnboardingNickname.Action>)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -39,7 +39,7 @@ public struct Login: Reducer {
                 return .none
                 
             case .didTapAppleLoginButton:
-                state.onboardingNickname = .init()
+                print("didTapAppleLoginButton")
                 return .none
                 
             case .didTapLookAround:
@@ -53,9 +53,6 @@ public struct Login: Reducer {
         }
         .ifLet(\.$privacyPolicy, action: /Action.privacyPolicy) {
             PrivacyPolicy()
-        }
-        .ifLet(\.$onboardingNickname, action: /Action.onboardingNickname) {
-            OnboardingNickname()
         }
     }
 }

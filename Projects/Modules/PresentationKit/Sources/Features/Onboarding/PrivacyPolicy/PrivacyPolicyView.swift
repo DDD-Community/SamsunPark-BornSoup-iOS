@@ -20,14 +20,21 @@ public struct PrivacyPolicyView: View {
     
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationStack {
+            VStack(alignment: .center, spacing: 0) {
+                PaginationNavBar(
+                    title: "회원가입",
+                    numberOfPages: 3,
+                    currentPage: 0
+                ) {
+                    viewStore.send(.didTapBackButton)
+                }
                 VStack(alignment: .center, spacing: 0) {
                     Text("약관에 동의해주세요")
                         .font(.Head2.semiBold)
                         .foregroundColor(Color.orangeGray1)
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                         .padding(.bottom, 16)
-                        .padding(.top, 48)
+                        .padding(.top, 28)
                     
                     Text("여러분의 개인정보와 서비스 이용 관리 \n잘 지켜드릴게요.")
                         .font(.Title2.regular)
@@ -126,15 +133,31 @@ public struct PrivacyPolicyView: View {
                     
                     Spacer()
                     
-                    PrimaryButton(title: "확인", isActivated: viewStore.isConfirmButtonActivated) {
-                        print("확인")
+                    PrimaryButton(
+                        title: "확인",
+                        isActivated: viewStore.isConfirmButtonActivated
+                    ) {
+                        viewStore.send(.didTapConfirmButton)
                     }
                 }
                 .padding(.horizontal, 16)
-                .navigationDestination(
-                    store: store.scope(state: \.$ozWeb, action: PrivacyPolicy.Action.ozWeb),
-                    destination: OZWebView.init
+            }
+            .navigationBarBackButtonHidden()
+            .navigationDestination(
+                store: store.scope(
+                    state: \.$ozWeb,
+                    action: PrivacyPolicy.Action.ozWeb
                 )
+            ) {
+                OZWebView(store: $0)
+            }
+            .navigationDestination(
+                store: store.scope(
+                    state: \.$onboardingNickname,
+                    action: PrivacyPolicy.Action.onboardingNickname
+                )
+            ) {
+                OnboardingNicknameView(store: $0)
             }
         }
     }

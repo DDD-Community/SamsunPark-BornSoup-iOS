@@ -88,19 +88,12 @@ public struct LoginView: View {
                     .padding(.vertical, Constants.Sizes.loginButtonBottomPadding)
                 }
                 .navigationBarBackButtonHidden()
-                .sheet(store: store.scope(
+                .navigationDestination(store: store.scope(
                     state: \.$privacyPolicy,
                     action: Login.Action.privacyPolicy
                 )) {
                     PrivacyPolicyView(store: $0)
                 }
-                .navigationDestination(
-                    store: store.scope(
-                        state: \.$onboardingNickname,
-                        action: Login.Action.onboardingNickname
-                    )) {
-                        OnboardingNicknameView(store: $0)
-                    }
             }
         }
     }

@@ -19,7 +19,10 @@ let infoPlist: [String: InfoPlist.Value] = [
             ]
         ]
     ],
-    "UIUserInterfaceStyle": "Light"
+    "UIUserInterfaceStyle": "Light",
+    "UISupportedInterfaceOrientations": [
+        "UIInterfaceOrientationPortrait",
+    ]
 ]
 
 // MARK: - App

@@ -18,7 +18,7 @@ public struct UploadedImageButton: View {
             static let xButtonSize: CGSize = .init(width: 24, height: 24)
         }
         enum Images {
-            static let placeHolder: Image = DesignSystemKitAsset.checkImagePlaceholder.swiftUIImage
+            static let placeHolder: Image = Image.DK.checkImagePlaceholder.swiftUIImage
         }
     }
     
@@ -47,7 +47,7 @@ public struct UploadedImageButton: View {
 
             VStack {
                 Spacer()
-                DesignSystemKitAsset.circleXButton.swiftUIImage
+                Image.DK.circleXButton.swiftUIImage
                     .frame(
                         width: Constants.Sizes.xButtonSize.width,
                         height: Constants.Sizes.xButtonSize.height

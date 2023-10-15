@@ -8,3 +8,4 @@
 
 @_exported import CoreKit
 @_exported import DesignSystemKit
+@_exported import DomainKit

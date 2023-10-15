@@ -8,6 +8,6 @@
 
 import SwiftUI
 
-extension Image {
+public extension Image {
     typealias DK = DesignSystemKitAsset
 }

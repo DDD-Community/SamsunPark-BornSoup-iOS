@@ -54,7 +54,8 @@ public struct Onboarding: Reducer {
                 state.login = .init()
                 return .none
                 
-            case .login(.dismiss):
+            case .login(.presented(.didTapDialogContinueButton)):
+                state.login = nil
                 return .send(.switchToMainTabBar)
                 
             default:

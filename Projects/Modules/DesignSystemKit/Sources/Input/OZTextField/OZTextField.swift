@@ -27,7 +27,7 @@ public struct OZTextFieldStyle: TextFieldStyle {
     
     public func _body(configuration: TextField<Self._Label>) -> some View {
         HStack {
-            DesignSystemKitAsset.icSearch16.swiftUIImage
+            Image.DK.icSearch16.swiftUIImage
                 .renderingMode(.template)
             
             configuration
@@ -39,11 +39,11 @@ public struct OZTextFieldStyle: TextFieldStyle {
                 text = ""
             } label: {
                 if text.count > 0 && isFocused {
-                    DesignSystemKitAsset.icSearchDelete18.swiftUIImage
+                    Image.DK.icSearchDelete18.swiftUIImage
                 }
             }
         }
-        .onChange(of: invalidation) { newValue in
+        .onChange(of: invalidation) { _ in
             isFocused = false
         }
         .padding(Constants.textFieldPadding)
@@ -62,7 +62,7 @@ public struct OZTextField: View {
     @Binding var invalidation: Bool
     @State private var changingValue: Bool = false
     
-    init(
+    public init(
         title: any StringProtocol,
         text: Binding<String>,
         invalidation: Binding<Bool> = .constant(true)

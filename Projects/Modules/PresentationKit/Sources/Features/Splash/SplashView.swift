@@ -36,7 +36,7 @@ public struct SplashView: View {
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                DesignSystemKitAsset.icOzeonLogo.swiftUIImage
+                Image.DK.icOzeonLogo.swiftUIImage
                     .resizable()
                     .frame(
                         width: Constants.Sizes.logoWidth,

@@ -1,0 +1,55 @@
+//
+//  AuthRepository.swift
+//  DataKit
+//
+//  Created by 고병학 on 10/8/23.
+//  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
+//
+
+import Alamofire
+import DomainKit
+import NetworkKit
+
+import Foundation
+
+public struct AuthRepository: AuthRepositoryProtocol {
+    private let baseAPIClient: BaseAPIClient = .init()
+    
+    public init() {} 
+    
+    public func loginWithSnsToken(
+        _ token: String,
+        snsType: SNSType
+    ) async -> (LoginResponseModel?, Error?) {
+        return await baseAPIClient.requestJSON(
+            APIEndpoints.loginWithSnsToken.path,
+            type: LoginResponseModel.self,
+            method: .post,
+            parameters: [
+                "snsType": snsType.rawValue,
+                "snsToken": token
+            ],
+            headers: DefaultHeader.headers
+        )
+    }
+    
+    public func logout() async -> (Bool?, Error?) {
+        return (nil, nil)
+    }
+    
+    public func refreshAccessToken() async -> (LoginResponseModel?, Error?) {
+        return (nil, nil)
+    }
+    
+    public func signup(with model: DomainKit.SignupRequestModel) async -> (SignupResponseModel?, Error?) {
+        return (nil, nil)
+    }
+    
+    public func checkNickname(_ nickname: String) async -> (SimpleYNResponse?, Error?) {
+        return (nil, nil)
+    }
+    
+    public func checkEmail(_ email: String) async -> (SimpleYNResponse?, Error?) {
+        return (nil, nil)
+    }
+}

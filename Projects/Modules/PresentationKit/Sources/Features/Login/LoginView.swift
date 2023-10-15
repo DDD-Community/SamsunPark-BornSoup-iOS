@@ -6,7 +6,10 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
+import AuthenticationServices
 import ComposableArchitecture
+import KakaoSDKAuth
+import KakaoSDKCommon
 
 import SwiftUI
 
@@ -73,12 +76,17 @@ public struct LoginView: View {
                         .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
                         .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
                         
-                        SNSLoginButton(snsType: .APPLE) {
-                            viewStore.send(.didTapAppleLoginButton)
+                        SignInWithAppleButton(.continue) { request in
+                            request.requestedScopes = [.fullName, .email]
+                        } onCompletion: { result in
+                            self.handleAppleLoginResult(result: result) { (identityToken: String) in
+                                viewStore.send(.successAppleLogin(identityToken))
+                            }
                         }
+                        .frame(height: 50)
                         .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
                         .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
-                        
+
                         Button(action: {
                             viewStore.send(
                                 .didTapLookAround,
@@ -113,6 +121,26 @@ public struct LoginView: View {
                     .ignoresSafeArea()
                 }
             }
+        }
+    }
+    
+    private func handleAppleLoginResult(
+        result: Result<ASAuthorization, Error>,
+        completion: @escaping (String) -> Void
+    ) {
+        switch result {
+        case .success(let authResults):
+            switch authResults.credential {
+            case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                if let tokenData = appleIDCredential.identityToken,
+                   let identityToken = String(data: tokenData, encoding: .utf8) {
+                    completion(identityToken)
+                }
+            default:
+                break
+            }
+        case .failure(let error):
+            Logger.log(error.localizedDescription)
         }
     }
 }

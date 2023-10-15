@@ -6,6 +6,8 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
+import DomainKit
+
 import SwiftUI
 
 fileprivate enum Constants {
@@ -17,10 +19,7 @@ fileprivate enum Constants {
     }
 }
 
-public enum SNSType {
-    case KAKAO
-    case APPLE
-    
+extension SNSType {    
     var buttonString: String {
         switch self {
         case .KAKAO:

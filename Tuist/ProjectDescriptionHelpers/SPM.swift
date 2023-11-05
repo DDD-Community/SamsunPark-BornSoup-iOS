@@ -16,6 +16,9 @@ public extension TargetDependency.SPM {
     static let Kingfisher = Self.external("Kingfisher")
     static let Alamofire = Self.external("Alamofire")
     static let Swinject = Self.external("Swinject")
+    static let KakaoSDKCommon = Self.external("KakaoSDKCommon")
+    static let KakaoSDKAuth = Self.external("KakaoSDKAuth")
+    static let KakaoSDKUser = Self.external("KakaoSDKUser")
     
     private static func external(_ name: String) -> TargetDependency {
         return TargetDependency.external(name: name)

@@ -28,7 +28,7 @@ public struct OZTextView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            GeometryReader { proxy in
+            GeometryReader { _ in
                 ZStack(alignment: .leading) {
                     TextEditor(text: $text)
                         .foregroundColor(.orangeGray1)

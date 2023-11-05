@@ -18,7 +18,11 @@ let frameworkTargets: [Target] = FrameworkFactory(
             Dep.Project.CoreKit,
             Dep.Project.NetworkKit
         ],
-        unitTestsDependencies: []
+        unitTestsDependencies: [
+            Dep.Project.DomainKit,
+            Dep.Project.CoreKit,
+            Dep.Project.NetworkKit
+        ]
     )
 ).build(
     payload: .init(

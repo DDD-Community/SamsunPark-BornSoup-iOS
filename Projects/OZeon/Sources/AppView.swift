@@ -12,13 +12,30 @@ import PresentationKit
 import SwiftUI
 
 public struct AppView: View {
+    public init(store: StoreOf<AppFeature>) {
+        self.store = store
+    }
+    
     let store: StoreOf<AppFeature>
     
     public var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            SplashView(store: Store(initialState: Splash.State()) {
-                Splash()
-            })
+        SwitchStore(store) { state in
+            switch state {
+            case .splash:
+                CaseLet(
+                    /AppFeature.State.splash,
+                    action: AppFeature.Action.splash
+                ) { store in
+                    SplashView(store: store)
+                }
+            case .root:
+                CaseLet(
+                    /AppFeature.State.root,
+                    action: AppFeature.Action.root
+                ) { store in
+                    RootView(store: store)
+                }
+            }
         }
     }
 }

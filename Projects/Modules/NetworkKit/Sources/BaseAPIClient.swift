@@ -14,8 +14,7 @@ public final class BaseAPIClient {
     
     public init() {}
     
-    #warning("TODO: 추후 수정 필요")
-    private let baseURL: URL = URL(string: "https://api.github.com")!
+    private let baseURL: URL = URL(string: "https://oneul.store/")!
     
     private(set) var session: Session = {
         let configuration = URLSessionConfiguration.default
@@ -30,9 +29,9 @@ public final class BaseAPIClient {
         method: HTTPMethod,
         parameters: Parameters? = nil,
         headers: HTTPHeaders? = nil
-    ) async throws -> (T?, Error?) {
+    ) async -> (T?, Error?) {
         let request: DataRequest = session.request(
-            url,
+            baseURL.appending(path: url),
             method: method,
             parameters: parameters,
             encoding: method == .get ? URLEncoding.default : JSONEncoding.default,

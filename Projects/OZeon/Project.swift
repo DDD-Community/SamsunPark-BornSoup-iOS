@@ -19,7 +19,19 @@ let infoPlist: [String: InfoPlist.Value] = [
             ]
         ]
     ],
-    "UIUserInterfaceStyle": "Light"
+    "UIUserInterfaceStyle": "Light",
+    "UISupportedInterfaceOrientations": [
+        "UIInterfaceOrientationPortrait",
+    ],
+    "CFBundleURLTypes": [
+        [
+            "CFBundleTypeRole": "Editor",
+            "CFBundleURLSchemes": ["kakao$(KAKAO_APP_KEY)"]
+        ]
+    ],
+    "LSApplicationQueriesSchemes": ["kakaokompassauth", "kakaolink", "kakao$(KAKAO_APP_KEY)"],
+    "KAKAO_REST_KEY": "$(KAKAO_REST_KEY)",
+    "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)"
 ]
 
 // MARK: - App

@@ -16,23 +16,20 @@ public struct Splash: Reducer {
     public struct State: Equatable {
         public init() {}
         var isNeedToDismiss: Bool = false
-        
         @BindingState var isLogoHidden: Bool = true
         @BindingState var isTextHidden: Bool = true
     }
     
     public enum Action {
-        case dismissSplashView
         case appearLogoImage
         case appearText
+        case presentRootView
     }
     
     @Dependency(\.continuousClock) var clock
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .dismissSplashView:
-                return .none
             case .appearLogoImage:
                 state.isLogoHidden = false
                 return .run { send in
@@ -41,6 +38,11 @@ public struct Splash: Reducer {
                 }
             case .appearText:
                 state.isTextHidden = false
+                return .run { send in
+                    try await self.clock.sleep(for: .seconds(1))
+                    await send(.presentRootView)
+                }
+            case .presentRootView:
                 return .none
             }
         }

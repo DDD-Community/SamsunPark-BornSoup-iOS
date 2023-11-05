@@ -10,21 +10,22 @@ import ComposableArchitecture
 
 import SwiftUI
 
-public struct SplashView: View {
-    private enum Constants {
-        enum Sizes {
-            static let logoWidth: CGFloat = 90.0
-            static let logoHeight: CGFloat = 90.0
-            static let bottomPaddingOfLogo: CGFloat = 16.0
-            static let defaultYOffsetOfLogo: CGFloat = 500.0
-            static let afterAnimationYOffsetOfLogo: CGFloat = 0
-            static let textBottomPadding: CGFloat = 12.0
-        }
-        enum Strings {
-            static let appName: String = "오 · 전"
-            static let appSubtitle: String = "오늘을 전통문화로 채우다"
-        }
+fileprivate enum Constants {
+    enum Sizes {
+        static let logoWidth: CGFloat = 90.0
+        static let logoHeight: CGFloat = 90.0
+        static let bottomPaddingOfLogo: CGFloat = 16.0
+        static let defaultYOffsetOfLogo: CGFloat = 500.0
+        static let afterAnimationYOffsetOfLogo: CGFloat = 0
+        static let textBottomPadding: CGFloat = 12.0
     }
+    enum Strings {
+        static let appName: String = "오 · 전"
+        static let appSubtitle: String = "오늘을 전통문화로 채우다"
+    }
+}
+
+public struct SplashView: View {
     
     let store: StoreOf<Splash>
     
@@ -35,7 +36,7 @@ public struct SplashView: View {
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                DesignSystemKitAsset.icOzeonLogo.swiftUIImage
+                Image.DK.icOzeonLogo.swiftUIImage
                     .resizable()
                     .frame(
                         width: Constants.Sizes.logoWidth,
@@ -69,7 +70,7 @@ public struct SplashView: View {
 }
 
 #if DEBUG
-struct SplashView_Preview: PreviewProvider {
+struct SplashView_Previews: PreviewProvider {
     static var previews: some View {
         SplashView(
             store: Store(
@@ -80,4 +81,5 @@ struct SplashView_Preview: PreviewProvider {
         )
     }
 }
+
 #endif

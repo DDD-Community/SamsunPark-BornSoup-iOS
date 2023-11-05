@@ -8,15 +8,15 @@
 import ComposableArchitecture
 
 import Foundation
+import DomainKit
 
 public struct Curating: Reducer {
     public struct State: Equatable {
-        var contentsList: IdentifiedArrayOf<CurationContent.State> = []
+        var contentsList: [PreviewContentsModel] = []
     }
     
     public enum Action: Equatable {
         case onAppear
-        case contentsList(id: CurationContent.State.ID, aciton: CurationContent.Action)
     }
     
     public var body: some Reducer<State, Action> {
@@ -24,13 +24,7 @@ public struct Curating: Reducer {
             switch action {
             case .onAppear:
                 return .none
-                
-            case .contentsList:
-                return .none
             }
-        }
-        .forEach(\.contentsList, action: /Action.contentsList) {
-            CurationContent()
         }
     }
 }

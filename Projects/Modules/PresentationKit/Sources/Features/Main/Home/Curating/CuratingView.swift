@@ -10,6 +10,7 @@ import ComposableArchitecture
 
 import SwiftUI
 import DesignSystemKit
+import DomainKit
 
 public struct CuratingView: View {
     let store: StoreOf<Curating>
@@ -20,19 +21,15 @@ public struct CuratingView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 ZStack {
-                    
                     ForEach(
                         Array(zip(viewStore.contentsList.indices, viewStore.contentsList)),
                         id: \.0
                     ) { index, contents in
-                        VStack {
-                            Text(contents.title)
-                        }
-                        .frame(width: 310, height: 500)
-                        .background(Color.red)
-                        .scaleEffect(currentIndex == index ? 1.2 : 0.8)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .offset(x: CGFloat(index - currentIndex) * 300 + dragOffset, y: 0)
+                        CuratingContentsView(contents: contents)
+                            .frame(width: 330, height: 550)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .offset(x: CGFloat(index - currentIndex) * 346 + dragOffset, y: currentIndex == index ? 0 : 100)
+                            .opacity(currentIndex == index ? 1.0 : 0.5)
                     }
                 }
                 .gesture(
@@ -61,14 +58,21 @@ public struct CuratingView: View {
 #if DEBUG
 struct Curating_PreView: PreviewProvider {
     static var previews: some View {
-        CuratingView(
-            store: Store(
-                initialState: Curating.State(contentsList: []),
-                reducer: {
-                    Curating()
-                }
+        VStack {
+            CuratingView(
+                store: Store(
+                    initialState: Curating.State(contentsList: [
+                        PreviewContentsModel.mock,
+                        PreviewContentsModel.mock1,
+                        PreviewContentsModel.mock,
+                        PreviewContentsModel.mock1
+                    ]),
+                    reducer: {
+                        Curating()
+                    }
+                )
             )
-        )
+        }
     }
 }
 #endif

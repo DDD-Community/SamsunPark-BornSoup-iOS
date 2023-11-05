@@ -47,6 +47,11 @@ public struct OnboardingNicknameView: View {
                             .font(.Body1.regular)
                             .foregroundColor(Color.red)
                             .padding(.top, 10)
+                    } else if viewStore.isNicknameDuplicated {
+                        Text("다른 사람이 사용중입니다")
+                            .font(.Body1.regular)
+                            .foregroundColor(Color.red)
+                            .padding(.top, 10)
                     }
                     
                     Spacer()

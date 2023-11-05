@@ -46,7 +46,13 @@ public struct AuthRepository: AuthRepositoryProtocol {
     }
     
     public func checkNickname(_ nickname: String) async -> (SimpleYNResponse?, Error?) {
-        return (nil, nil)
+        return await baseAPIClient.requestJSON(
+            APIEndpoints.checkNickname.path,
+            type: SimpleYNResponse.self,
+            method: .get,
+            parameters: ["nickName": nickname],
+            headers: DefaultHeader.headers
+        )
     }
     
     public func checkEmail(_ email: String) async -> (SimpleYNResponse?, Error?) {

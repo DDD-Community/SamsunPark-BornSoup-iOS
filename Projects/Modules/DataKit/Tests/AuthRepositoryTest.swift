@@ -24,7 +24,7 @@ final class AuthRepositoryTest: XCTestCase {
     }
     
     func test_sns_login() async {
-        let (response, error) = await authRepository.loginWithSnsToken("", snsType: .APPLE)
+        let (response, error) = await authRepository.loginWithSocialToken("", socialType: .APPLE)
         printResponse(response, error: error)
     }
     

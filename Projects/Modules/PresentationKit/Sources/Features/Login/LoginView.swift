@@ -140,7 +140,7 @@ public struct LoginView: View {
                 break
             }
         case .failure(let error):
-            Logger.log(error.localizedDescription)
+            Logger.log(error.localizedDescription, "\(Self.self)", #function)
         }
     }
 }

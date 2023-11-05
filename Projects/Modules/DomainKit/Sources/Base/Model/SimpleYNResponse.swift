@@ -10,9 +10,9 @@ import Foundation
 
 public struct SimpleYNResponse: BaseResponse {
     public var header: Header
-    public var body: YNENum?
+    public var body: String?
     
-    public init(header: Header, body: YNENum) {
+    public init(header: Header, body: String) {
         self.header = header
         self.body = body
     }

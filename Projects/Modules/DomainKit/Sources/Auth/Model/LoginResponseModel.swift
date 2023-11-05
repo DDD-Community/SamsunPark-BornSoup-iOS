@@ -18,11 +18,4 @@ public struct LoginResponseBody: Codable {
     public var grantType: String
     public var expiresIn: Int
     public var memberId: Int
-    
-    public init(accessToken: String, grantType: String, expiresIn: Int, memberId: Int) {
-        self.accessToken = accessToken
-        self.grantType = grantType
-        self.expiresIn = expiresIn
-        self.memberId = memberId
-    }
 }

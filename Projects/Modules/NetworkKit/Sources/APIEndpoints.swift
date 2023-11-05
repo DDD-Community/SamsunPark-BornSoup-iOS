@@ -9,14 +9,14 @@
 import Foundation
 
 public enum APIEndpoints {
-    case loginWithSnsToken
+    case loginWithSocialToken
     case refreshToken
     
     public var baseURL: URL { URL(string: "https://oneul.store/")! }
     
     public var path: String {
         switch self {
-        case .loginWithSnsToken: return "api/auth/signin"
+        case .loginWithSocialToken: return "api/auth/signin"
         case .refreshToken: return "api/auth/reissue"
         }
     }

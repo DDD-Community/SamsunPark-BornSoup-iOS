@@ -8,6 +8,7 @@ import SwiftUI
 struct OZeonApp: App {
     init() {
         initializeKakao()
+        registerDependencies()
     }
     
     var body: some Scene {
@@ -28,5 +29,9 @@ struct OZeonApp: App {
             return
         }
         KakaoSDK.initSDK(appKey: kakaoAppKey)
+    }
+    
+    private func registerDependencies() {
+        AppDIContainer.shared.registerDependencies()
     }
 }

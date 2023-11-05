@@ -16,8 +16,8 @@ public struct AllContentsView: View {
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ScrollView {
-                VStack(spacing: 8) {
+            VStack(spacing: 8) {
+                ScrollView {
                     ForEachStore(
                         self.store.scope(
                             state: \.contentsList,
@@ -26,43 +26,43 @@ public struct AllContentsView: View {
                     ) { store in
                         ContentsHorizontalListView(
                             store: store)
+                        .padding(.vertical, 30)
+                        .background(Color.white)
                     }
-                    .padding(.vertical, 30)
-                    .background(Color.white)
+                    .background(Color(UIColor.systemGray5))
                 }
-                .padding(.top, 8)
-                .background(Color(UIColor.systemGray5))
-                
             }
         }
     }
 }
 
 #Preview {
-    AllContentsView(
-        store: Store(
-            initialState: AllContens.State(
-                contentsList: [
-                    ContentsHorizontalList.State(
-                        contentsType: .experience,
-                        contents: [
-                            PreviewContents.State(contents: PreviewContentsModel.mock),
-                            PreviewContents.State(contents: PreviewContentsModel.mock1),
-                            PreviewContents.State(contents: PreviewContentsModel.mock),
-                            PreviewContents.State(contents: PreviewContentsModel.mock1)
-                        ]),
-                    ContentsHorizontalList.State(
-                        contentsType: .palace,
-                        contents: [
-                            PreviewContents.State(contents: PreviewContentsModel.mock),
-                            PreviewContents.State(contents: PreviewContentsModel.mock1),
-                            PreviewContents.State(contents: PreviewContentsModel.mock),
-                            PreviewContents.State(contents: PreviewContentsModel.mock1)
-                        ])
-                ]
-            ), reducer: {
-                AllContens()
-            }
+    VStack {
+        AllContentsView(
+            store: Store(
+                initialState: AllContens.State(
+                    contentsList: [
+                        ContentsHorizontalList.State(
+                            contentsType: .experience,
+                            contents: [
+                                PreviewContents.State(contents: PreviewContentsModel.mock),
+                                PreviewContents.State(contents: PreviewContentsModel.mock1),
+                                PreviewContents.State(contents: PreviewContentsModel.mock),
+                                PreviewContents.State(contents: PreviewContentsModel.mock1)
+                            ]),
+                        ContentsHorizontalList.State(
+                            contentsType: .palace,
+                            contents: [
+                                PreviewContents.State(contents: PreviewContentsModel.mock),
+                                PreviewContents.State(contents: PreviewContentsModel.mock1),
+                                PreviewContents.State(contents: PreviewContentsModel.mock),
+                                PreviewContents.State(contents: PreviewContentsModel.mock1)
+                            ])
+                    ]
+                ), reducer: {
+                    AllContens()
+                }
+            )
         )
-    )
+    }
 }

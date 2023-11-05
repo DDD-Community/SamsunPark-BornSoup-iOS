@@ -43,9 +43,6 @@ public struct OZTextFieldStyle: TextFieldStyle {
                 }
             }
         }
-        .onChange(of: invalidation) { _ in
-            isFocused = false
-        }
         .padding(Constants.textFieldPadding)
     }
 }

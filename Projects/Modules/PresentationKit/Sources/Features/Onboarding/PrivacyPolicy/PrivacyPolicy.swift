@@ -20,7 +20,7 @@ public struct PrivacyPolicy: Reducer {
         var isConfirmButtonActivated: Bool = false
         
         @PresentationState var ozWeb: OZWeb.State?
-        @PresentationState var onboardingNickname: OnboardingNickname.State?
+        @PresentationState var onboardingEmail: OnboardingEmail.State?
     }
     
     public enum Action {
@@ -35,7 +35,7 @@ public struct PrivacyPolicy: Reducer {
         case didTapConfirmButton
         
         case ozWeb(PresentationAction<OZWeb.Action>)
-        case onboardingNickname(PresentationAction<OnboardingNickname.Action>)
+        case onboardingEmail(PresentationAction<OnboardingEmail.Action>)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -74,7 +74,7 @@ public struct PrivacyPolicy: Reducer {
                 }
                 
             case .didTapConfirmButton:
-                state.onboardingNickname = .init()
+                state.onboardingEmail = .init()
                 return .none
                 
             default:
@@ -84,8 +84,8 @@ public struct PrivacyPolicy: Reducer {
         .ifLet(\.$ozWeb, action: /Action.ozWeb) {
             OZWeb()
         }
-        .ifLet(\.$onboardingNickname, action: /Action.onboardingNickname) {
-            OnboardingNickname()
+        .ifLet(\.$onboardingEmail, action: /Action.onboardingEmail) {
+            OnboardingEmail()
         }
     }
 }

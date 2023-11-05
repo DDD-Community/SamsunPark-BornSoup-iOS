@@ -45,9 +45,9 @@ public struct AuthRepository: AuthRepositoryProtocol {
         return (nil, nil)
     }
     
-    public func checkNickname(_ nickname: String) async -> (SimpleYNResponse?, Error?) {
+    public func checkIsNicknameDuplicated(_ nickname: String) async -> (SimpleYNResponse?, Error?) {
         return await baseAPIClient.requestJSON(
-            APIEndpoints.checkNickname.path,
+            APIEndpoints.checkIsNicknameDuplicated.path,
             type: SimpleYNResponse.self,
             method: .get,
             parameters: ["nickName": nickname],
@@ -55,7 +55,13 @@ public struct AuthRepository: AuthRepositoryProtocol {
         )
     }
     
-    public func checkEmail(_ email: String) async -> (SimpleYNResponse?, Error?) {
-        return (nil, nil)
+    public func checkIsEmailDuplicated(_ email: String) async -> (SimpleYNResponse?, Error?) {
+        return await baseAPIClient.requestJSON(
+            APIEndpoints.checkIsEmailDuplicated.path,
+            type: SimpleYNResponse.self,
+            method: .get,
+            parameters: ["email": email],
+            headers: DefaultHeader.headers
+        )
     }
 }

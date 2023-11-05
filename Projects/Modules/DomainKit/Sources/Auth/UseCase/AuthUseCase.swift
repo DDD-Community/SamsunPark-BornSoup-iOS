@@ -14,7 +14,8 @@ import Foundation
 
 public protocol AuthUseCaseProtocol {
     func loginWithSocialToken(_ token: String, socialType: SocialType) async -> (String?, Error?)
-    func checkNickname(_ nickname: String) async -> (Bool, Error?)
+    func isDuplicatedNickname(_ nickname: String) async -> (Bool, Error?)
+    func isDuplicatedEmail(_ email: String) async -> (Bool, Error?)
 }
 
 public final class AuthUseCase: AuthUseCaseProtocol {
@@ -35,8 +36,16 @@ public final class AuthUseCase: AuthUseCaseProtocol {
         return (response?.body?.accessToken, error)
     }
     
-    public func checkNickname(_ nickname: String) async -> (Bool, Error?) {
-        let (response, error): (SimpleYNResponse?, Error?) = await repository.checkNickname(nickname)
+    public func isDuplicatedNickname(_ nickname: String) async -> (Bool, Error?) {
+        let (response, error): (SimpleYNResponse?, Error?) = await repository.checkIsNicknameDuplicated(nickname)
+        if response?.body == nil {
+            Logger.log(response.debugDescription, "\(Self.self)", #function)
+        }
+        return (response?.body == "Y", error)
+    }
+    
+    public func isDuplicatedEmail(_ email: String) async -> (Bool, Error?) {
+        let (response, error): (SimpleYNResponse?, Error?) = await repository.checkIsEmailDuplicated(email)
         if response?.body == nil {
             Logger.log(response.debugDescription, "\(Self.self)", #function)
         }

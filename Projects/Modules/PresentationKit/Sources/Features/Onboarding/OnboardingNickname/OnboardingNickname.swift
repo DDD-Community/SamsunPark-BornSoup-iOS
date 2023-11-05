@@ -68,7 +68,7 @@ public struct OnboardingNickname: Reducer {
             case .checkNickname(let nickname):
                 let isValid: Bool = !state.isNicknameInvalid
                 return .run { send async in
-                    let (isDuplicatedNickname, error): (Bool, Error?) = await authUseCase.checkNickname(nickname)
+                    let (isDuplicatedNickname, error): (Bool, Error?) = await authUseCase.isDuplicatedNickname(nickname)
                     if let error {
                         Logger.log(error.localizedDescription, "\(Self.self)", #function)
                     }

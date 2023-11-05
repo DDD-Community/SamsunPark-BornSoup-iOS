@@ -150,11 +150,11 @@ public struct PrivacyPolicyView: View {
             }
             .navigationDestination(
                 store: store.scope(
-                    state: \.$onboardingNickname,
-                    action: PrivacyPolicy.Action.onboardingNickname
+                    state: \.$onboardingEmail,
+                    action: PrivacyPolicy.Action.onboardingEmail
                 )
             ) {
-                OnboardingNicknameView(store: $0)
+                OnboardingEmailView(store: $0)
             }
         }
     }

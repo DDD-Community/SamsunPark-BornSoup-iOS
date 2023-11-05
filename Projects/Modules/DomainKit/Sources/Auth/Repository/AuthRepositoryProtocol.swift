@@ -13,8 +13,8 @@ public protocol AuthRepositoryProtocol {
     func logout() async -> (Bool?, Error?)
     func refreshAccessToken() async -> (LoginResponseModel?, Error?)
     func signup(with model: SignupRequestModel) async -> (SignupResponseModel?, Error?)
-    func checkNickname(_ nickname: String) async -> (SimpleYNResponse?, Error?)
-    func checkEmail(_ email: String) async -> (SimpleYNResponse?, Error?)
+    func checkIsNicknameDuplicated(_ nickname: String) async -> (SimpleYNResponse?, Error?)
+    func checkIsEmailDuplicated(_ email: String) async -> (SimpleYNResponse?, Error?)
 }
 
 public class DefaultAuthRepository: AuthRepositoryProtocol {
@@ -34,11 +34,11 @@ public class DefaultAuthRepository: AuthRepositoryProtocol {
         return (nil, nil)
     }
     
-    public func checkNickname(_ nickname: String) async -> (SimpleYNResponse?, Error?) {
+    public func checkIsNicknameDuplicated(_ nickname: String) async -> (SimpleYNResponse?, Error?) {
         return (nil, nil)
     }
     
-    public func checkEmail(_ email: String) async -> (SimpleYNResponse?, Error?) {
+    public func checkIsEmailDuplicated(_ email: String) async -> (SimpleYNResponse?, Error?) {
         return (nil, nil)
     }
     

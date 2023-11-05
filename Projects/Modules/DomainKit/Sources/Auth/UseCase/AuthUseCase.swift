@@ -46,7 +46,7 @@ public final class AuthUseCase: AuthUseCaseProtocol {
 
 extension AuthUseCase: DependencyKey {
     public static let liveValue: AuthUseCase = {
-        let authRepository: AuthRepositoryProtocol = DIContainer.container.resolve(AuthRepositoryProtocol.self)!
+        let authRepository = DIContainer.container.resolve(AuthRepositoryProtocol.self) ?? DefaultAuthRepository()
         return AuthUseCase(repository: authRepository)
     }()
 }

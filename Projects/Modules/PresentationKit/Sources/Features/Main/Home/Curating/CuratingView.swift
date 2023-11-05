@@ -34,9 +34,6 @@ public struct CuratingView: View {
                 }
                 .gesture(
                     DragGesture()
-                        .onChanged({ value in
-                            print(value.translation.width / 100)
-                        })
                         .onEnded({ value in
                             let threshold: CGFloat = 50
                             if value.translation.width > threshold {

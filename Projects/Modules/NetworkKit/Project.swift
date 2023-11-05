@@ -20,7 +20,7 @@ let frameworkTargets: [Target] = FrameworkFactory(
     payload: .init(
         name: frameworkName,
         platform: .iOS,
-        product: .staticLibrary,
+        product: .framework,
         infoPlist: ["TEST_FACT_API_KEY": "$(TEST_FACT_API_KEY)"]
     )
 )

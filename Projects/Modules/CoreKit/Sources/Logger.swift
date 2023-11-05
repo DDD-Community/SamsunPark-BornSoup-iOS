@@ -16,7 +16,7 @@ public struct Logger {
         print("🚧 [LOGGER] \nTime:\(Date())")
         print("From class:\(_class), function: \(_function)")
         print("message: \(message ?? "Unknown error")")
-        print("🚧 [LOGGER] END =========")
+        print("====== END ======\n")
         #endif
     }
 }

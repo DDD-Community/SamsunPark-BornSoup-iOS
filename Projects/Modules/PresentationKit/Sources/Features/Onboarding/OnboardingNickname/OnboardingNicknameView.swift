@@ -23,8 +23,9 @@ public struct OnboardingNicknameView: View {
             VStack {
                 PaginationNavBar(
                     title: "회원가입",
-                    numberOfPages: 3,
-                    currentPage: 0,
+                    numberOfPages: 4,
+                    currentPage: 1,
+                    isAccumulated: true,
                     backButtonAction: { viewStore.send(.didTapBackButton) }
                 )
                 Spacer()

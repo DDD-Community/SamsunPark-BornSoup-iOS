@@ -31,13 +31,13 @@ public struct OnboardingNicknameView: View {
                 Spacer()
                 
                 VStack(alignment: .leading) {
-                    Text("가입을 축하드려요!\n어떻게 불러드리면 될까요?")
+                    Text("어떻게 불러드리면 될까요?")
                       .font(.Head1.semiBold)
                       .foregroundColor(Color.orangeGray1)
                       .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     OZTextField(
-                        title: "입력해주세요.",
+                        title: "닉네임을 입력해주세요.",
                         text: viewStore.$nickname,
                         invalidation: viewStore.$isNicknameInvalid
                     )

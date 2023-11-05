@@ -10,7 +10,7 @@ import Foundation
 
 public struct SignupResponseModel: BaseResponse {    
     public var header: Header
-    public var body: SignupResponseBody
+    public var body: SignupResponseBody?
     
     public init(header: Header, body: SignupResponseBody) {
         self.header = header

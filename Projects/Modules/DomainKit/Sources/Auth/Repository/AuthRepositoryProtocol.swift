@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol AuthRepositoryProtocol {
-    func loginWithSnsToken(_ token: String, snsType: SNSType) async -> (LoginResponseModel?, Error?)
+    func loginWithSocialToken(_ token: String, socialType: SocialType) async -> (LoginResponseModel?, Error?)
     func logout() async -> (Bool?, Error?)
     func refreshAccessToken() async -> (LoginResponseModel?, Error?)
     func signup(with model: SignupRequestModel) async -> (SignupResponseModel?, Error?)

@@ -12,7 +12,7 @@ public protocol BaseResponse: Codable {
     associatedtype Body: Codable
     
     var header: Header { get }
-    var body: Body { get }
+    var body: Body? { get }
 }
 
 public struct Header: Codable {

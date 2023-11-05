@@ -19,7 +19,7 @@ fileprivate enum Constants {
     }
 }
 
-extension SNSType {    
+extension SocialType {    
     var buttonString: String {
         switch self {
         case .KAKAO:
@@ -58,12 +58,12 @@ extension SNSType {
 }
 
 public struct SNSLoginButton: View {
-    public init(snsType: SNSType, action: @escaping () -> Void) {
+    public init(snsType: SocialType, action: @escaping () -> Void) {
         self.snsType = snsType
         self.action = action
     }
     
-    let snsType: SNSType
+    let snsType: SocialType
     let action: () -> Void
     
     public var body: some View {

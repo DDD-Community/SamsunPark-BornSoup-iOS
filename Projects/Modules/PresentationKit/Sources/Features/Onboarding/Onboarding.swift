@@ -7,6 +7,7 @@
 //
 
 import ComposableArchitecture
+import DIKit
 
 import Foundation
 

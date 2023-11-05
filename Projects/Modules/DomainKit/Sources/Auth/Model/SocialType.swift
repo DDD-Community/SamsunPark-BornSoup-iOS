@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum SNSType: String {
+public enum SocialType: String {
     case KAKAO
     case APPLE
 }

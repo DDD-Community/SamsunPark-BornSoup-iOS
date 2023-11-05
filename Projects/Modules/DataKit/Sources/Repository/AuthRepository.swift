@@ -17,17 +17,17 @@ public struct AuthRepository: AuthRepositoryProtocol {
     
     public init() {} 
     
-    public func loginWithSnsToken(
+    public func loginWithSocialToken(
         _ token: String,
-        snsType: SNSType
+        socialType: SocialType
     ) async -> (LoginResponseModel?, Error?) {
         return await baseAPIClient.requestJSON(
-            APIEndpoints.loginWithSnsToken.path,
+            APIEndpoints.loginWithSocialToken.path,
             type: LoginResponseModel.self,
             method: .post,
             parameters: [
-                "snsType": snsType.rawValue,
-                "snsToken": token
+                "socialType": socialType.rawValue,
+                "socialToken": token
             ],
             headers: DefaultHeader.headers
         )

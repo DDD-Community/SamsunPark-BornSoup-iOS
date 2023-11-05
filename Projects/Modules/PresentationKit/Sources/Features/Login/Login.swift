@@ -15,7 +15,6 @@ import KakaoSDKUser
 import Foundation
 
 public struct Login: Reducer {
-    public init() {}
     
     public struct State: Equatable {
         public init() {}
@@ -42,6 +41,7 @@ public struct Login: Reducer {
     }
     
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.authUseCase) var authUseCase
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -56,7 +56,7 @@ public struct Login: Reducer {
                 return loginWithSnsToken(token, snsType: .APPLE)
                 
             case .loginSuccess(let token):
-                print(token)
+                print("🚧 token: \(token)")
                 return .none
                 
             case .didTapLookAround:
@@ -82,26 +82,14 @@ public struct Login: Reducer {
         }
     }
     
-    private func loginWithSnsToken(_ token: String, snsType: SNSType) -> Effect<Login.Action> {
+    private func loginWithSnsToken(_ token: String, snsType: SocialType) -> Effect<Login.Action> {
         return .run { send async in
-            let configuration = URLSessionConfiguration.default
-            configuration.timeoutIntervalForRequest = 10
-            configuration.timeoutIntervalForResource = 10
-            let session =  Session(configuration: configuration)
-            
-            guard let response: LoginResponseModel = try? await session.request(
-                "https://oneul.store/api/auth/signin",
-                method: .post,
-                parameters: [
-                    "socialToken": token,
-                    "socialType": snsType.rawValue
-                ],
-                encoder: JSONParameterEncoder.default,
-                headers: ["Content-Type": "application/json"]
-            ).serializingDecodable().value else {
+            let (token, error): (String?, Error?) = await authUseCase.loginWithSNSToken(token, socialType: snsType)
+            guard let token, !token.isEmpty else {
+                Logger.log(error.debugDescription)
                 return
             }
-            await send(.loginSuccess(response.body?.accessToken ?? ""))
+            await send(.loginSuccess(token))
         }
     }
     

@@ -67,7 +67,7 @@ public struct OnboardingEmail: Reducer {
                 return .send(.checkEmail(state.email))
                     .debounce(
                         id: "debounce_textfield",
-                        for: 1,
+                        for: 0.5,
                         scheduler: mainQueue
                     )
                 

@@ -76,6 +76,14 @@ public struct OnboardingInterestedPlaceView: View {
                 }
             }
             .navigationBarBackButtonHidden()
+            .navigationDestination(
+                store: store.scope(
+                    state: \.$onboardingInterestedCategory,
+                    action: OnboardingInterestedPlace.Action.onboardingInterestedCategory
+                )
+            ) {
+                OnboardingInterestedContentsView(store: $0)
+            }
         }
     }
 }

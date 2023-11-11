@@ -59,6 +59,37 @@ public struct Onboarding: Reducer {
                 state.login = nil
                 return .send(.switchToMainTabBar)
                 
+            case .login(
+                .presented(
+                    .privacyPolicy(
+                        .presented(
+                            .onboardingEmail(
+                                .presented(
+                                    .onboardingNickname(
+                                        .presented(
+                                            .onboardingInterestedPlace(
+                                                .presented(
+                                                    .onboardingInterestedCategory(
+                                                        .presented(
+                                                            .onboardingComplete(
+                                                                .presented(.didTapConfirmButton)
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            ):
+                print("회원 가입 끝!")
+                state.login = nil
+                return .send(.switchToMainTabBar)
+
             default:
                 return .none
             }

@@ -48,6 +48,8 @@ public struct OnboardingInterestedPlace: Reducer {
         var selectedPlaceIndices: Set<Int> = .init()
         
         var isNextButtonActivated: Bool = false
+        
+        @PresentationState var onboardingInterestedCategory: OnboardingInterestedContents.State?
     }
     
     public enum Action {
@@ -55,6 +57,8 @@ public struct OnboardingInterestedPlace: Reducer {
         case didTapConfirmButton
         
         case selectPlace(Int)
+        
+        case onboardingInterestedCategory(PresentationAction<OnboardingInterestedContents.Action>)
     }
     
     public var body: some ReducerOf<Self> {
@@ -69,6 +73,7 @@ public struct OnboardingInterestedPlace: Reducer {
                     .map { state.initialPlaces[$0] }
                     .joined(separator: ",")
                 print(places)
+                state.onboardingInterestedCategory = .init()
                 return .none
                 
             case .selectPlace(let index):
@@ -94,7 +99,13 @@ public struct OnboardingInterestedPlace: Reducer {
                 }
                 state.selectedPlaceIndices = newSelected
                 return .none
+                
+            default:
+                return .none
             }
+        }
+        .ifLet(\.$onboardingInterestedCategory, action: /Action.onboardingInterestedCategory) {
+            OnboardingInterestedContents()
         }
     }
     

@@ -67,6 +67,14 @@ public struct OnboardingNicknameView: View {
                 .padding(.horizontal, 16)
             }
             .navigationBarBackButtonHidden()
+            .navigationDestination(
+                store: store.scope(
+                    state: \.$onboardingInterestedPlace,
+                    action: OnboardingNickname.Action.onboardingInterestedPlace
+                )
+            ) {
+                OnboardingInterestedPlaceView(store: $0)
+            }
         }
     }
 }

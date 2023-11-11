@@ -47,8 +47,8 @@ public struct OnboardingInterestedContentsView: View {
                                         viewStore.send(.selectContent(index))
                                     }
                             },
-                            horizontalSpacing: 6,
-                            verticalSpacing: 9
+                            horizontalSpacing: 8,
+                            verticalSpacing: 12
                         )
                     }
                     
@@ -70,6 +70,14 @@ public struct OnboardingInterestedContentsView: View {
                 }
             }
             .navigationBarBackButtonHidden()
+            .navigationDestination(
+                store: store.scope(
+                    state: \.$onboardingComplete,
+                    action: OnboardingInterestedContents.Action.onboardingComplete
+                )
+            ) {
+                OnboardingCompleteView(store: $0)
+            }
         }
     }
 }

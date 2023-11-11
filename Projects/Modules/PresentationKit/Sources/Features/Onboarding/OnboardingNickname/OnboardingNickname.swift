@@ -75,8 +75,9 @@ public struct OnboardingNickname: Reducer {
                     await send(.setDuplicatedNicknameInfoMessage(isDuplicatedNickname))
                     await send(.setNextButtonActivated(!isDuplicatedNickname && isValid))
                 }
-
-            default:
+                
+            case .didTapConfirmButton:
+                print("didTapConfirmButton")
                 return .none
             }
         }

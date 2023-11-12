@@ -58,7 +58,7 @@ public struct OnboardingInterestedContentsView: View {
                         title: "다음",
                         isActivated: viewStore.state.isNextButtonActivated
                     ) {
-                        viewStore.send(.didTapConfirmButton)
+                        viewStore.send(._didTapConfirmButton)
                     }
                 }
                 .padding(.horizontal, 16)
@@ -70,14 +70,6 @@ public struct OnboardingInterestedContentsView: View {
                 }
             }
             .navigationBarBackButtonHidden()
-            .navigationDestination(
-                store: store.scope(
-                    state: \.$onboardingComplete,
-                    action: OnboardingInterestedContents.Action.onboardingComplete
-                )
-            ) {
-                OnboardingCompleteView(store: $0)
-            }
         }
     }
 }

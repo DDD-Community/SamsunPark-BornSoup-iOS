@@ -48,8 +48,10 @@ public struct LoginView: View {
     }
     
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            NavigationStack {
+        NavigationStackStore(
+            self.store.scope(state: \.path, action: { .path($0) })
+        ) {
+            WithViewStore(self.store, observe: { $0 }) { viewStore in
                 ZStack {
                     VStack(spacing: 0) {
                         VStack {
@@ -86,7 +88,7 @@ public struct LoginView: View {
                         .frame(height: 50)
                         .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
                         .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
-
+                        
                         Button(action: {
                             viewStore.send(
                                 .didTapLookAround,
@@ -101,12 +103,6 @@ public struct LoginView: View {
                     }
                     .background(.white)
                     .navigationBarBackButtonHidden()
-                    .navigationDestination(store: store.scope(
-                        state: \.$privacyPolicy,
-                        action: Login.Action.privacyPolicy
-                    )) {
-                        PrivacyPolicyView(store: $0)
-                    }
                     
                     OZDialogView(
                         title: "회원가입하면\n나에게 맞춘 전통 콘텐츠를 만날 수 있어요!\n회원가입 하시겠어요?",
@@ -120,6 +116,51 @@ public struct LoginView: View {
                     .opacity(viewStore.state.isSignUpDialogPresented ? 1 : 0)
                     .ignoresSafeArea()
                 }
+            }
+        } destination: { (state: Login.Path.State) in
+            switch state {
+            case .privacyPolicy:
+                CaseLet(
+                    /Login.Path.State.privacyPolicy,
+                     action: Login.Path.Action.privacyPolicy,
+                     then: PrivacyPolicyView.init(store:)
+                )
+            case .onboardingEmail:
+                CaseLet(
+                    /Login.Path.State.onboardingEmail,
+                     action: Login.Path.Action.onboardingEmail,
+                     then: OnboardingEmailView.init(store:)
+                )
+            case .onboardingNickname:
+                CaseLet(
+                    /Login.Path.State.onboardingNickname,
+                     action: Login.Path.Action.onboardingNickname,
+                     then: OnboardingNicknameView.init(store:)
+                )
+            case .onboardingInterestedPlace:
+                CaseLet(
+                    /Login.Path.State.onboardingInterestedPlace,
+                     action: Login.Path.Action.onboardingInterestedPlace,
+                     then: OnboardingInterestedPlaceView.init(store:)
+                )
+            case .onboardingInterestedContents:
+                CaseLet(
+                    /Login.Path.State.onboardingInterestedContents,
+                     action: Login.Path.Action.onboardingInterestedContents,
+                     then: OnboardingInterestedContentsView.init(store:)
+                )
+            case .onboardingComplete:
+                CaseLet(
+                    /Login.Path.State.onboardingComplete,
+                     action: Login.Path.Action.onboardingComplete,
+                     then: OnboardingCompleteView.init(store:)
+                )
+            case .ozWeb:
+                CaseLet(
+                    /Login.Path.State.ozWeb,
+                     action: Login.Path.Action.ozWeb,
+                     then: OZWebView.init(store:)
+                )
             }
         }
     }

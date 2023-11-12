@@ -20,12 +20,60 @@ public struct Login: Reducer {
     public struct State: Equatable {
         public init() {}
         
+        var path: StackState<Path.State> = .init()
+        
         @BindingState var isSignUpDialogPresented: Bool = false
+    }
     
-        @PresentationState var privacyPolicy: PrivacyPolicy.State?
+    public struct Path: Reducer {
+        public enum State: Equatable {
+            case privacyPolicy(PrivacyPolicy.State)
+            case onboardingEmail(OnboardingEmail.State)
+            case onboardingNickname(OnboardingNickname.State)
+            case onboardingInterestedPlace(OnboardingInterestedPlace.State)
+            case onboardingInterestedContents(OnboardingInterestedContents.State)
+            case onboardingComplete(OnboardingComplete.State)
+            case ozWeb(OZWeb.State)
+        }
+        
+        public enum Action: Equatable {
+            case privacyPolicy(PrivacyPolicy.Action)
+            case onboardingEmail(OnboardingEmail.Action)
+            case onboardingNickname(OnboardingNickname.Action)
+            case onboardingInterestedPlace(OnboardingInterestedPlace.Action)
+            case onboardingInterestedContents(OnboardingInterestedContents.Action)
+            case onboardingComplete(OnboardingComplete.Action)
+            case ozWeb(OZWeb.Action)
+        }
+        
+        public var body: some ReducerOf<Self> {
+            Scope(state: /State.privacyPolicy, action: /Action.privacyPolicy) {
+                PrivacyPolicy()
+            }
+            Scope(state: /State.onboardingEmail, action: /Action.onboardingEmail) {
+                OnboardingEmail()
+            }
+            Scope(state: /State.onboardingNickname, action: /Action.onboardingNickname) {
+                OnboardingNickname()
+            }
+            Scope(state: /State.onboardingInterestedPlace, action: /Action.onboardingInterestedPlace) {
+                OnboardingInterestedPlace()
+            }
+            Scope(state: /State.onboardingInterestedContents, action: /Action.onboardingInterestedContents) {
+                OnboardingInterestedContents()
+            }
+            Scope(state: /State.onboardingComplete, action: /Action.onboardingComplete) {
+                OnboardingComplete()
+            }
+            Scope(state: /State.ozWeb, action: /Action.ozWeb) {
+                OZWeb()
+            }
+        }
     }
     
     public enum Action {
+        case path(StackAction<Path.State, Path.Action>)
+        
         case didTapKakaoLoginButton
         case didTapLookAround
         
@@ -37,14 +85,14 @@ public struct Login: Reducer {
         case didTapBackButton
         case didTapDialogContinueButton
         case didTapDialogSignUpButton
-        
-        case privacyPolicy(PresentationAction<PrivacyPolicy.Action>)
+        case didCompleteSignup
     }
     
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.authUseCase) var authUseCase
     
     public var body: some ReducerOf<Self> {
+        
         Reduce { state, action in
             switch action {
             case .didTapKakaoLoginButton:
@@ -58,7 +106,7 @@ public struct Login: Reducer {
                 
             case .loginSuccess(let token):
                 try? Keychain().set(token, key: "ACCESS_TOKEN")
-                state.privacyPolicy = .init()
+                state.path.append(.privacyPolicy(.init()))
                 return .none
                 
             case .didTapLookAround:
@@ -75,12 +123,42 @@ public struct Login: Reducer {
                 state.isSignUpDialogPresented = false
                 return .none
                 
+            case .path(.element(id: _, action: .privacyPolicy(.didTapConfirmButton))):
+                state.path.append(.onboardingEmail(.init()))
+                return .none
+            case .path(.element(id: _, action: .privacyPolicy(.didTapPrivacyPolicyDetail))):
+                state.path.append(.ozWeb(.init()))
+                return .none
+            case .path(.element(id: _, action: .privacyPolicy(.didTapServicePolicyDetail))):
+                state.path.append(.ozWeb(.init()))
+                return .none
+                
+            case .path(.element(id: _, action: .onboardingEmail(.didTapConfirmButton))):
+                state.path.append(.onboardingNickname(.init()))
+                return .none
+                
+            case .path(.element(id: _, action: .onboardingNickname(.didTapConfirmButton))):
+                state.path.append(.onboardingInterestedPlace(.init()))
+                return .none
+                
+            case .path(.element(id: _, action: .onboardingInterestedPlace(.didTapConfirmButton))):
+                state.path.append(.onboardingInterestedContents(.init()))
+                return .none
+                
+            case .path(.element(id: _, action: .onboardingInterestedContents(.didTapConfirmButton(let username)))):
+                state.path.append(.onboardingComplete(.init(username: username)))
+                return .none
+                
+            case .path(.element(id: _, action: .onboardingComplete(.didTapConfirmButton))):
+                state.path.removeAll()
+                return .send(.didCompleteSignup)
+                
             default:
                 return .none
             }
         }
-        .ifLet(\.$privacyPolicy, action: /Action.privacyPolicy) {
-            PrivacyPolicy()
+        .forEach(\.path, action: /Action.path) {
+            Path()
         }
     }
     

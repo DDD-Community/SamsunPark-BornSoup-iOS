@@ -68,14 +68,6 @@ public struct OnboardingEmailView: View {
                 .padding(.horizontal, 16)
             }
             .navigationBarBackButtonHidden()
-            .navigationDestination(
-                store: store.scope(
-                    state: \.$onboardingNickname,
-                    action: OnboardingEmail.Action.onboardingNickname
-                )
-            ) {
-                OnboardingNicknameView(store: $0)
-            }
         }
     }
 }

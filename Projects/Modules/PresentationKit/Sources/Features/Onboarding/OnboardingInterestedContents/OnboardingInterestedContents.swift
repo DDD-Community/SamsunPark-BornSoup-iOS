@@ -26,16 +26,13 @@ public struct OnboardingInterestedContents: Reducer {
         ]
         var selectedContents: Set<Int> = .init()
         var isNextButtonActivated: Bool = false
-        
-        @PresentationState var onboardingComplete: OnboardingComplete.State?
     }
     
-    public enum Action {
-        case didTapConfirmButton
+    public enum Action: Equatable {
+        case _didTapConfirmButton
+        case didTapConfirmButton(String)
         case didTapBackButton
         case selectContent(Int)
-        
-        case onboardingComplete(PresentationAction<OnboardingComplete.Action>)
     }
     
     public var body: some ReducerOf<Self> {
@@ -44,14 +41,13 @@ public struct OnboardingInterestedContents: Reducer {
             case .didTapBackButton:
                 return .none
                 
-            case .didTapConfirmButton:
+            case ._didTapConfirmButton:
                 let selectedCategories: String = state.selectedContents
                     .compactMap { state.initialContents[safe: $0] }
                     .map { $0.name }
                     .joined(separator: ",")
                 print(selectedCategories)
-                state.onboardingComplete = .init(username: "🚧유저이름🚧")
-                return .none
+                return .send(.didTapConfirmButton("🚧 유저이름 🚧"))
                 
             case .selectContent(let contentIndex):
                 if state.selectedContents.contains(contentIndex) {
@@ -64,9 +60,6 @@ public struct OnboardingInterestedContents: Reducer {
             default:
                 return .none
             }
-        }
-        .ifLet(\.$onboardingComplete, action: /Action.onboardingComplete) {
-            OnboardingComplete()
         }
     }
 }

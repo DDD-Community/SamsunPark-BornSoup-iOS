@@ -22,11 +22,9 @@ public struct OnboardingNickname: Reducer {
         @BindingState var isNicknameDuplicated: Bool = false
         
         var isNextButtonActivated: Bool = false
-        
-        @PresentationState var onboardingInterestedPlace: OnboardingInterestedPlace.State?
     }
     
-    public enum Action: BindableAction {
+    public enum Action: Equatable, BindableAction {
         case didTapBackButton
         case didTapConfirmButton
         case binding(BindingAction<State>)
@@ -34,8 +32,6 @@ public struct OnboardingNickname: Reducer {
         case checkNickname(String)
         case setDuplicatedNicknameInfoMessage(Bool)
         case setNextButtonActivated(Bool)
-        
-        case onboardingInterestedPlace(PresentationAction<OnboardingInterestedPlace.Action>)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -80,16 +76,9 @@ public struct OnboardingNickname: Reducer {
                     await send(.setNextButtonActivated(!isDuplicatedNickname && isValid))
                 }
                 
-            case .didTapConfirmButton:
-                state.onboardingInterestedPlace = .init()
-                return .none
-                
             default:
                 return .none
             }
-        }
-        .ifLet(\.$onboardingInterestedPlace, action: /Action.onboardingInterestedPlace) {
-            OnboardingInterestedPlace()
         }
     }
 }

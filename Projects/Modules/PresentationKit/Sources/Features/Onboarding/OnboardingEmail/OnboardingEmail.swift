@@ -22,11 +22,9 @@ public struct OnboardingEmail: Reducer {
         @BindingState var isEmailDuplicated: Bool = false
         
         var isNextButtonActivated: Bool = false
-        
-        @PresentationState var onboardingNickname: OnboardingNickname.State?
     }
     
-    public enum Action: BindableAction {
+    public enum Action: Equatable, BindableAction {
         case didTapBackButton
         case didTapConfirmButton
         case binding(BindingAction<State>)
@@ -34,8 +32,6 @@ public struct OnboardingEmail: Reducer {
         case checkEmail(String)
         case setDuplicatedEmailInfoMessage(Bool)
         case setNextButtonActivated(Bool)
-        
-        case onboardingNickname(PresentationAction<OnboardingNickname.Action>)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -47,17 +43,10 @@ public struct OnboardingEmail: Reducer {
         
         Reduce { state, action in
             switch action {
-            case .onboardingNickname:
-                return .none
-                
             case .didTapBackButton:
                 return .run { _ in
                     await self.dismiss()
                 }
-                
-            case .didTapConfirmButton:
-                state.onboardingNickname = .init()
-                return .none
                 
             case .binding(\.$email):
                 guard !state.email.isEmpty else {
@@ -70,9 +59,6 @@ public struct OnboardingEmail: Reducer {
                         for: 0.5,
                         scheduler: mainQueue
                     )
-                
-            case .binding:
-                return .none
                 
             case .setNextButtonActivated(let isActivated):
                 state.isNextButtonActivated = isActivated
@@ -92,10 +78,10 @@ public struct OnboardingEmail: Reducer {
                     await send(.setDuplicatedEmailInfoMessage(isDuplicatedEmail))
                     await send(.setNextButtonActivated(!isDuplicatedEmail && isValid))
                 }
+                
+            default:
+                return .none
             }
-        }
-        .ifLet(\.$onboardingNickname, action: /Action.onboardingNickname) {
-            OnboardingNickname()
         }
     }
 }

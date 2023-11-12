@@ -19,7 +19,37 @@ public struct MainTabBarView: View {
     }
     
     public var body: some View {
-        Text("MainTabBar")
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            TabView {
+                HomeView(store: .init(initialState: viewStore.homeState, reducer: {
+                    Home()
+                }))
+                .tabItem {
+                    DesignSystemKitAsset.icNaviHomeOn.swiftUIImage.renderingMode(.template)
+                    Text("홈")
+                }
+                Text("주변 탐색")
+                    .tabItem {
+                        DesignSystemKitAsset.icNaviLocationOn.swiftUIImage.renderingMode(.template)
+                        Text("주변 탐색")
+                    }
+                Text("관람기록")
+                    .tabItem {
+                        DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
+                        Text("관람기록")
+                    }
+                
+                Text("내 정보")
+                    .tabItem {
+                        DesignSystemKitAsset.icNaviMypageOn.swiftUIImage.renderingMode(.template)
+                        Text("내 정보")
+                    }
+            }
+            .tint(.orangeGray1)
+            .onAppear {
+                UITabBar.appearance().unselectedItemTintColor = UIColor(Color.orangeGray5)
+            }
+        }
     }
 }
 

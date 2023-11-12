@@ -18,7 +18,7 @@ public struct OZWeb: Reducer {
         public init() {}
     }
     
-    public enum Action {
+    public enum Action: Equatable {
         case didTapBackButton
     }
     

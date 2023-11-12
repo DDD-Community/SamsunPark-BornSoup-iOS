@@ -140,22 +140,6 @@ public struct PrivacyPolicyView: View {
                 .padding(.horizontal, 16)
             }
             .navigationBarBackButtonHidden()
-            .navigationDestination(
-                store: store.scope(
-                    state: \.$ozWeb,
-                    action: PrivacyPolicy.Action.ozWeb
-                )
-            ) {
-                OZWebView(store: $0)
-            }
-            .navigationDestination(
-                store: store.scope(
-                    state: \.$onboardingNickname,
-                    action: PrivacyPolicy.Action.onboardingNickname
-                )
-            ) {
-                OnboardingNicknameView(store: $0)
-            }
         }
     }
 }

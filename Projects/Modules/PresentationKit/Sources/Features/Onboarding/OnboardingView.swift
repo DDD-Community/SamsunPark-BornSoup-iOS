@@ -42,7 +42,8 @@ public struct OnboardingView: View {
                     
                     PageIndicator(
                         numberOfPages: viewStore.contents.count,
-                        currentPage: viewStore.contentStep
+                        currentPage: viewStore.contentStep,
+                        isAccumulated: false
                     )
                     .padding(.bottom, Constants.Sizes.indicatorBottomPadding)
                     

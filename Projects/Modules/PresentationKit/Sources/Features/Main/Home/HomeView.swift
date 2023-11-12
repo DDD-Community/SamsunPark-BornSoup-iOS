@@ -100,65 +100,9 @@ public struct HomeView: View {
 #if DEBUG
 struct Home_Preview: PreviewProvider {
     static var previews: some View {
-        HomeView(
-            store: Store(
-                initialState: Home.State(
-                    curating: Curating.State(contentsList: [
-                        PreviewContentsModel.mock,
-                        PreviewContentsModel.mock1,
-                        PreviewContentsModel.mock,
-                        PreviewContentsModel.mock1
-
-                    ]),
-                    allContents: AllContens.State(
-                        contentsList: [
-                            ContentsHorizontalList.State(
-                                contentsType: .palace,
-                                contents: [
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    ),
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    ),
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    ),
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    )
-                                ]
-                            ),
-                            ContentsHorizontalList.State(
-                                contentsType: .review,
-                                contents: [
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    ),
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    ),
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    )
-                                ]
-                            ),
-                            ContentsHorizontalList.State(
-                                contentsType: .dance,
-                                contents: [
-                                    PreviewContents.State(
-                                        contents: PreviewContentsModel.mock
-                                    )
-                                ]
-                            )
-                        ]
-                    ), allContentsFilter: .init(filterList: [])
-                ),
-                reducer: {
-                    Home()
-                }
-            )
-        )
+        HomeView(store: .init(initialState: Home.State.mock, reducer: {
+            Home()
+        }))
     }
 }
 #endif

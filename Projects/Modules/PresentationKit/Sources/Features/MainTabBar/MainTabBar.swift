@@ -15,6 +15,8 @@ public struct MainTabBar: Reducer {
     
     public struct State: Equatable {
         public init() {}
+        
+        var homeState: Home.State = .mock
     }
     
     public enum Action {

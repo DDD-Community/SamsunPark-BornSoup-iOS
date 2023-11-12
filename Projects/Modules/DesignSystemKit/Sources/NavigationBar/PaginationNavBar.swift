@@ -13,17 +13,20 @@ public struct PaginationNavBar: View {
         title: String,
         numberOfPages: Int,
         currentPage: Int,
+        isAccumulated: Bool,
         backButtonAction: @escaping () -> Void
     ) {
         self.title = title
         self.numberOfPages = numberOfPages
         self.currentPage = currentPage
+        self.isAccumulated = isAccumulated
         self.backButtonAction = backButtonAction
     }
     
     let title: String
     let numberOfPages: Int
     let currentPage: Int
+    let isAccumulated: Bool
     let backButtonAction: () -> Void
     
     public var body: some View {
@@ -34,7 +37,11 @@ public struct PaginationNavBar: View {
                         .frame(width: 24, height: 24)
                 })
                 Spacer()
-                PageIndicator(numberOfPages: numberOfPages, currentPage: currentPage)
+                PageIndicator(
+                    numberOfPages: numberOfPages,
+                    currentPage: currentPage,
+                    isAccumulated: isAccumulated
+                )
             }
             
             Text(title)
@@ -56,6 +63,7 @@ struct PaginationNavBar_Previews: PreviewProvider {
             title: "닉네임 설정",
             numberOfPages: 3,
             currentPage: 1,
+            isAccumulated: true,
             backButtonAction: {}
         )
     }

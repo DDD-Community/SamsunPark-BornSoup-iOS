@@ -11,6 +11,8 @@ import Foundation
 public enum APIEndpoints {
     case loginWithSocialToken
     case refreshToken
+    case checkIsNicknameDuplicated
+    case checkIsEmailDuplicated
     
     public var baseURL: URL { URL(string: "https://oneul.store/")! }
     
@@ -18,6 +20,8 @@ public enum APIEndpoints {
         switch self {
         case .loginWithSocialToken: return "api/auth/signin"
         case .refreshToken: return "api/auth/reissue"
+        case .checkIsNicknameDuplicated: return "signup/check/nickname"
+        case .checkIsEmailDuplicated: return "signup/check/email"
         }
     }
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import Foundation
 import ComposableArchitecture
 
 public struct Home: Reducer {
@@ -96,7 +95,62 @@ public struct Home: Reducer {
             Curating()
         }
         Scope(state: \.allContents, action: /Action.allContents) {
-            AllContens()
+            AllContents()
         }
     }
+}
+
+extension Home.State {
+    static let mock = Home.State(
+        curating: Curating.State(contentsList: [
+            PreviewContentsModel.mock,
+            PreviewContentsModel.mock1,
+            PreviewContentsModel.mock,
+            PreviewContentsModel.mock1
+            
+        ]),
+        allContents: AllContents.State(
+            contentsList: [
+                ContentsHorizontalList.State(
+                    contentsType: .palace,
+                    contents: [
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        ),
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        ),
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        ),
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        )
+                    ]
+                ),
+                ContentsHorizontalList.State(
+                    contentsType: .review,
+                    contents: [
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        ),
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        ),
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        )
+                    ]
+                ),
+                ContentsHorizontalList.State(
+                    contentsType: .dance,
+                    contents: [
+                        PreviewContents.State(
+                            contents: PreviewContentsModel.mock
+                        )
+                    ]
+                )
+            ]
+        )
+    )
 }

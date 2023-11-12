@@ -20,7 +20,8 @@ let frameworkTargets: [Target] = FrameworkFactory(
             .SPM.Swinject,
             .SPM.KakaoSDKAuth,
             .SPM.KakaoSDKUser,
-            .SPM.KakaoSDKCommon
+            .SPM.KakaoSDKCommon,
+            .SPM.KeychainAccess
         ],
         unitTestsDependencies: []
     )

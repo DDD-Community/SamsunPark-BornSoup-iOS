@@ -7,11 +7,15 @@
 //
 
 import Alamofire
+import KeychainAccess
 
 import Foundation
 
 struct DefaultHeader {
-    static let headers: HTTPHeaders = [
-        .init(name: "Content-Type", value: "application/json")
-    ]
+    static var headers: HTTPHeaders {
+        return [
+            .init(name: "Content-Type", value: "application/json"),
+            .init(name: "Authorization", value: "Bearer \((try? Keychain().get("ACCESS_TOKEN")) ?? "")")
+        ]
+    }
 }

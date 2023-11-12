@@ -11,10 +11,12 @@ import Foundation
 public struct Logger {
     public init() {}
     
-    static public func log(_ message: String?) {
+    static public func log(_ message: String?, _ _class: String, _ _function: String) {
         #if DEBUG
-        print("🚧 LOGGER \nTime:\(Date())")
-        print(message ?? "Unknown error")
+        print("🚧 [LOGGER] \nTime:\(Date())")
+        print("From class:\(_class), function: \(_function)")
+        print("message: \(message ?? "Unknown error")")
+        print("====== END ======\n")
         #endif
     }
 }

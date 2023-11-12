@@ -19,11 +19,23 @@ public struct HistoryRootView: View {
     private let store: StoreOf<HistoryRoot>
     
     public var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            EmptyHistoryView(store: .init(
-                initialState: EmptyHistory.State(),
-                reducer: { EmptyHistory() }
-            ))
+        SwitchStore(store) { state in
+            switch state {
+            case .emptyHistory:
+                CaseLet(
+                    /HistoryRoot.State.emptyHistory,
+                    action: HistoryRoot.Action.emptyHistory
+                ) { store in
+                    EmptyHistoryView(store: store)
+                }
+            case .mainHistory:
+                CaseLet(
+                    /HistoryRoot.State.mainHistory,
+                     action: HistoryRoot.Action.mainHistory
+                ) { store in
+                    MainHistoryView(store: store)
+                }
+            }
         }
     }
 }

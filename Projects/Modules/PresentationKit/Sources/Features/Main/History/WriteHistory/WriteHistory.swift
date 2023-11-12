@@ -1,5 +1,5 @@
 //
-//  MainHistory.swift
+//  WirteHistory.swift
 //  PresentationKit
 //
 //  Created by 고병학 on 11/12/23.
@@ -8,7 +8,7 @@
 
 import ComposableArchitecture
 
-public struct MainHistory: Reducer {
+public struct WriteHistory: Reducer {
     public init() {}
     
     public struct State: Equatable {
@@ -16,14 +16,13 @@ public struct MainHistory: Reducer {
     }
     
     public enum Action: Equatable {
-        case refresh
+        case didTapConfirmButton
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .refresh:
-                print("refresh")
+            case .didTapConfirmButton:
                 return .none
             }
         }

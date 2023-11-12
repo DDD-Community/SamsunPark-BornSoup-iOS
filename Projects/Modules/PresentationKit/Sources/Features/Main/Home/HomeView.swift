@@ -13,10 +13,14 @@ import DomainKit
 
 import DesignSystemKit
 
-struct HomeView: View {
+public struct HomeView: View {
     let store: StoreOf<Home>
     
-    var body: some View {
+    public init(store: StoreOf<Home>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 HStack(spacing: 0) {
@@ -48,7 +52,7 @@ struct HomeView: View {
                     }
                     if viewStore.currentCategory == .allContents {
                         Button {
-                            print("tapped")
+                            viewStore.send(.setContentsFilterSheet(isPresented: true))
                         } label: {
                             DesignSystemKitAsset.icSwap22.swiftUIImage
                         }
@@ -76,6 +80,19 @@ struct HomeView: View {
                     )
                 }
             }
+            .sheet(
+                isPresented: viewStore.binding(
+                    get: \.isContentsFilterPresent,
+                    send: Home.Action.setContentsFilterSheet),
+                content: {
+                    AllContentsFilterView(
+                        store: self.store.scope(
+                            state: \.allContentsFilter,
+                            action: Home.Action.allContentsFilter
+                        )
+                    )
+                }
+            )
         }
     }
 }
@@ -135,7 +152,7 @@ struct Home_Preview: PreviewProvider {
                                 ]
                             )
                         ]
-                    )
+                    ), allContentsFilter: .init(filterList: [])
                 ),
                 reducer: {
                     Home()

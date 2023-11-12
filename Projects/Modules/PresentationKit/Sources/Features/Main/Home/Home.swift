@@ -9,36 +9,68 @@
 import Foundation
 import ComposableArchitecture
 
-struct Home: Reducer {
-    enum HomeCategory: Equatable {
+public struct Home: Reducer {
+    public enum HomeCategory: Equatable {
         case curating
         case allContents
     }
     
-    struct State: Equatable {
+    public init() {}
+    
+    public struct State: Equatable {
         var currentCategory: HomeCategory = .curating
         
         var curating: Curating.State = Curating.State(contentsList: [])
         var allContents: AllContens.State = AllContens.State(contentsList: [])
+        var allContentsFilter: AllContentsFilter.State = AllContentsFilter.State(filterList: [])
+        
+        var isContentsFilterPresent: Bool = false
+        
+        public init(
+            currentCategory: HomeCategory = .curating,
+            curating: Curating.State,
+            allContents: AllContens.State,
+            allContentsFilter: AllContentsFilter.State,
+            isContentsFilterPresent: Bool = false
+        ) {
+            self.currentCategory = currentCategory
+            self.curating = curating
+            self.allContents = allContents
+            self.allContentsFilter = allContentsFilter
+            self.isContentsFilterPresent = isContentsFilterPresent
+        }
     }
     
-    enum Action: Equatable {
+    public enum Action: Equatable {
         case onAppear
         case categoryChangeButtonTapped(HomeCategory)
         
         case curating(Curating.Action)
         case allContents(AllContens.Action)
+        case allContentsFilter(AllContentsFilter.Action)
+        
+        case setContentsFilterSheet(isPresented: Bool)
+        case setContentsFilterPresentedCompleted
     }
     
-    var body: some Reducer<State, Action> {
+    public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                return .none
                 
+            case .setContentsFilterSheet(isPresented: true):
+                state.isContentsFilterPresent = true
+                return .none
+                
+            case .setContentsFilterSheet(isPresented: false):
+                state.isContentsFilterPresent = false
+                return .none
+                
+            case .setContentsFilterPresentedCompleted:
                 return .none
                 
             case let .categoryChangeButtonTapped(category):
-                print(category)
                 state.currentCategory = category
                 return .none
                 
@@ -46,6 +78,17 @@ struct Home: Reducer {
                 return .none
                 
             case .allContents:
+                return .none
+                
+            case let .allContentsFilter(.confirmButtonTapped):
+                state.isContentsFilterPresent = false
+                return .none
+                
+            case let .allContentsFilter(.move(source, destination)):
+                state.allContents.contentsList.move(fromOffsets: source, toOffset: destination)
+                return .none
+                
+            case .allContentsFilter:
                 return .none
             }
         }

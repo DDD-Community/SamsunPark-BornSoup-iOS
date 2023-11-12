@@ -20,7 +20,7 @@ public struct Home: Reducer {
         var currentCategory: HomeCategory = .curating
         
         var curating: Curating.State = Curating.State(contentsList: [])
-        var allContents: AllContens.State = AllContens.State(contentsList: [])
+        var allContents: AllContents.State = AllContents.State(contentsList: [])
         var allContentsFilter: AllContentsFilter.State = AllContentsFilter.State(filterList: [])
         
         var isContentsFilterPresent: Bool = false
@@ -28,7 +28,7 @@ public struct Home: Reducer {
         public init(
             currentCategory: HomeCategory = .curating,
             curating: Curating.State,
-            allContents: AllContens.State,
+            allContents: AllContents.State,
             allContentsFilter: AllContentsFilter.State,
             isContentsFilterPresent: Bool = false
         ) {
@@ -45,7 +45,7 @@ public struct Home: Reducer {
         case categoryChangeButtonTapped(HomeCategory)
         
         case curating(Curating.Action)
-        case allContents(AllContens.Action)
+        case allContents(AllContents.Action)
         case allContentsFilter(AllContentsFilter.Action)
         
         case setContentsFilterSheet(isPresented: Bool)
@@ -151,6 +151,46 @@ extension Home.State {
                     ]
                 )
             ]
-        )
+        ), allContentsFilter: .init(filterList: [
+            ContentsHorizontalList.State(
+                contentsType: .palace,
+                contents: [
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    ),
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    ),
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    ),
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    )
+                ]
+            ),
+            ContentsHorizontalList.State(
+                contentsType: .review,
+                contents: [
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    ),
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    ),
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    )
+                ]
+            ),
+            ContentsHorizontalList.State(
+                contentsType: .dance,
+                contents: [
+                    PreviewContents.State(
+                        contents: PreviewContentsModel.mock
+                    )
+                ]
+            )
+        ])
     )
 }

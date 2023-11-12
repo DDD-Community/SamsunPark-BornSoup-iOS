@@ -12,6 +12,10 @@ import ComposableArchitecture
 public struct AllContens: Reducer {
     public struct State: Equatable {
         public var contentsList: IdentifiedArrayOf<ContentsHorizontalList.State> = []
+        
+        public init(contentsList: IdentifiedArrayOf<ContentsHorizontalList.State>) {
+            self.contentsList = contentsList
+        }
     }
     
     public enum Action: Equatable {

@@ -12,9 +12,13 @@ import ComposableArchitecture
 import DomainKit
 
 public struct PreviewContents: Reducer {
-    public struct State: Equatable, Identifiable {
+    public struct State: Hashable, Identifiable {
         public let id = UUID()
         public let contents: PreviewContentsModel
+        
+        public init(contents: PreviewContentsModel) {
+            self.contents = contents
+        }
     }
     
     public enum Action: Equatable {

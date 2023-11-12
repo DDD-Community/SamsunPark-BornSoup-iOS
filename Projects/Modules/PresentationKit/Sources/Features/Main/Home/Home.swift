@@ -25,6 +25,8 @@ public struct Home: Reducer {
         
         var isContentsFilterPresent: Bool = false
         
+        var path = StackState<Path.State>()
+        
         public init(
             currentCategory: HomeCategory = .curating,
             curating: Curating.State,
@@ -43,6 +45,7 @@ public struct Home: Reducer {
     public enum Action: Equatable {
         case onAppear
         case categoryChangeButtonTapped(HomeCategory)
+        case searchButtonTapped
         
         case curating(Curating.Action)
         case allContents(AllContents.Action)
@@ -50,6 +53,8 @@ public struct Home: Reducer {
         
         case setContentsFilterSheet(isPresented: Bool)
         case setContentsFilterPresentedCompleted
+        
+        case path(StackAction<Path.State, Path.Action>)
     }
     
     public var body: some Reducer<State, Action> {
@@ -73,13 +78,17 @@ public struct Home: Reducer {
                 state.currentCategory = category
                 return .none
                 
+            case .searchButtonTapped:
+                state.path.append(.search(.init(text: "", recentSearches: [], searchResultList: SearchResultList.State.init(contentsList: []))))
+                return .none
+                
             case .curating:
                 return .none
                 
             case .allContents:
                 return .none
                 
-            case let .allContentsFilter(.confirmButtonTapped):
+            case .allContentsFilter(.confirmButtonTapped):
                 state.isContentsFilterPresent = false
                 return .none
                 
@@ -89,13 +98,40 @@ public struct Home: Reducer {
                 
             case .allContentsFilter:
                 return .none
+                
+            case .path(let action):
+                switch action {
+                case .element(id: _, action: .search):
+                    return .none
+                default:
+                    return .none
+                }
             }
+        }
+        .forEach(\.path, action: /Action.path) {
+            Path()
         }
         Scope(state: \.curating, action: /Action.curating) {
             Curating()
         }
         Scope(state: \.allContents, action: /Action.allContents) {
             AllContents()
+        }
+    }
+    
+    public struct Path: Reducer {
+        public enum State: Equatable {
+            case search(Search.State = .init(text: "", recentSearches: [], searchResultList: SearchResultList.State.init(contentsList: [])))
+        }
+        
+        public enum Action: Equatable {
+            case search(Search.Action)
+        }
+        
+        public var body: some Reducer<State, Action> {
+            Scope(state: /State.search, action: /Action.search) {
+                Search()
+            }
         }
     }
 }

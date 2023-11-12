@@ -29,7 +29,7 @@ public struct OZTextFieldStyle: TextFieldStyle {
         HStack {
             Image.DK.icSearch16.swiftUIImage
                 .renderingMode(.template)
-            
+                .foregroundColor(.orangeGray5)
             configuration
                 .focused($isFocused)
                 .onTapGesture {
@@ -40,6 +40,8 @@ public struct OZTextFieldStyle: TextFieldStyle {
             } label: {
                 if text.count > 0 && isFocused {
                     Image.DK.icSearchDelete18.swiftUIImage
+                        .renderingMode(.template)
+                        .foregroundColor(.orangeGray5)
                 }
             }
         }
@@ -62,7 +64,7 @@ public struct OZTextField: View {
     public init(
         title: any StringProtocol,
         text: Binding<String>,
-        invalidation: Binding<Bool> = .constant(true)
+        invalidation: Binding<Bool> = .constant(false)
     ) {
         self.title = title
         self._text = text
@@ -78,7 +80,7 @@ public struct OZTextField: View {
             Group {
                 RoundedRectangle(cornerRadius: Constants.rectangleCornerRadius)
                     .stroke(
-                        invalidation ? Color.error : Color.orangeGray1,
+                        invalidation ? Color.error : Color.orangeGray7,
                         lineWidth: Constants.rectangleLineWidth
                     )
             }

@@ -21,23 +21,29 @@ public struct MainTabBarView: View {
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             TabView {
-                HomeView(store: .init(initialState: viewStore.homeState, reducer: {
-                    Home()
-                }))
+                HomeView(store: .init(
+                    initialState: viewStore.homeState,
+                    reducer: { Home() }
+                ))
                 .tabItem {
                     DesignSystemKitAsset.icNaviHomeOn.swiftUIImage.renderingMode(.template)
                     Text("홈")
                 }
+                
                 Text("주변 탐색")
                     .tabItem {
                         DesignSystemKitAsset.icNaviLocationOn.swiftUIImage.renderingMode(.template)
                         Text("주변 탐색")
                     }
-                Text("관람기록")
-                    .tabItem {
-                        DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
-                        Text("관람기록")
-                    }
+                
+                HistoryRootView(store: .init(
+                    initialState: .init(),
+                    reducer: { HistoryRoot() }
+                ))
+                .tabItem {
+                    DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
+                    Text("관람기록")
+                }
                 
                 Text("내 정보")
                     .tabItem {

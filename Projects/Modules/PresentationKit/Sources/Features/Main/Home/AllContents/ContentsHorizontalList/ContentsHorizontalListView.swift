@@ -6,10 +6,10 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import ComposableArchitecture
-
 import DomainKit
+
+import SwiftUI
 
 public struct ContentsHorizontalListView: View {
     let store: StoreOf<ContentsHorizontalList>
@@ -35,7 +35,12 @@ public struct ContentsHorizontalListView: View {
                 
                 ScrollView(.horizontal) {
                     HStack(alignment: .top, spacing: 16) {
-                        ForEachStore(self.store.scope(state: \.contents, action: ContentsHorizontalList.Action.contents)) { store in
+                        ForEachStore(
+                            self.store.scope(
+                                state: \.contents,
+                                action: ContentsHorizontalList.Action.contents
+                            )
+                        ) { store in
                             LazyVStack {
                                 PreviewContentsView(store: store)
                             }

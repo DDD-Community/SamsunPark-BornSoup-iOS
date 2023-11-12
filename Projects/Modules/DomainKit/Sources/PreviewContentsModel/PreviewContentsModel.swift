@@ -61,4 +61,3 @@ public struct PreviewContentsModel: Codable, Equatable {
         )
     }
 }
-

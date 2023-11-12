@@ -12,7 +12,7 @@ import ComposableArchitecture
 import DomainKit
 
 public struct AllContentsView: View {
-    let store: StoreOf<AllContens>
+    let store: StoreOf<AllContents>
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -21,7 +21,7 @@ public struct AllContentsView: View {
                     ForEachStore(
                         self.store.scope(
                             state: \.contentsList,
-                            action: AllContens.Action.contentsList
+                            action: AllContents.Action.contentsList
                         )
                     ) { store in
                         ContentsHorizontalListView(
@@ -40,7 +40,7 @@ public struct AllContentsView: View {
     VStack {
         AllContentsView(
             store: Store(
-                initialState: AllContens.State(
+                initialState: AllContents.State(
                     contentsList: [
                         ContentsHorizontalList.State(
                             contentsType: .experience,
@@ -60,7 +60,7 @@ public struct AllContentsView: View {
                             ])
                     ]
                 ), reducer: {
-                    AllContens()
+                    AllContents()
                 }
             )
         )

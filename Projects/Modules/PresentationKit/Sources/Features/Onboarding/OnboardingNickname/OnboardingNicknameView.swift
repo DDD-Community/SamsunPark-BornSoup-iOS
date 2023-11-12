@@ -23,20 +23,21 @@ public struct OnboardingNicknameView: View {
             VStack {
                 PaginationNavBar(
                     title: "회원가입",
-                    numberOfPages: 3,
-                    currentPage: 0,
+                    numberOfPages: 4,
+                    currentPage: 1,
+                    isAccumulated: true,
                     backButtonAction: { viewStore.send(.didTapBackButton) }
                 )
                 Spacer()
                 
                 VStack(alignment: .leading) {
-                    Text("가입을 축하드려요!\n어떻게 불러드리면 될까요?")
+                    Text("어떻게 불러드리면 될까요?")
                       .font(.Head1.semiBold)
                       .foregroundColor(Color.orangeGray1)
                       .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     OZTextField(
-                        title: "입력해주세요.",
+                        title: "닉네임을 입력해주세요.",
                         text: viewStore.$nickname,
                         invalidation: viewStore.$isNicknameInvalid
                     )
@@ -44,6 +45,11 @@ public struct OnboardingNicknameView: View {
                     
                     if viewStore.isNicknameInvalid {
                         Text("8자 이내로 작성해주세요")
+                            .font(.Body1.regular)
+                            .foregroundColor(Color.red)
+                            .padding(.top, 10)
+                    } else if viewStore.isNicknameDuplicated {
+                        Text("다른 사람이 사용중입니다")
                             .font(.Body1.regular)
                             .foregroundColor(Color.red)
                             .padding(.top, 10)

@@ -6,10 +6,9 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import Foundation
 import ComposableArchitecture
 
-public struct AllContens: Reducer {
+public struct AllContents: Reducer {
     public struct State: Equatable {
         public var contentsList: IdentifiedArrayOf<ContentsHorizontalList.State> = []
     }

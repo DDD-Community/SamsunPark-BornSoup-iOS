@@ -9,8 +9,6 @@
 import ComposableArchitecture
 import DIKit
 
-import Foundation
-
 public struct Onboarding: Reducer {
     public init() {}
     
@@ -59,6 +57,10 @@ public struct Onboarding: Reducer {
                 state.login = nil
                 return .send(.switchToMainTabBar)
                 
+            case .login(.presented(.didCompleteSignup)):
+                state.login = nil
+                return .send(.switchToMainTabBar)
+
             default:
                 return .none
             }

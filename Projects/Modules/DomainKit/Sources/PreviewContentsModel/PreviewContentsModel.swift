@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PreviewContentsModel: Codable, Equatable {
+public struct PreviewContentsModel: Codable, Hashable {
     public static let mock = PreviewContentsModel(
         id: 0,
         seq: "",

@@ -13,6 +13,10 @@ import DomainKit
 public struct Curating: Reducer {
     public struct State: Equatable {
         var contentsList: [PreviewContentsModel] = []
+        
+        public init(contentsList: [PreviewContentsModel] = []) {
+            self.contentsList = contentsList
+        }
     }
     
     public enum Action: Equatable {

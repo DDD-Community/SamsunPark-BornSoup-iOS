@@ -32,7 +32,6 @@ struct HomeView: View {
                     .padding(.trailing, 16)
                     
                     Button {
-                        print("button")
                         viewStore.send(.categoryChangeButtonTapped(.allContents))
                     } label: {
                         VStack {
@@ -49,6 +48,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal, 16)
+                .padding(.top, 17)
                 
                 if viewStore.currentCategory == .curating {
                     CuratingView(

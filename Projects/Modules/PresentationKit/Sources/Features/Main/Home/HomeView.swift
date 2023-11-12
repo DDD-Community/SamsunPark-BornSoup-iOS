@@ -46,6 +46,14 @@ struct HomeView: View {
                     } label: {
                         DesignSystemKitAsset.icSearch24.swiftUIImage
                     }
+                    if viewStore.currentCategory == .allContents {
+                        Button {
+                            print("tapped")
+                        } label: {
+                            DesignSystemKitAsset.icSwap22.swiftUIImage
+                        }
+                        .padding(.leading, 16)
+                    }
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 17)

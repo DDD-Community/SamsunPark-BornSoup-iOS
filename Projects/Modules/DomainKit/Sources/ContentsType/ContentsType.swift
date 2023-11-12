@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ContentsType: String, Codable, Equatable {
+public enum ContentsType: String, Codable, Hashable, CaseIterable {
     case review = "후기"
     case location = "위치"
     case palace = "고궁"

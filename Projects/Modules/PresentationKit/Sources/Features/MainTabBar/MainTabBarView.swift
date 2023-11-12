@@ -54,6 +54,8 @@ public struct MainTabBarView: View {
             .tint(.orangeGray1)
             .onAppear {
                 UITabBar.appearance().unselectedItemTintColor = UIColor(Color.orangeGray5)
+                UITabBar.appearance().backgroundColor = .white.withAlphaComponent(0.8)
+                UITabBar.appearance().isTranslucent = true
             }
         }
     }

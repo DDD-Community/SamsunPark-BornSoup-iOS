@@ -13,17 +13,25 @@ public struct EmptyHistory: Reducer {
     
     public struct State: Equatable {
         public init() {}
+        
+        var isSunBig: Bool = false
     }
     
     public enum Action: Equatable {
+        case onDisappear
+        
         case didTapAddHistory
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onDisappear:
+                state.isSunBig = false
+                return .none
+                
             case .didTapAddHistory:
-                print("didTapAddHistory")
+                state.isSunBig = true
                 return .none
             }
         }

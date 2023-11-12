@@ -8,19 +8,29 @@
 
 import Foundation
 import ComposableArchitecture
+import DomainKit
 
-struct SearchResultList: Reducer {
-    struct State: Equatable {
-        var contents
-    }
-    
-    enum Action {
+public struct SearchResultList: Reducer {
+    public struct State: Equatable {
+        var contentsList: [PreviewContentsModel]
         
+        public init(
+            contentsList: [PreviewContentsModel]
+        ) {
+            self.contentsList = contentsList
+        }
     }
     
-    var body: some Reducer<State, Action> {
+    public enum Action {
+        case cellTapped
+    }
+    
+    public var body: some Reducer<State, Action> {
         Reduce { state, action in
-            
+            switch action {
+            case .cellTapped:
+                return .none
+            }
         }
     }
 }

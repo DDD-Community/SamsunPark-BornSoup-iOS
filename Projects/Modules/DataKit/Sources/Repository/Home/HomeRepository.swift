@@ -24,6 +24,7 @@ public struct HomeRepository: HomeRepositoryProtocol {
         request.log()
         let (data, response) = try await URLSession.shared.data(for: request)
         //TODO: - response error 처리
+        print(String(data: data, encoding: .utf8))
         let decoder = JSONDecoder()
         do {
             return try decoder.decode(ContentsListResponse.self, from: data)

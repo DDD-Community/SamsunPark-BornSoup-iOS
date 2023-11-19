@@ -126,6 +126,7 @@ public struct Home: Reducer {
                     }
                     return .none
                 case .failure(let error):
+                    print(error)
                     return .none
                 }
                 

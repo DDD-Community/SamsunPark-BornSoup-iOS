@@ -20,7 +20,45 @@ public struct WriteHistoryView: View {
     
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            Text("기록 작성 뷰")
+            VStack {
+                TitleNavBar(title: "기록 작성") {
+                    viewStore.send(.didTapBackButton)
+                }
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    ScrollView(.horizontal) {
+                        HStack(alignment: .bottom) {
+                            ImageUploadButton(totalCount: 5, currentCount: 0)
+                        }
+                        .padding(.horizontal, 16)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                    }
+                    
+                    ShortTextField(title: "전통콘텐츠명", isNecessaryField: true)
+                        .onTapGesture {
+                            print("전통콘텐츠명")
+                        }
+                    
+                    ScoreInputField(title: "만족도", isNecessaryField: true)
+                    
+                    ShortTextField(title: "날짜를 선택해주세요", isNecessaryField: true)
+                        .onTapGesture {
+                            print("날짜를 선택해주세요")
+                        }
+                    
+                    ShortTextField(title: "함께한 사람이 있나요?", isNecessaryField: false)
+                        .onTapGesture {
+                            print("함께한 사람이 있나요?")
+                        }
+                    
+                }
+                .padding(0)
+                .frame(maxWidth: .infinity)
+                
+                Spacer()
+            }
+            .navigationBarBackButtonHidden()
+            .toolbar(.hidden, for: .tabBar)
         }
     }
 }

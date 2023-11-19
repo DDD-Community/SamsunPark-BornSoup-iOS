@@ -33,28 +33,35 @@ public struct ImageUploadButton: View {
     }
     
     public var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            Constants.Images.blankImage.frame(
-                width: Constants.Sizes.imageSize.width,
-                height: Constants.Sizes.imageSize.height
+        ZStack {
+            VStack(alignment: .center, spacing: 0) {
+                Constants.Images.blankImage.frame(
+                    width: Constants.Sizes.imageSize.width,
+                    height: Constants.Sizes.imageSize.height
+                )
+                Text("\(currentCount)/\(totalCount)")
+                    .font(.Body1.regular)
+                    .foregroundColor(textColor)
+            }
+            .padding(0)
+            .frame(
+                width: Constants.Sizes.circleSize.width,
+                height: Constants.Sizes.circleSize.height,
+                alignment: .center
             )
-            Text("\(currentCount)/\(totalCount)")
-                .font(.Body1.regular)
-                .foregroundColor(textColor)
+            .background(Color.orangeGray9)
+            .cornerRadius(Constants.Sizes.fullRadius)
+            .overlay(
+                RoundedRectangle(cornerRadius: Constants.Sizes.fullRadius)
+                    .inset(by: 0.5)
+                    .stroke(Color.orangeGray8, lineWidth: 1)
+            )
+            
+            DesignSystemKitAsset.icPlus.swiftUIImage
+                .resizable()
+                .frame(width: 24, height: 24)
+                .offset(x: 30, y: 30)
         }
-        .padding(0)
-        .frame(
-            width: Constants.Sizes.circleSize.width,
-            height: Constants.Sizes.circleSize.height,
-            alignment: .center
-        )
-        .background(Color.orangeGray9)
-        .cornerRadius(Constants.Sizes.fullRadius)
-        .overlay(
-            RoundedRectangle(cornerRadius: Constants.Sizes.fullRadius)
-                .inset(by: 0.5)
-                .stroke(Color.orangeGray8, lineWidth: 1)
-        )
     }
 }
 

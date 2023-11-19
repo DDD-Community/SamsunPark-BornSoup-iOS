@@ -17,7 +17,7 @@ struct CuratingContentsView: View {
     
     var body: some View {
         ZStack {
-            KFImage(URL(string: contents.thumbnail[0]))
+            KFImage(URL(string: contents.thumbnails[0]))
                 .resizable()
             
                 .clipped()
@@ -47,7 +47,7 @@ struct CuratingContentsView: View {
                         .padding(.top, 20)
                     
                     HStack(alignment: .center, spacing: 8) {
-                        Text("\(contents.area), \(contents.place)")
+                        Text("\(contents.city), \(contents.town)")
                         Rectangle()
                             .frame(width: 1, height: 16)
                         Text("\(contents.startDate) ~ \(String(contents.endDate.split(separator:".")[1])).\(String(contents.endDate.split(separator: ".")[2]))")

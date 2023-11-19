@@ -21,9 +21,7 @@ public struct MainTabBarView: View {
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             TabView {
-                HomeView(store: .init(initialState: viewStore.homeState, reducer: {
-                    Home()
-                }))
+                HomeView(store: self.store.scope(state: \.homeState, action: MainTabBar.Action.home))
                 .tabItem {
                     DesignSystemKitAsset.icNaviHomeOn.swiftUIImage.renderingMode(.template)
                     Text("홈")

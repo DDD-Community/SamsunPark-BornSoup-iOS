@@ -47,10 +47,10 @@ struct CuratingContentsView: View {
                         .padding(.top, 20)
                     
                     HStack(alignment: .center, spacing: 8) {
-                        Text("\(contents.city), \(contents.town)")
+                        Text("\(contents.city ?? ""), \(contents.town ?? "")")
                         Rectangle()
                             .frame(width: 1, height: 16)
-                        Text("\(contents.startDate) ~ \(String(contents.endDate.split(separator:".")[1])).\(String(contents.endDate.split(separator: ".")[2]))")
+                        Text("\(contents.startDate) ~ \(contents.endDate)")
                         Spacer()
                     }
                     .font(.Body1.regular)

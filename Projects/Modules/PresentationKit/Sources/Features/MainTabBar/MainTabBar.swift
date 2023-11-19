@@ -16,11 +16,15 @@ public struct MainTabBar: Reducer {
     public struct State: Equatable {
         public init() {}
         
-        var homeState: Home.State = .mock
+        var homeState: Home.State = Home.State(
+            curating: Curating.State(contentsList: []),
+            allContents: AllContents.State(contentsList: []),
+            allContentsFilter: AllContentsFilter.State(filterList: [])
+        )
     }
     
     public enum Action {
-        
+        case home(Home.Action)
     }
     
     public var body: some ReducerOf<Self> {
@@ -29,6 +33,9 @@ public struct MainTabBar: Reducer {
             default:
                 return .none
             }
+        }
+        Scope(state: \.homeState, action: /Action.home) {
+            Home()
         }
     }
 }

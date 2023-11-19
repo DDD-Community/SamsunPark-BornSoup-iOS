@@ -33,7 +33,7 @@ struct SearchResultListView: View {
                                     .foregroundColor(.main1)
                                 Divider()
                                     .frame(height: 12)
-                                Text(contents.city)
+                                Text(contents.city ?? "")
                                     .font(.Body3.regular)
                                     .foregroundColor(.orangeGray2)
                                 Divider()

@@ -45,11 +45,14 @@ public struct MainTabBarView: View {
                     Text("관람기록")
                 }
                 
-                Text("내 정보")
-                    .tabItem {
-                        DesignSystemKitAsset.icNaviMypageOn.swiftUIImage.renderingMode(.template)
-                        Text("내 정보")
-                    }
+                MyPageView(store: .init(
+                    initialState: .init(),
+                    reducer: { MyPage() }
+                ))
+                .tabItem {
+                    DesignSystemKitAsset.icNaviMypageOn.swiftUIImage.renderingMode(.template)
+                    Text("내 정보")
+                }
             }
             .tint(.orangeGray1)
             .onAppear {

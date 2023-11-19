@@ -77,10 +77,10 @@ public struct Login: Reducer {
         case didTapKakaoLoginButton
         case didTapLookAround
         
-        case successAppleLogin(String)
-        case successKakaoLogin(String)
+        case successAppleLogin(String, String)
+        case successKakaoLogin(String, String)
         
-        case loginSuccess(String)
+        case loginSuccess(String, Bool)
         
         case didTapBackButton
         case didTapDialogContinueButton
@@ -98,15 +98,19 @@ public struct Login: Reducer {
             case .didTapKakaoLoginButton:
                 return loginWithKakao()
                 
-            case .successKakaoLogin(let token):
-                return loginWithSocialToken(token, socialType: .KAKAO)
+            case let .successKakaoLogin(accessToken, idToken):
+                return loginWithSocialToken(accessToken, idToken, socialType: .KAKAO)
                 
-            case .successAppleLogin(let token):
-                return loginWithSocialToken(token, socialType: .APPLE)
+            case let .successAppleLogin(accessToken, idToken):
+                return loginWithSocialToken(accessToken, idToken, socialType: .APPLE)
                 
-            case .loginSuccess(let token):
+            case let .loginSuccess(token, isSignUpNeeded):
                 try? Keychain().set(token, key: "ACCESS_TOKEN")
-                state.path.append(.privacyPolicy(.init()))
+                if !isSignUpNeeded {
+                    return .send(.didCompleteSignup)
+                } else {
+                    state.path.append(.privacyPolicy(.init()))
+                }
                 return .none
                 
             case .didTapLookAround:
@@ -133,19 +137,27 @@ public struct Login: Reducer {
                 state.path.append(.ozWeb(.init()))
                 return .none
                 
-            case .path(.element(id: _, action: .onboardingEmail(.didTapConfirmButton))):
-                state.path.append(.onboardingNickname(.init()))
+            case let .path(.element(id: _, action: .onboardingEmail(.didTapConfirmButton(email)))):
+                state.path.append(.onboardingNickname(.init(email: email)))
                 return .none
                 
-            case .path(.element(id: _, action: .onboardingNickname(.didTapConfirmButton))):
-                state.path.append(.onboardingInterestedPlace(.init()))
+            case let .path(.element(id: _, action: .onboardingNickname(.didTapConfirmButton(email, nickname)))):
+                state.path.append(.onboardingInterestedPlace(.init(email: email, nickname: nickname)))
                 return .none
                 
-            case .path(.element(id: _, action: .onboardingInterestedPlace(.didTapConfirmButton))):
-                state.path.append(.onboardingInterestedContents(.init()))
+            case let .path(.element(id: _, action: .onboardingInterestedPlace(.didTapConfirmButton(
+                email,
+                nickname,
+                places
+            )))):
+                state.path.append(.onboardingInterestedContents(.init(
+                    email: email,
+                    nickname: nickname,
+                    places: places
+                )))
                 return .none
                 
-            case .path(.element(id: _, action: .onboardingInterestedContents(.didTapConfirmButton(let username)))):
+            case let .path(.element(id: _, action: .onboardingInterestedContents(.didTapConfirmButton(username)))):
                 state.path.append(.onboardingComplete(.init(username: username)))
                 return .none
                 
@@ -162,45 +174,55 @@ public struct Login: Reducer {
         }
     }
     
-    private func loginWithSocialToken(_ token: String, socialType: SocialType) -> Effect<Login.Action> {
+    private func loginWithSocialToken(
+        _ accessToken: String,
+        _ idToken: String,
+        socialType: SocialType
+    ) -> Effect<Login.Action> {
         return .run { send async in
-            let (token, error) = await authUseCase.loginWithSocialToken(token, socialType: socialType)
-            guard let token, !token.isEmpty else {
+            let (response, error) = await authUseCase.loginWithSocialToken(
+                accessToken,
+                idToken,
+                socialType: socialType
+            )
+            guard let token = response?.accessToken, !token.isEmpty,
+                  let isSignUpNeeded = response?.isSignUp else {
                 Logger.log(error.debugDescription, "\(Self.self)", #function)
                 return
             }
-            await send(.loginSuccess(token))
+            await send(.loginSuccess(token, isSignUpNeeded))
         }
     }
     
     private func loginWithKakao() -> Effect<Login.Action> {
         return .run { send async in
-            if let accessToken: String = await requestKakaoTokenAsync() {
-                await send(.successKakaoLogin(accessToken))
+            let (accessToken, idToken) = await requestKakaoTokenAsync()
+            if let accessToken {
+                await send(.successKakaoLogin(accessToken, idToken ?? ""))
             }
         }
     }
     
     @MainActor
-    private func requestKakaoTokenAsync() async -> String? {
+    private func requestKakaoTokenAsync() async -> (String?, String?) {
         return await withCheckedContinuation { continuation in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     guard let accessToken = oauthToken?.accessToken else {
                         Logger.log(error?.localizedDescription, "\(Login.self)", "requestKakaoTokenAsync")
-                        continuation.resume(returning: nil)
+                        continuation.resume(returning: (nil, nil))
                         return
                     }
-                    continuation.resume(returning: accessToken)
+                    continuation.resume(returning: (accessToken, oauthToken?.idToken))
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     guard let accessToken = oauthToken?.accessToken else {
                         Logger.log(error?.localizedDescription, "\(Login.self)", "requestKakaoTokenAsync")
-                        continuation.resume(returning: nil)
+                        continuation.resume(returning: (nil, nil))
                         return
                     }
-                    continuation.resume(returning: accessToken)
+                    continuation.resume(returning: (accessToken, oauthToken?.idToken))
                 }
             }
         }

@@ -12,24 +12,29 @@ public struct LargeTitleNavBar: View {
     public init(
         title: String,
         rightButtons: [ImageButtonContent] = [],
-        backButtonAction: @escaping () -> Void
+        isBackButtonEnabled: Bool = true,
+        backButtonAction: @escaping () -> Void = {}
     ) {
         self.title = title
+        self.isBackButtonEnabled = isBackButtonEnabled
         self.backButtonAction = backButtonAction
         self.rightButtons = rightButtons
     }
     
     let title: String
+    let isBackButtonEnabled: Bool
     let backButtonAction: () -> Void
     let rightButtons: [ImageButtonContent]
     
     public var body: some View {
         ZStack {
             HStack {
-                Button(action: backButtonAction, label: {
-                    Image.DK.icBack24.swiftUIImage
-                        .frame(width: 24, height: 24)
-                })
+                if isBackButtonEnabled {
+                    Button(action: backButtonAction, label: {
+                        Image.DK.icBack24.swiftUIImage
+                            .frame(width: 24, height: 24)
+                    })
+                }
                 Spacer()
             }
             HStack(spacing: 16) {
@@ -64,6 +69,7 @@ struct LargeTitleNavBar_Previews: PreviewProvider {
                 .init(image: Image.DK.icSearch24.swiftUIImage, action: {}),
                 .init(image: Image.DK.icFilter24.swiftUIImage, action: {})
             ],
+            isBackButtonEnabled: false,
             backButtonAction: {}
         )
     }

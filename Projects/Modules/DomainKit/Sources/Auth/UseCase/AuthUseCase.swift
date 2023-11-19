@@ -13,9 +13,22 @@ import DIKit
 import Foundation
 
 public protocol AuthUseCaseProtocol {
-    func loginWithSocialToken(_ token: String, socialType: SocialType) async -> (String?, Error?)
+    func loginWithSocialToken(
+        _ accessToken: String,
+        _ idToken: String,
+        socialType: SocialType
+    ) async -> (LoginResponseBody?, Error?)
     func isDuplicatedNickname(_ nickname: String) async -> (Bool, Error?)
     func isDuplicatedEmail(_ email: String) async -> (Bool, Error?)
+    
+    func signup(
+        email: String,
+        nickname: String,
+        places: String,
+        contents: String
+    ) async -> (String?, Error?)
+    
+    func resign() async -> (String?, Error?)
 }
 
 public final class AuthUseCase: AuthUseCaseProtocol {
@@ -25,15 +38,40 @@ public final class AuthUseCase: AuthUseCaseProtocol {
         self.repository = repository
     }
     
-    public func loginWithSocialToken(_ token: String, socialType: SocialType) async -> (String?, Error?) {
+    public func loginWithSocialToken(
+        _ accessToken: String,
+        _ idToken: String,
+        socialType: SocialType
+    ) async -> (LoginResponseBody?, Error?) {
         let (response, error): (LoginResponseModel?, Error?) = await repository.loginWithSocialToken(
-            token,
+            accessToken,
+            idToken,
             socialType: socialType
         )
         if response?.body == nil {
             Logger.log(response?.body.debugDescription, "\(Self.self)", #function)
         }
-        return (response?.body?.accessToken, error)
+        return (response?.body, error)
+    }
+    
+    public func signup(
+        email: String,
+        nickname: String,
+        places: String,
+        contents: String
+    ) async -> (String?, Error?) {
+        let (response, error): (SignupResponseModel?, Error?) = await repository.signup(
+            with: SignupRequestModel(
+                nickname: nickname,
+                email: email,
+                interestAreas: places,
+                interestFields: contents
+            )
+        )
+        if response?.body == nil {
+            Logger.log(response?.body.debugDescription, "\(Self.self)", #function)
+        }
+        return (response?.body, error)
     }
     
     public func isDuplicatedNickname(_ nickname: String) async -> (Bool, Error?) {
@@ -50,6 +88,14 @@ public final class AuthUseCase: AuthUseCaseProtocol {
             Logger.log(response.debugDescription, "\(Self.self)", #function)
         }
         return (response?.body == "Y", error)
+    }
+    
+    public func resign() async -> (String?, Error?) {
+        let (response, error): (ResignResponseModel?, Error?) = await repository.resign()
+        if response?.body == nil {
+            Logger.log(response.debugDescription, "\(Self.self)", #function)
+        }
+        return (response?.body, error)
     }
 }
 

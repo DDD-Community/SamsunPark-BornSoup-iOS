@@ -77,8 +77,13 @@ public struct OnboardingInterestedContentsView: View {
 #if DEBUG
 struct OnboardingInterestedContentsView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingInterestedContentsView(store: .init(
-            initialState: OnboardingInterestedContents.State(),
+        OnboardingInterestedContentsView(
+            store: .init(
+                initialState: OnboardingInterestedContents.State(
+                    email: "email",
+                    nickname: "nickname",
+                    places: "places"
+                ),
             reducer: {
                 OnboardingInterestedContents()
             })

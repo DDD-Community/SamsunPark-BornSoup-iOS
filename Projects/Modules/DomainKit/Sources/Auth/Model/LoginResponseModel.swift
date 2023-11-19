@@ -18,4 +18,5 @@ public struct LoginResponseBody: Codable {
     public var grantType: String
     public var expiresIn: Int
     public var memberId: Int
+    public var isSignUp: Bool
 }

@@ -18,7 +18,8 @@ public struct AuthRepository: AuthRepositoryProtocol {
     public init() {} 
     
     public func loginWithSocialToken(
-        _ token: String,
+        _ accessToken: String,
+        _ idToken: String,
         socialType: SocialType
     ) async -> (LoginResponseModel?, Error?) {
         return await baseAPIClient.requestJSON(
@@ -27,7 +28,8 @@ public struct AuthRepository: AuthRepositoryProtocol {
             method: .post,
             parameters: [
                 "socialType": socialType.rawValue,
-                "socialToken": token
+                "socialToken": accessToken,
+                "idToken": idToken
             ],
             headers: DefaultHeader.headers
         )
@@ -41,8 +43,19 @@ public struct AuthRepository: AuthRepositoryProtocol {
         return (nil, nil)
     }
     
-    public func signup(with model: DomainKit.SignupRequestModel) async -> (SignupResponseModel?, Error?) {
-        return (nil, nil)
+    public func signup(with model: SignupRequestModel) async -> (SignupResponseModel?, Error?) {
+        return await baseAPIClient.requestJSON(
+            APIEndpoints.signup.path,
+            type: SignupResponseModel.self,
+            method: .post,
+            parameters: [
+                "email": model.email,
+                "nickname": model.nickname,
+                "interestAreas": model.interestAreas,
+                "interestFields": model.interestFields
+            ],
+            headers: DefaultHeader.headers
+        )
     }
     
     public func checkIsNicknameDuplicated(_ nickname: String) async -> (SimpleYNResponse?, Error?) {
@@ -62,6 +75,14 @@ public struct AuthRepository: AuthRepositoryProtocol {
             method: .get,
             parameters: ["email": email],
             headers: DefaultHeader.headers
+        )
+    }
+    
+    public func resign() async -> (ResignResponseModel?, Error?) {
+        return await baseAPIClient.requestJSON(
+            APIEndpoints.resign.path,
+            type: ResignResponseModel.self,
+            method: .post
         )
     }
 }

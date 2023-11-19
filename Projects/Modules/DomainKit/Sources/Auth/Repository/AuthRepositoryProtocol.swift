@@ -9,16 +9,25 @@
 import Foundation
 
 public protocol AuthRepositoryProtocol {
-    func loginWithSocialToken(_ token: String, socialType: SocialType) async -> (LoginResponseModel?, Error?)
+    func loginWithSocialToken(
+        _ accessToken: String,
+        _ idToken: String,
+        socialType: SocialType
+    ) async -> (LoginResponseModel?, Error?)
     func logout() async -> (Bool?, Error?)
     func refreshAccessToken() async -> (LoginResponseModel?, Error?)
     func signup(with model: SignupRequestModel) async -> (SignupResponseModel?, Error?)
     func checkIsNicknameDuplicated(_ nickname: String) async -> (SimpleYNResponse?, Error?)
     func checkIsEmailDuplicated(_ email: String) async -> (SimpleYNResponse?, Error?)
+    func resign() async -> (ResignResponseModel?, Error?)
 }
 
 public class DefaultAuthRepository: AuthRepositoryProtocol {
-    public func loginWithSocialToken(_ token: String, socialType: SocialType) async -> (LoginResponseModel?, Error?) {
+    public func loginWithSocialToken(
+        _ accessToken: String,
+        _ idToken: String,
+        socialType: SocialType
+    ) async -> (LoginResponseModel?, Error?) {
         return (nil, nil)
     }
     
@@ -41,5 +50,8 @@ public class DefaultAuthRepository: AuthRepositoryProtocol {
     public func checkIsEmailDuplicated(_ email: String) async -> (SimpleYNResponse?, Error?) {
         return (nil, nil)
     }
-    
+ 
+    public func resign() async -> (ResignResponseModel?, Error?) {
+        return (nil, nil)
+    }
 }

@@ -26,7 +26,8 @@ public struct OnboardingEmail: Reducer {
     
     public enum Action: Equatable, BindableAction {
         case didTapBackButton
-        case didTapConfirmButton
+        case _didTapConfirmButton
+        case didTapConfirmButton(String)
         case binding(BindingAction<State>)
 
         case checkEmail(String)
@@ -78,6 +79,9 @@ public struct OnboardingEmail: Reducer {
                     await send(.setDuplicatedEmailInfoMessage(isDuplicatedEmail))
                     await send(.setNextButtonActivated(!isDuplicatedEmail && isValid))
                 }
+                
+            case ._didTapConfirmButton:
+                return .send(.didTapConfirmButton(state.email))
                 
             default:
                 return .none

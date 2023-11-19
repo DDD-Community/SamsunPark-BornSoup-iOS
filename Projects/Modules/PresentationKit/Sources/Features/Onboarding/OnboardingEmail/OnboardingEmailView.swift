@@ -62,7 +62,7 @@ public struct OnboardingEmailView: View {
                         title: "다음",
                         isActivated: viewStore.state.isNextButtonActivated
                     ) {
-                        viewStore.send(.didTapConfirmButton)
+                        viewStore.send(._didTapConfirmButton)
                     }
                 }
                 .padding(.horizontal, 16)

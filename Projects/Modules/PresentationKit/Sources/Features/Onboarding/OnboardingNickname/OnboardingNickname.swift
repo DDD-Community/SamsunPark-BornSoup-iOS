@@ -15,7 +15,11 @@ public struct OnboardingNickname: Reducer {
     public init() {}
     
     public struct State: Equatable {
-        public init() {}
+        public init(email: String) {
+            self.email = email
+        }
+        
+        let email: String
         
         @BindingState var nickname: String = ""
         @BindingState var isNicknameInvalid: Bool = false
@@ -26,7 +30,8 @@ public struct OnboardingNickname: Reducer {
     
     public enum Action: Equatable, BindableAction {
         case didTapBackButton
-        case didTapConfirmButton
+        case _didTapConfirmButton
+        case didTapConfirmButton(String, String)
         case binding(BindingAction<State>)
 
         case checkNickname(String)
@@ -75,6 +80,9 @@ public struct OnboardingNickname: Reducer {
                     await send(.setDuplicatedNicknameInfoMessage(isDuplicatedNickname))
                     await send(.setNextButtonActivated(!isDuplicatedNickname && isValid))
                 }
+                
+            case ._didTapConfirmButton:
+                return .send(.didTapConfirmButton(state.email, state.nickname))
                 
             default:
                 return .none

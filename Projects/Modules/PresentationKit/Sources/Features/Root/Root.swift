@@ -17,8 +17,7 @@ public struct Root: Reducer {
         case onboarding(Onboarding.State)
         case mainTabBar(MainTabBar.State)
         
-        public init() { self = .mainTabBar(.init()) }
-//        public init() { self = .onboarding(.init()) }
+        public init() { self = .onboarding(.init()) }
     }
     
     public enum Action {

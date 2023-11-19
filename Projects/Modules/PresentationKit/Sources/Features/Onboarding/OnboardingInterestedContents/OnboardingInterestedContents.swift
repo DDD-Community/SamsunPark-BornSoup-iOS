@@ -13,7 +13,15 @@ import SwiftUI
 public struct OnboardingInterestedContents: Reducer {
     
     public struct State: Equatable {
-        public init() {}
+        public init(email: String, nickname: String, places: String) {
+            self.email = email
+            self.nickname = nickname
+            self.places = places
+        }
+        
+        let email: String
+        let nickname: String
+        let places: String
         
         var initialContents: [CategoryModel] = [
             .init(name: "고궁", image: DesignSystemKitAsset.icOldPalace104.swiftUIImage),
@@ -35,6 +43,8 @@ public struct OnboardingInterestedContents: Reducer {
         case selectContent(Int)
     }
     
+    @Dependency(\.authUseCase) var authUseCase
+    
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -46,8 +56,20 @@ public struct OnboardingInterestedContents: Reducer {
                     .compactMap { state.initialContents[safe: $0] }
                     .map { $0.name }
                     .joined(separator: ",")
-                print(selectedCategories)
-                return .send(.didTapConfirmButton("🚧 유저이름 🚧"))
+                return .run { [state] send async in
+                    let (body, error) = await authUseCase.signup(
+                        email: state.email,
+                        nickname: state.nickname,
+                        places: state.places,
+                        contents: selectedCategories
+                    )
+                    guard body != nil else {
+                        print(error ?? "authUseCase.signup error")
+                        return
+                    }
+                    print("\(state.nickname)님 회원가입 완료")
+                    await send(.didTapConfirmButton(state.nickname))
+                }
                 
             case .selectContent(let contentIndex):
                 if state.selectedContents.contains(contentIndex) {

@@ -83,7 +83,12 @@ public struct OnboardingInterestedPlaceView: View {
 #if DEBUG
 struct OnboardingInterestedPlaceView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingInterestedPlaceView(store: .init(initialState: OnboardingInterestedPlace.State()) {
+        OnboardingInterestedPlaceView(store: .init(
+            initialState: OnboardingInterestedPlace.State(
+                email: "email",
+                nickname: "nickname"
+            )
+        ) {
             OnboardingInterestedPlace()
         })
     }

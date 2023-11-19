@@ -15,7 +15,13 @@ public struct OnboardingInterestedPlace: Reducer {
     public init() {}
     
     public struct State: Equatable {
-        public init() {}
+        public init(email: String, nickname: String) {
+            self.email = email
+            self.nickname = nickname
+        }
+        
+        let email: String
+        let nickname: String
         
         let initialPlaces: [String] = [
             "전체",
@@ -53,7 +59,7 @@ public struct OnboardingInterestedPlace: Reducer {
     public enum Action: Equatable {
         case didTapBackButton
         case _didTapConfirmButton
-        case didTapConfirmButton
+        case didTapConfirmButton(String, String, String)
         
         case selectPlace(Int)
     }
@@ -69,8 +75,7 @@ public struct OnboardingInterestedPlace: Reducer {
                 let places: String = selectedPlaces
                     .map { state.initialPlaces[$0] }
                     .joined(separator: ",")
-                print(places)
-                return .send(.didTapConfirmButton)
+                return .send(.didTapConfirmButton(state.email, state.nickname, places))
                 
             case .selectPlace(let index):
                 let placeCount = state.initialPlaces.count

@@ -58,7 +58,7 @@ public struct PreviewContentsView: View {
                     Text("~")
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2) +
-                    Text((viewStore.contents.endDate).split(separator: ".")[1] + "." + (viewStore.contents.endDate).split(separator: ".")[2])
+                    Text(viewStore.contents.endDate)
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2)
                 }

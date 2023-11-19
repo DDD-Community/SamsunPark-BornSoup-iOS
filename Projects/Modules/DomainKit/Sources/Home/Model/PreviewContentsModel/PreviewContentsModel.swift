@@ -34,7 +34,7 @@ public struct PreviewContentsModel: Codable, Hashable {
     )
     
     public let id: Int
-    public let seq: Int
+    public let seq: Int?
     public let title: String
     public let thumbnails: [String]
     public let startDate: String

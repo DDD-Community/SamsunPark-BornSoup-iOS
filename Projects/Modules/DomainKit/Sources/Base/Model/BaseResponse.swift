@@ -15,7 +15,7 @@ public protocol BaseResponse: Codable {
     var body: Body? { get }
 }
 
-public struct Header: Codable {
+public struct Header: Codable, Equatable {
     public let status: Int
     public let message: String
 }

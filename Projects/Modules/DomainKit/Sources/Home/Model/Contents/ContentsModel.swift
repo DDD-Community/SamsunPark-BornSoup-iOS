@@ -39,7 +39,7 @@ public struct ContentsModel: Codable, Hashable {
     public let detailContent1: String
     public let detailContent2: String
     
-    static func from(_ response: ContentsResponse) -> ContentsModel {
+    static func from(_ response: ContentsResponseBody) -> ContentsModel {
         return ContentsModel(
             id: response.id,
             seq: response.seq,

@@ -18,7 +18,7 @@ struct SearchResultListView: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewStore.contentsList, id: \.self) { contents in
                     HStack(spacing: 20) {
-                        KFImage(URL(string:  contents.thumbnail[0]))
+                        KFImage(URL(string:  contents.thumbnails[0]))
                             .frame(maxWidth: 96, maxHeight: 96)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             
@@ -33,7 +33,7 @@ struct SearchResultListView: View {
                                     .foregroundColor(.main1)
                                 Divider()
                                     .frame(height: 12)
-                                Text(contents.area)
+                                Text(contents.city)
                                     .font(.Body3.regular)
                                     .foregroundColor(.orangeGray2)
                                 Divider()

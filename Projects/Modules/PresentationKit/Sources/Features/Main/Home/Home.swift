@@ -7,6 +7,10 @@
 //
 
 import ComposableArchitecture
+import DIKit
+import DomainKit
+
+import Foundation
 
 public struct Home: Reducer {
     public enum HomeCategory: Equatable {
@@ -54,14 +58,22 @@ public struct Home: Reducer {
         case setContentsFilterSheet(isPresented: Bool)
         case setContentsFilterPresentedCompleted
         
+        case contentsListResponse(TaskResult<ContentsListResponse>)
+        
         case path(StackAction<Path.State, Path.Action>)
     }
+    
+    @Dependency(\.homeUseCase) var homeUseCase
     
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .none
+                return .run { send in
+                    await send(.contentsListResponse(TaskResult {
+                        try await self.homeUseCase.requestContentsList()
+                    }))
+                }
                 
             case .setContentsFilterSheet(isPresented: true):
                 state.isContentsFilterPresent = true
@@ -98,6 +110,24 @@ public struct Home: Reducer {
                 
             case .allContentsFilter:
                 return .none
+                
+            case let .contentsListResponse(result):
+                switch result {
+                case .success(let contentsListResponse):
+                    if let contentsList = contentsListResponse.body?.infos {
+                        let previewContentsList = contentsList.map {
+                            PreviewContentsModel.from($0)
+                        }
+                        state.curating = Curating.State(
+                            contentsList: previewContentsList
+                        )
+                        //TODO: - data 넣은 이후 다시 작업
+                        //state.allContents = AllContents.State(contentsList: T##IdentifiedArrayOf<ContentsHorizontalList.State>)
+                    }
+                    return .none
+                case .failure(let error):
+                    return .none
+                }
                 
             case .path(let action):
                 switch action {

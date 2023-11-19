@@ -12,25 +12,23 @@ public struct PreviewContentsResponse: Codable, Equatable {
     public let id: Int
     public let seq: String
     public let title: String
-    public let thumbnail: [String]
+    public let thumbnails: [String]
     public let startDate: String
     public let endDate: String
     public let category: String
-    public let area: String
-    public let place: String
-    public let ttInfoDetail: ContentsResponse
+    public let city: String
+    public let town: String
     
     enum PreviewContentsCodingKeys: String, CodingKey {
         case id
         case seq
         case title
-        case thumbnail
+        case thumbnails = "mainImgPaths"
         case startDate
         case endDate
         case category
-        case area
-        case place
-        case ttInfoDetail
+        case city
+        case town
     }
     
     public init(from decoder: Decoder) throws {
@@ -38,12 +36,11 @@ public struct PreviewContentsResponse: Codable, Equatable {
         self.id = try container.decode(Int.self, forKey: .id)
         self.seq = try container.decode(String.self, forKey: .seq)
         self.title = try container.decode(String.self, forKey: .title)
-        self.thumbnail = try container.decode([String].self, forKey: .thumbnail)
+        self.thumbnails = try container.decode([String].self, forKey: .thumbnails)
         self.startDate = try container.decode(String.self, forKey: .startDate)
         self.endDate = try container.decode(String.self, forKey: .endDate)
         self.category = try container.decode(String.self, forKey: .category)
-        self.area = try container.decode(String.self, forKey: .area)
-        self.place = try container.decode(String.self, forKey: .place)
-        self.ttInfoDetail = try container.decode(ContentsResponse.self, forKey: .ttInfoDetail)
+        self.city = try container.decode(String.self, forKey: .city)
+        self.town = try container.decode(String.self, forKey: .town)
     }
 }

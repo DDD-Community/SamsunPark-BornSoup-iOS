@@ -9,13 +9,19 @@
 import SwiftUI
 
 public struct ShortTextField: View {
-    public init(title: String, isNecessaryField: Bool) {
+    public init(
+        title: String,
+        isNecessaryField: Bool,
+        showDownIcon: Bool = true
+    ) {
         self.title = title
         self.isNecessaryField = isNecessaryField
+        self.showDownIcon = showDownIcon
     }
     
     private let title: String
     private let isNecessaryField: Bool
+    private let showDownIcon: Bool
     
     public var body: some View {
         HStack(alignment: .center, spacing: 12) {
@@ -37,8 +43,10 @@ public struct ShortTextField: View {
             
             Spacer()
             
-            DesignSystemKitAsset.icCaredown22.swiftUIImage
-                .frame(width: 22, height: 22)
+            if showDownIcon {
+                DesignSystemKitAsset.icCaredown22.swiftUIImage
+                    .frame(width: 22, height: 22)
+            }
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)

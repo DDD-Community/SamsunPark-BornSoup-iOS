@@ -39,13 +39,13 @@ public struct PreviewContentsView: View {
                     Divider()
                         .frame(maxHeight: 16)
                         .padding(.trailing, 8)
-                    Text(viewStore.contents.city)
+                    Text(viewStore.contents.city ?? "")
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2) +
                     Text(",")
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2) +
-                    Text(viewStore.contents.town)
+                    Text(viewStore.contents.town ?? "")
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2)
                 }
@@ -58,7 +58,7 @@ public struct PreviewContentsView: View {
                     Text("~")
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2) +
-                    Text((viewStore.contents.endDate).split(separator: ".")[1] + "." + (viewStore.contents.endDate).split(separator: ".")[2])
+                    Text(viewStore.contents.endDate)
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2)
                 }

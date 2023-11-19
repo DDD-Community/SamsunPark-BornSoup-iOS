@@ -118,14 +118,32 @@ public struct Home: Reducer {
                         let previewContentsList = contentsList.map {
                             PreviewContentsModel.from($0)
                         }
+                        print(previewContentsList[1].thumbnails[0])
+                        let settedContentsList = Set(previewContentsList.map {
+                            $0.category
+                        })
                         state.curating = Curating.State(
                             contentsList: previewContentsList
                         )
-                        //TODO: - data 넣은 이후 다시 작업
-                        //state.allContents = AllContents.State(contentsList: T##IdentifiedArrayOf<ContentsHorizontalList.State>)
+                        state.allContentsFilter = AllContentsFilter.State(filterList: settedContentsList.map {
+                            ContentsHorizontalList.State(contentsType: $0, contents: [])
+                        })
+                        settedContentsList.forEach { category in
+                            state.allContents.contentsList.append(
+                                ContentsHorizontalList.State(
+                                    contentsType: category,
+                                    contents: [] + previewContentsList.filter {
+                                        $0.category == category
+                                    }.map {
+                                        PreviewContents.State(contents: $0)
+                                    }
+                                )
+                            )
+                        }
                     }
                     return .none
                 case .failure(let error):
+                    print(error)
                     return .none
                 }
                 

@@ -10,14 +10,14 @@ import Foundation
 
 public struct PreviewContentsResponse: Codable, Equatable {
     public let id: Int
-    public let seq: String
+    public let seq: Int?
     public let title: String
     public let thumbnails: [String]
     public let startDate: String
     public let endDate: String
     public let category: String
-    public let city: String
-    public let town: String
+    public let city: String?
+    public let town: String?
     
     enum PreviewContentsCodingKeys: String, CodingKey {
         case id
@@ -34,13 +34,13 @@ public struct PreviewContentsResponse: Codable, Equatable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PreviewContentsCodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
-        self.seq = try container.decode(String.self, forKey: .seq)
+        self.seq = try container.decodeIfPresent(Int.self, forKey: .seq)
         self.title = try container.decode(String.self, forKey: .title)
         self.thumbnails = try container.decode([String].self, forKey: .thumbnails)
         self.startDate = try container.decode(String.self, forKey: .startDate)
         self.endDate = try container.decode(String.self, forKey: .endDate)
         self.category = try container.decode(String.self, forKey: .category)
-        self.city = try container.decode(String.self, forKey: .city)
-        self.town = try container.decode(String.self, forKey: .town)
+        self.city = try container.decodeIfPresent(String.self, forKey: .city)
+        self.town = try container.decodeIfPresent(String.self, forKey: .town)
     }
 }

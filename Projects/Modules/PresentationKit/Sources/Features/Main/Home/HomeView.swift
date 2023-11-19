@@ -96,6 +96,9 @@ public struct HomeView: View {
                         )
                     }
                 )
+                .onAppear {
+                    viewStore.send(.onAppear)
+                }
             }
         } destination: {
             switch $0 {

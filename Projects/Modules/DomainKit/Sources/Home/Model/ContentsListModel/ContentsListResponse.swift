@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+public struct ContentsListResponse: BaseResponse, Equatable {
+    public let header: Header
+    public let body: ContentsListResponseBody?
+}
+
+public struct ContentsListResponseBody: Codable, Equatable {
+    public let infos: [PreviewContentsResponse]
+    public let size: Int
+}

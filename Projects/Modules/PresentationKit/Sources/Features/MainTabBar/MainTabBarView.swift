@@ -61,13 +61,13 @@ public struct MainTabBarView: View {
     }
 }
 
-#if DEBUG
-struct MainTabBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabBarView(store: Store(initialState: MainTabBar.State()) {
-            MainTabBar()
-        })
-    }
-}
-
-#endif
+//#if DEBUG
+//struct MainTabBarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainTabBarView(store: Store(initialState: MainTabBar.State()) {
+//            MainTabBar()
+//        })
+//    }
+//}
+//
+//#endif

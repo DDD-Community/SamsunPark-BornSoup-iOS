@@ -71,7 +71,7 @@ public struct Login: Reducer {
         }
     }
     
-    public enum Action {
+    public enum Action: Equatable {
         case path(StackAction<Path.State, Path.Action>)
         
         case didTapKakaoLoginButton

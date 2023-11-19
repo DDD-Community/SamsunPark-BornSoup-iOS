@@ -22,51 +22,67 @@ public struct MyPageView: View {
                 VStack {
                     LargeTitleNavBar(title: "내 정보", isBackButtonEnabled: false)
                         .padding(.bottom, 32)
-                    HStack(alignment: .center) {
-                        // Space Between
-                        HStack(alignment: .center, spacing: 8) {
-                            Image("")
-                                .frame(width: 69, height: 69)
-                                .background(Color(red: 1, green: 0.84, blue: 0.25).opacity(0.3))
-                            
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(viewStore.state.userInfo?.nickname ?? "")
-                                    .font(Font.Title1.semiBold)
-                                    .foregroundColor(Color(red: 1, green: 0.56, blue: 0)) + Text("님")
-                                    .font(Font.Title1.semiBold)
-                                    .foregroundColor(Color.orangeGray1)
+                    if viewStore.state.isSignedIn {
+                        HStack(alignment: .center) {
+                            HStack(alignment: .center, spacing: 8) {
+                                DesignSystemKitAsset.icDefaultProfile.swiftUIImage
+                                    .frame(width: 72, height: 72)
                                 
-                                //                            HStack(alignment: .center, spacing: 4) {
-                                //                                DesignSystemKitAsset.icInsta24.swiftUIImage
-                                //                                    .frame(width: 24, height: 24)
-                                //
-                                //                                Text("insta_ID_placeholder")
-                                //                                    .font(Font.Body1.regular)
-                                //                                    .foregroundColor(Color.orangeGray5)
-                                //                            }
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(viewStore.state.userInfo?.nickname ?? "")
+                                        .font(Font.Title1.semiBold)
+                                        .foregroundColor(Color(red: 1, green: 0.56, blue: 0)) + Text("님")
+                                        .font(Font.Title1.semiBold)
+                                        .foregroundColor(Color.orangeGray1)
+                                    
+                                    //                            HStack(alignment: .center, spacing: 4) {
+                                    //                                DesignSystemKitAsset.icInsta24.swiftUIImage
+                                    //                                    .frame(width: 24, height: 24)
+                                    //
+                                    //                                Text("insta_ID_placeholder")
+                                    //                                    .font(Font.Body1.regular)
+                                    //                                    .foregroundColor(Color.orangeGray5)
+                                    //                            }
+                                }
                             }
+                            
+                            Spacer()
+                            
+                            DesignSystemKitAsset.icSetting24.swiftUIImage
+                                .renderingMode(.template)
+                                .foregroundStyle(Color.orangeGray6)
+                                .frame(width: 24, height: 24)
+                                .onTapGesture {
+                                    viewStore.send(.didTapModifyProfileButton)
+                                }
                         }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 30)
+                        .background(.white)
                         
                         Spacer()
-                        
-                        DesignSystemKitAsset.icSetting24.swiftUIImage
-                            .renderingMode(.template)
-                            .foregroundStyle(Color.orangeGray6)
-                            .frame(width: 24, height: 24)
-                            .onTapGesture {
-                                viewStore.send(.didTapModifyProfileButton)
-                            }
+                    } else {
+                        Text("로그인이 필요합니다.")
+                        PrimaryButton(title: "로그인") {
+                            viewStore.send(.didTapLoginButton)
+                        }
+                        .padding(.horizontal, 16)
+                        Spacer()
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 30)
-                    .background(.white)
-                    
-                    Spacer()
                 }
                 .onAppear {
                     viewStore.send(.onAppear)
                 }
             }
+            .fullScreenCover(
+                store: store.scope(
+                    state: \.$login,
+                    action: MyPage.Action.login
+                ),
+                content: {
+                    LoginView(store: $0)
+                }
+            )
         } destination: { (state: MyPage.Path.State) in
             switch state {
             case .modifyProfile:

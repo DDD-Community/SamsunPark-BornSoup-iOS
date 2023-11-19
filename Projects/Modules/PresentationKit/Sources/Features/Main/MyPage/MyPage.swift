@@ -19,16 +19,19 @@ public struct MyPage: Reducer {
         var userInfo: MyPageInfoBody?
         var isSignedIn: Bool = false
         
+        @PresentationState var login: Login.State?
         var path: StackState<Path.State> = .init()
     }
     
     public enum Action: Equatable {
+        case login(PresentationAction<Login.Action>)
         case path(StackAction<Path.State, Path.Action>)
         
         case onAppear
         case failedToFetchUserInfo
         
         case didTapModifyProfileButton
+        case didTapLoginButton
         
         case setUserInfo(MyPageInfoBody)
     }
@@ -80,13 +83,28 @@ public struct MyPage: Reducer {
                 }
                 return .none
                 
+            case .didTapLoginButton:
+                state.login = .init()
+                return .none
+                
             case .path(.element(id: _, action: .modifyProfile(.resignCompleted))):
                 state.isSignedIn = false
                 return .none
                 
+            case .login(.presented(.didTapDialogContinueButton)):
+                state.login = nil
+                return .send(.onAppear)
+                
+            case .login(.presented(.didCompleteSignup)):
+                state.login = nil
+                return .send(.onAppear)
+                
             default:
                 return .none
             }
+        }
+        .ifLet(\.$login, action: /Action.login) {
+            Login()
         }
         .forEach(\.path, action: /Action.path) {
             Path()

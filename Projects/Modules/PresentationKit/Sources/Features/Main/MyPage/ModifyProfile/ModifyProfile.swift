@@ -8,6 +8,7 @@
 
 import ComposableArchitecture
 import DomainKit
+import KeychainAccess
 
 public struct ModifyProfile: Reducer {
     public init() {}
@@ -18,12 +19,17 @@ public struct ModifyProfile: Reducer {
         }
         
         var userInfo: MyPageInfoBody
+        
+        var showLogoutPopup: Bool = false
     }
     
     public enum Action: Equatable {
         case didTapBackButton
         case didTapLogout
+        case didTapConfirmLogout
+        case didTapCancelLogout
         case didTapResign
+        case _didTapResign
         
         case resignCompleted
     }
@@ -40,10 +46,23 @@ public struct ModifyProfile: Reducer {
                 }
                 
             case .didTapLogout:
-                print("logout")
+                state.showLogoutPopup = true
+                return .none
+                
+            case .didTapConfirmLogout:
+                try? Keychain().remove("ACCESS_TOKEN")
+                return .run { _ async in
+                    await self.dismiss()
+                }
+                
+            case .didTapCancelLogout:
+                state.showLogoutPopup = false
                 return .none
                 
             case .didTapResign:
+                return .none
+                
+            case ._didTapResign:
                 return .run { send async in
                     let (response, error) = await authUseCase.resign()
                     if let error {

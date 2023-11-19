@@ -7,6 +7,7 @@
 //
 
 import ComposableArchitecture
+import KeychainAccess
 
 import Foundation
 
@@ -17,7 +18,13 @@ public struct Root: Reducer {
         case onboarding(Onboarding.State)
         case mainTabBar(MainTabBar.State)
         
-        public init() { self = .onboarding(.init()) }
+        public init() {
+            if let _ = try? Keychain().get("ACCESS_TOKEN") {
+                self = .mainTabBar(.init())
+            } else {
+                self = .onboarding(.init())
+            }
+        }
     }
     
     public enum Action {

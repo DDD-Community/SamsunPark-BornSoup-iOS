@@ -19,7 +19,6 @@ struct CuratingContentsView: View {
         ZStack {
             KFImage(URL(string: contents.thumbnails[0]))
                 .resizable()
-            
                 .clipped()
                 .clipShape(
                     RoundedRectangle(

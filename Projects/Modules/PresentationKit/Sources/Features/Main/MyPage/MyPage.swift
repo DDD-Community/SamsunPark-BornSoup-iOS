@@ -39,15 +39,20 @@ public struct MyPage: Reducer {
     public struct Path: Reducer {
         public enum State: Equatable {
             case modifyProfile(ModifyProfile.State)
+            case resign(Resign.State)
         }
         
         public enum Action: Equatable {
             case modifyProfile(ModifyProfile.Action)
+            case resign(Resign.Action)
         }
         
         public var body: some ReducerOf<Self> {
             Scope(state: /State.modifyProfile, action: /Action.modifyProfile) {
                 ModifyProfile()
+            }
+            Scope(state: /State.resign, action: /Action.resign) {
+                Resign()
             }
         }
     }
@@ -89,6 +94,15 @@ public struct MyPage: Reducer {
                 
             case .path(.element(id: _, action: .modifyProfile(.resignCompleted))):
                 state.isSignedIn = false
+                return .none
+                
+            case .path(.element(id: _, action: .modifyProfile(.didTapResign))):
+                state.path.append(.resign(.init()))
+                return .none
+                
+            case .path(.element(id: _, action: .resign(.didCompletedResigning))):
+                _ = state.path.popLast()
+                _ = state.path.popLast()
                 return .none
                 
             case .login(.presented(.didTapDialogContinueButton)):

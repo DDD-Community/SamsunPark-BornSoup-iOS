@@ -91,6 +91,12 @@ public struct MyPageView: View {
                      action: MyPage.Path.Action.modifyProfile,
                      then: ModifyProfileView.init(store:)
                 )
+            case .resign:
+                CaseLet(
+                    /MyPage.Path.State.resign,
+                     action: MyPage.Path.Action.resign,
+                     then: ResignView.init(store:)
+                )
             }
         }
     }

@@ -29,7 +29,6 @@ public struct ModifyProfile: Reducer {
         case didTapConfirmLogout
         case didTapCancelLogout
         case didTapResign
-        case _didTapResign
         
         case resignCompleted
     }
@@ -59,24 +58,13 @@ public struct ModifyProfile: Reducer {
                 state.showLogoutPopup = false
                 return .none
                 
-            case .didTapResign:
-                return .none
-                
-            case ._didTapResign:
-                return .run { send async in
-                    let (response, error) = await authUseCase.resign()
-                    if let error {
-                        print(error)
-                        return
-                    }
-                    print(response ?? "")
-                    await send(.resignCompleted)
-                }
-                
             case .resignCompleted:
                 return .run { _ async in
                     await self.dismiss()
                 }
+                
+            default:
+                return .none
             }
         }
     }

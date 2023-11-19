@@ -9,6 +9,11 @@
 import Foundation
 
 public struct ContentsResponse: Codable, Equatable {
+    public let header: Header
+    public var body: ContentsResponseBody
+}
+
+public struct ContentsResponseBody: Codable, Equatable {
     public let id: Int
     public let seq: String
     public let mainImg: [String]

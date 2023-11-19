@@ -29,6 +29,7 @@ public final class AppDIContainer {
     // MARK: - UseCases
     private func registerUseCases() {
         registerAuthUseCase()
+        registerHomeUseCase()
     }
     
     private func registerAuthUseCase() {
@@ -36,13 +37,26 @@ public final class AppDIContainer {
             AuthUseCase(repository: resolver.resolve(AuthRepositoryProtocol.self)!)
         }
     }
+
+    private func registerHomeUseCase() {
+        diContainer.register(HomeUseCaseProtocol.self) { resolver in
+            HomeUseCase(repository: resolver.resolve(HomeRepositoryProtocol.self)!)
+        }
+    }
     
     // MARK: - Repositories
     private func registerRepositories() {
         registerAuthRepository()
+        registerHomeRepository()
     }
     
     private func registerAuthRepository() {
         diContainer.register(AuthRepositoryProtocol.self) { _ in AuthRepository() }
+    }
+    
+    private func registerHomeRepository() {
+        diContainer.register(HomeRepositoryProtocol.self) { _ in
+            HomeRepository()
+        }
     }
 }

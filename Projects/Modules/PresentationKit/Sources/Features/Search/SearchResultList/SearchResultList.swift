@@ -1,38 +1,36 @@
 //
-//  Curating.swift
+//  SearchResult.swift
 //  PresentationKit
 //
-//  Created by 신의연 on 2023/09/30.
+//  Created by 신의연 on 11/12/23.
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
-import ComposableArchitecture
 
 import Foundation
+import ComposableArchitecture
 import DomainKit
 
-public struct Curating: Reducer {
+public struct SearchResultList: Reducer {
     public struct State: Equatable {
-        var contentsList: [PreviewContentsModel] = []
+        var contentsList: [PreviewContentsModel]
         
-        public init(contentsList: [PreviewContentsModel] = []) {
+        public init(
+            contentsList: [PreviewContentsModel]
+        ) {
             self.contentsList = contentsList
         }
     }
     
-    public enum Action: Equatable {
-        case onAppear
+    public enum Action {
+        case cellTapped
     }
     
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
-            case .onAppear:
+            case .cellTapped:
                 return .none
             }
         }
     }
-}
-
-extension Curating.State {
-    
 }

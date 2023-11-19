@@ -59,6 +59,7 @@ public struct ContentsHorizontalListView: View {
         ContentsHorizontalListView(
             store: Store(
                 initialState: ContentsHorizontalList.State(
+                    contentsType: .palace,
                     contents: [
                         PreviewContents.State(contents: PreviewContentsModel.mock),
                         PreviewContents.State(contents: PreviewContentsModel.mock1),

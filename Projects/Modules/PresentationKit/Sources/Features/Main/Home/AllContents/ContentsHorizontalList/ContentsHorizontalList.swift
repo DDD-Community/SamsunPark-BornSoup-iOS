@@ -12,10 +12,15 @@ import ComposableArchitecture
 import DomainKit
 
 public struct ContentsHorizontalList: Reducer {
-    public struct State: Equatable, Identifiable {
+    public struct State: Hashable, Identifiable {
         public let id = UUID()
         public var contentsType: ContentsType = .palace
         public var contents: IdentifiedArrayOf<PreviewContents.State> = []
+        
+        public init(contentsType: ContentsType, contents: IdentifiedArrayOf<PreviewContents.State>) {
+            self.contentsType = contentsType
+            self.contents = contents
+        }
     }
     
     public enum Action: Equatable {
@@ -41,6 +46,7 @@ public struct ContentsHorizontalList: Reducer {
 
 extension ContentsHorizontalList.State {
     public static let placeHolder = ContentsHorizontalList.State(
+        contentsType: .palace,
         contents: [
             PreviewContents.State.placeHolder,
             PreviewContents.State.placeHolder,

@@ -17,7 +17,7 @@ public struct PreviewContentsView: View {
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 0) {
-                KFImage(URL(string: viewStore.contents.thumbnail[0]))
+                KFImage(URL(string: viewStore.contents.thumbnails[0]))
                     .resizable()
                     .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
                     .frame(width: 160, height: 226)
@@ -39,13 +39,13 @@ public struct PreviewContentsView: View {
                     Divider()
                         .frame(maxHeight: 16)
                         .padding(.trailing, 8)
-                    Text(viewStore.contents.area)
+                    Text(viewStore.contents.city)
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2) +
                     Text(",")
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2) +
-                    Text(viewStore.contents.place)
+                    Text(viewStore.contents.town)
                         .font(.Body1.regular)
                         .foregroundColor(.orangeGray2)
                 }

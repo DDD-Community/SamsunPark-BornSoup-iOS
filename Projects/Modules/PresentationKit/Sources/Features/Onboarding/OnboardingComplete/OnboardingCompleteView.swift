@@ -31,7 +31,11 @@ public struct OnboardingCompleteView: View {
                         .padding(.bottom, 12)
                         .padding(.top, 85)
                     
-                    Text("오늘부터 \(viewStore.state.username)님의 취향에 맞춰\n전통문화콘텐츠를 큐레이팅 해드릴게요!")
+                    Text("오늘부터 ")
+                        .font(Font.Title2.regular)
+                        .foregroundColor(Color.orangeGray4) + Text(viewStore.state.username)
+                        .font(Font.Title2.semiBold)
+                        .foregroundColor(Color.orangeGray4) + Text("님의 취향에 맞춰\n전통문화콘텐츠를 큐레이팅 해드릴게요!")
                         .font(Font.Title2.regular)
                         .foregroundColor(Color.orangeGray4)
                     Spacer()

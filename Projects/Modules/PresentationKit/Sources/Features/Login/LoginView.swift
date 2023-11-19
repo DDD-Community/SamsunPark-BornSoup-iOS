@@ -15,8 +15,8 @@ import SwiftUI
 
 fileprivate enum Constants {
     enum Sizes {
-        static let logoWidth: CGFloat = 90.0
-        static let logoHeight: CGFloat = 90.0
+        static let logoWidth: CGFloat = 58.0
+        static let logoHeight: CGFloat = 58.0
         static let snsLoginLogoSize: CGFloat = 18.0
         static let snsLoginHorizontalSpace: CGFloat = 10.0
         static let bottomPaddingOfLogo: CGFloat = 16.0
@@ -31,8 +31,7 @@ fileprivate enum Constants {
         
     }
     enum Strings {
-        static let appName: String = "오 · 전"
-        static let appSubtitle: String = "오늘을 전통문화로 채우다"
+        static let appSubtitle: String = "오롯이 전하는 \n전통문화 큐레이션"
         static let kakaoLogin: String = "카카오로 로그인"
         static let appleLogin: String = "Apple로 로그인"
         static let lookAround: String = "둘러보기"
@@ -56,19 +55,23 @@ public struct LoginView: View {
                     VStack(spacing: 0) {
                         VStack {
                             Spacer()
-                            Image.DK.icOzeonLogo.swiftUIImage
-                                .resizable()
-                                .frame(
-                                    width: Constants.Sizes.logoWidth,
-                                    height: Constants.Sizes.logoHeight
-                                )
-                                .padding(.bottom, Constants.Sizes.bottomPaddingOfLogo)
-                            Text(Constants.Strings.appName)
-                                .font(Font.Head1.semiBold)
-                                .padding(.bottom, Constants.Sizes.textBottomPadding)
+                            HStack(alignment: .center, spacing: 4.45265) {
+                                Image.DK.icOzeonLogo.swiftUIImage
+                                    .resizable()
+                                    .frame(
+                                        width: Constants.Sizes.logoWidth,
+                                        height: Constants.Sizes.logoHeight
+                                    )
+                                    .padding(.bottom, Constants.Sizes.bottomPaddingOfLogo)
+                                DesignSystemKitAsset.ojeonTitleLogo.swiftUIImage
+                                    .scaledToFill()
+                                    .frame(width: 110, height: 58)
+                                    .padding(.bottom, Constants.Sizes.textBottomPadding)
+                            }
                             Text(Constants.Strings.appSubtitle)
-                                .font(Font.Body1.regular)
-                                .foregroundStyle(Color.orangeGray5)
+                                .font(Font.Head2.semiBold)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color.orangeGray3)
                             Spacer()
                         }
                         

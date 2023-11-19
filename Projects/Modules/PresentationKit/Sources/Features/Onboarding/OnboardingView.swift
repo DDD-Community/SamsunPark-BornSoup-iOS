@@ -30,14 +30,20 @@ public struct OnboardingView: View {
         self.store = store
     }
     
+    private let onboardingImages: [Image] = [
+        DesignSystemKitAsset.icOnboarding01.swiftUIImage,
+        DesignSystemKitAsset.icOnboarding02.swiftUIImage,
+        DesignSystemKitAsset.icOnboarding03.swiftUIImage
+    ]
+    
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             GeometryReader { geometry in
                 VStack(alignment: .center, spacing: 0) {
-                    Rectangle()
+                    self.onboardingImages[viewStore.state.contentStep]
                         .foregroundColor(.clear)
                         .frame(width: geometry.size.width, height: geometry.size.width)
-                        .background(Color.orangeGray6)
+                        .background(Color.white)
                         .padding(.vertical, Constants.Sizes.imageVerticalPadding)
                     
                     PageIndicator(

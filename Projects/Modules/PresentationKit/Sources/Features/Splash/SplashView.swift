@@ -19,10 +19,6 @@ fileprivate enum Constants {
         static let afterAnimationYOffsetOfLogo: CGFloat = 0
         static let textBottomPadding: CGFloat = 12.0
     }
-    enum Strings {
-        static let appName: String = "오 · 전"
-        static let appSubtitle: String = "오늘을 전통문화로 채우다"
-    }
 }
 
 public struct SplashView: View {
@@ -49,14 +45,7 @@ public struct SplashView: View {
                     )
                     .padding(.bottom, Constants.Sizes.bottomPaddingOfLogo)
                 
-                Text(Constants.Strings.appName)
-                    .font(Font.Head1.semiBold)
-                    .padding(.bottom, Constants.Sizes.textBottomPadding)
-                    .opacity(viewStore.isTextHidden ? 0 : 1)
-                
-                Text(Constants.Strings.appSubtitle)
-                    .font(Font.Body1.regular)
-                    .foregroundStyle(Color.orangeGray5)
+                DesignSystemKitAsset.ojeonTitleLogo.swiftUIImage
                     .opacity(viewStore.isTextHidden ? 0 : 1)
             }
             .onAppear {

@@ -97,6 +97,8 @@ public struct ResignView: View {
                     }
                 }
             }
+            .toolbar(.hidden, for: .navigationBar)
+            .toolbar(.hidden, for: .tabBar)
         }
     }
 }

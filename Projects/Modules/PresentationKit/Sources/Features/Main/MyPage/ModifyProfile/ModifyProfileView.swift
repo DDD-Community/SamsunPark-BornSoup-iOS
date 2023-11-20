@@ -57,6 +57,7 @@ public struct ModifyProfileView: View {
                     .frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
                 .toolbar(.hidden, for: .navigationBar)
+                .toolbar(.hidden, for: .tabBar)
                 
                 if viewStore.state.showLogoutPopup {
                     OZDialogView(title: "로그아웃 하시겠습니까?", cancelString: "취소", confirmString: "로그아웃") {

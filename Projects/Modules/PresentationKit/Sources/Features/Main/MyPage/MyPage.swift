@@ -63,6 +63,7 @@ public struct MyPage: Reducer {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.path.removeAll()
                 return .run { send async in
                     let (body, error) = await myPageUseCase.fetchMyInfo()
                     guard let body else {

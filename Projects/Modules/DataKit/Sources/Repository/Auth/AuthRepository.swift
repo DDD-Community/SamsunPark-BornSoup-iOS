@@ -82,7 +82,8 @@ public struct AuthRepository: AuthRepositoryProtocol {
         return await baseAPIClient.requestJSON(
             APIEndpoints.resign.path,
             type: ResignResponseModel.self,
-            method: .post
+            method: .post,
+            headers: DefaultHeader.headers
         )
     }
 }

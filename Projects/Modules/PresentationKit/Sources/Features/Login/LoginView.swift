@@ -85,7 +85,7 @@ public struct LoginView: View {
                             request.requestedScopes = [.fullName, .email]
                         } onCompletion: { result in
                             self.handleAppleLoginResult(result: result) { (identityToken: String) in
-                                viewStore.send(.successAppleLogin("", identityToken))
+                                viewStore.send(.successAppleLogin(identityToken, ""))
                             }
                         }
                         .frame(height: 50)

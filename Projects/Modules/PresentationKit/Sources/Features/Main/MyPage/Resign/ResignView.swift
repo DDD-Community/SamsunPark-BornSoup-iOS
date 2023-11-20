@@ -49,9 +49,9 @@ public struct ResignView: View {
                           .frame(maxWidth: .infinity, alignment: .topLeading)
                     }
                     .padding(16)
-                    .frame(width: 361, alignment: .topLeading)
                     .background(Color(red: 0.98, green: 0.97, blue: 0.95))
                     .cornerRadius(10)
+                    .padding(.horizontal, 16)
                     
                     VStack(alignment: .leading, spacing: 16) {
                         // Title-1 (20px)/SemiBold/Trimmed
@@ -70,9 +70,9 @@ public struct ResignView: View {
                           .frame(maxWidth: .infinity, alignment: .topLeading)
                     }
                     .padding(16)
-                    .frame(width: 361, alignment: .topLeading)
                     .background(Color(red: 0.98, green: 0.97, blue: 0.95))
                     .cornerRadius(10)
+                    .padding(.horizontal, 16)
                     
                     Spacer()
                     

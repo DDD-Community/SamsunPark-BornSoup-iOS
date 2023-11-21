@@ -6,10 +6,10 @@ let appName: String = "OZeon"
 
 let infoPlist: [String: InfoPlist.Value] = [
     "CFBundleExecutable": "$(EXECUTABLE_NAME)",
-    "CFBundleShortVersionString": "1.0",
+    "CFBundleShortVersionString": "1.0.1",
     "CFBundleVersion": "1",
     "CFBundleIdentifier": "$(PRODUCT_BUNDLE_IDENTIFIER)",
-    "CFBundleDisplayName": "오늘의 전통",
+    "CFBundleDisplayName": "오전",
     "UIMainStoryboardFile": "",
     "UILaunchStoryboardName": "LaunchScreen",
     "CFBundleIcons": [

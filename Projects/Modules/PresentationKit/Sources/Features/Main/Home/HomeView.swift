@@ -48,11 +48,11 @@ public struct HomeView: View {
                             }
                         }
                         Spacer()
-                        Button {
-                            viewStore.send(.searchButtonTapped)
-                        } label: {
-                            DesignSystemKitAsset.icSearch24.swiftUIImage
-                        }
+//                        Button {
+//                            viewStore.send(.searchButtonTapped)
+//                        } label: {
+//                            DesignSystemKitAsset.icSearch24.swiftUIImage
+//                        }
                         if viewStore.currentCategory == .allContents {
                             Button {
                                 viewStore.send(.setContentsFilterSheet(isPresented: true))

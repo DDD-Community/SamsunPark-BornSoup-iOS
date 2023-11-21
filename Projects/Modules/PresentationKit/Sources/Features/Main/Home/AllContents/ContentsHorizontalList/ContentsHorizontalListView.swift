@@ -26,9 +26,9 @@ public struct ContentsHorizontalListView: View {
                             .foregroundColor(.orangeGray1)
                     }
                     Spacer()
-                    Text(Constants.primaryButtonTitle)
-                        .font(.Body1.regular)
-                        .foregroundColor(.orangeGray5)
+//                    Text(Constants.primaryButtonTitle)
+//                        .font(.Body1.regular)
+//                        .foregroundColor(.orangeGray5)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 30)

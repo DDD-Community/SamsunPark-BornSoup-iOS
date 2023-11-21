@@ -75,13 +75,14 @@ public struct LoginView: View {
                             Spacer()
                         }
                         
-                        SNSLoginButton(snsType: .KAKAO) {
-                            viewStore.send(.didTapKakaoLoginButton)
-                        }
-                        .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
-                        .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
+//                        SNSLoginButton(snsType: .KAKAO) {
+//                            viewStore.send(.didTapKakaoLoginButton)
+//                        }
+//                        .padding(.horizontal, Constants.Sizes.containerHorizontalPadding)
+//                        .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
                         
                         SignInWithAppleButton(.continue) { request in
+                            request.requestedScopes = [.fullName, .email]
                         } onCompletion: { result in
                             self.handleAppleLoginResult(result: result) { (identityToken: String) in
                                 viewStore.send(.successAppleLogin(identityToken, ""))

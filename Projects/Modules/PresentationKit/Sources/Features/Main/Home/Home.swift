@@ -115,10 +115,12 @@ public struct Home: Reducer {
                 switch result {
                 case .success(let contentsListResponse):
                     if let contentsList = contentsListResponse.body?.infos {
+                        state.curating.contentsList.removeAll()
+                        state.allContents.contentsList.removeAll()
+                        state.allContentsFilter.filterList.removeAll()
                         let previewContentsList = contentsList.map {
                             PreviewContentsModel.from($0)
                         }
-                        print(previewContentsList[1].thumbnails[0])
                         let settedContentsList = Set(previewContentsList.map {
                             $0.category
                         })

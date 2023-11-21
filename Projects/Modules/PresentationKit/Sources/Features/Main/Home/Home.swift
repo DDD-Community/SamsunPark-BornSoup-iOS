@@ -106,6 +106,7 @@ public struct Home: Reducer {
                 
             case let .allContentsFilter(.move(source, destination)):
                 state.allContents.contentsList.move(fromOffsets: source, toOffset: destination)
+                state.allContentsFilter.filterList.move(fromOffsets: source, toOffset: destination)
                 return .none
                 
             case .allContentsFilter:

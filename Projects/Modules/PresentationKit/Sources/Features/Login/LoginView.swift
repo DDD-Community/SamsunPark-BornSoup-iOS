@@ -82,7 +82,6 @@ public struct LoginView: View {
                         .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
                         
                         SignInWithAppleButton(.continue) { request in
-                            request.requestedScopes = [.fullName, .email]
                         } onCompletion: { result in
                             self.handleAppleLoginResult(result: result) { (identityToken: String) in
                                 viewStore.send(.successAppleLogin(identityToken, ""))

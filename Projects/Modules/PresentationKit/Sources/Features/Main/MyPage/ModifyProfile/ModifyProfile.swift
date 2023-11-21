@@ -49,7 +49,7 @@ public struct ModifyProfile: Reducer {
                 return .none
                 
             case .didTapConfirmLogout:
-                try? Keychain().remove("ACCESS_TOKEN")
+                try? Keychain().removeAll()
                 return .run { _ async in
                     await self.dismiss()
                 }

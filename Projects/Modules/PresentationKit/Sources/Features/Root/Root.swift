@@ -19,7 +19,8 @@ public struct Root: Reducer {
         case mainTabBar(MainTabBar.State)
         
         public init() {
-            if let _ = try? Keychain().get("ACCESS_TOKEN") {
+            if let token = try? Keychain().get("ACCESS_TOKEN"), !token.isEmpty {
+                print(token)
                 self = .mainTabBar(.init())
             } else {
                 self = .onboarding(.init())

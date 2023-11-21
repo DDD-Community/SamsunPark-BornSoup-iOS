@@ -27,20 +27,20 @@ public struct MainTabBarView: View {
                     Text("홈")
                 }
                 
-                Text("주변 탐색")
-                    .tabItem {
-                        DesignSystemKitAsset.icNaviLocationOn.swiftUIImage.renderingMode(.template)
-                        Text("주변 탐색")
-                    }
-                
-                HistoryRootView(store: .init(
-                    initialState: .init(),
-                    reducer: { HistoryRoot() }
-                ))
-                .tabItem {
-                    DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
-                    Text("관람기록")
-                }
+//                Text("주변 탐색")
+//                    .tabItem {
+//                        DesignSystemKitAsset.icNaviLocationOn.swiftUIImage.renderingMode(.template)
+//                        Text("주변 탐색")
+//                    }
+//                
+//                HistoryRootView(store: .init(
+//                    initialState: .init(),
+//                    reducer: { HistoryRoot() }
+//                ))
+//                .tabItem {
+//                    DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
+//                    Text("관람기록")
+//                }
                 
                 MyPageView(store: .init(
                     initialState: .init(),

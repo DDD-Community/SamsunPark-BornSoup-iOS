@@ -63,7 +63,7 @@ public struct MyPage: Reducer {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.path.removeAll()
+                state.path = .init()
                 return .run { send async in
                     let (body, error) = await myPageUseCase.fetchMyInfo()
                     guard let body else {
@@ -93,18 +93,23 @@ public struct MyPage: Reducer {
                 state.login = .init()
                 return .none
                 
-            case .path(.element(id: _, action: .modifyProfile(.resignCompleted))):
-                state.isSignedIn = false
-                return .none
-                
-            case .path(.element(id: _, action: .modifyProfile(.didTapResign))):
-                state.path.append(.resign(.init()))
-                return .none
-                
-            case .path(.element(id: _, action: .resign(.didCompletedResigning))):
-                _ = state.path.popLast()
-                _ = state.path.popLast()
-                return .none
+            case let .path(action):
+                switch action {
+                case .element(id: _, action: .modifyProfile(.resignCompleted)):
+                    state.isSignedIn = false
+                    return .none
+                    
+                case .element(id: _, action: .modifyProfile(.didTapResign)):
+                    state.path.append(.resign(.init()))
+                    return .none
+                    
+                case .element(id: _, action: .resign(.didCompletedResigning)):
+                    state.path.removeAll()
+                    return .none
+                    
+                default:
+                    return .none
+                }
                 
             case .login(.presented(.didTapDialogContinueButton)):
                 state.login = nil

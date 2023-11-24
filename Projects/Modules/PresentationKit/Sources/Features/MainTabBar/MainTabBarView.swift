@@ -42,10 +42,7 @@ public struct MainTabBarView: View {
 //                    Text("관람기록")
 //                }
                 
-                MyPageView(store: .init(
-                    initialState: .init(),
-                    reducer: { MyPage() }
-                ))
+                MyPageView(store: self.store.scope(state: \.myPage, action: MainTabBar.Action.myPage))
                 .tabItem {
                     DesignSystemKitAsset.icNaviMypageOn.swiftUIImage.renderingMode(.template)
                     Text("내 정보")

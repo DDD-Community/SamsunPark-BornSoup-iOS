@@ -58,11 +58,6 @@ public struct ModifyProfile: Reducer {
                 state.showLogoutPopup = false
                 return .none
                 
-            case .resignCompleted:
-                return .run { _ async in
-                    await self.dismiss()
-                }
-                
             default:
                 return .none
             }

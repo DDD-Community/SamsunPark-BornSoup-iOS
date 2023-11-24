@@ -21,10 +21,13 @@ public struct MainTabBar: Reducer {
             allContents: AllContents.State(contentsList: []),
             allContentsFilter: AllContentsFilter.State(filterList: [])
         )
+        
+        var myPage: MyPage.State = .init()
     }
     
     public enum Action {
         case home(Home.Action)
+        case myPage(MyPage.Action)
     }
     
     public var body: some ReducerOf<Self> {
@@ -36,6 +39,9 @@ public struct MainTabBar: Reducer {
         }
         Scope(state: \.homeState, action: /Action.home) {
             Home()
+        }
+        Scope(state: \.myPage, action: /Action.myPage) {
+            MyPage()
         }
     }
 }

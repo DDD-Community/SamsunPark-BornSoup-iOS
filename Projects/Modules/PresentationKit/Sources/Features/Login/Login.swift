@@ -128,7 +128,9 @@ public struct Login: Reducer {
                 return .none
                 
             case .path(.element(id: _, action: .privacyPolicy(.didTapConfirmButton))):
-                state.path.append(.onboardingEmail(.init()))
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                state.path.append(.onboardingInterestedPlace(.init(email: email, nickname: nickname)))
                 return .none
             case .path(.element(id: _, action: .privacyPolicy(.didTapPrivacyPolicyDetail))):
                 state.path.append(.ozWeb(.init()))
@@ -137,9 +139,9 @@ public struct Login: Reducer {
                 state.path.append(.ozWeb(.init()))
                 return .none
                 
-            case let .path(.element(id: _, action: .onboardingEmail(.didTapConfirmButton(email)))):
-                state.path.append(.onboardingNickname(.init(email: email)))
-                return .none
+//            case let .path(.element(id: _, action: .onboardingEmail(.didTapConfirmButton(email)))):
+//                state.path.append(.onboardingNickname(.init(email: email)))
+//                return .none
                 
             case let .path(.element(id: _, action: .onboardingNickname(.didTapConfirmButton(email, nickname)))):
                 state.path.append(.onboardingInterestedPlace(.init(email: email, nickname: nickname)))

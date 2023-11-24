@@ -10,6 +10,7 @@ import AuthenticationServices
 import ComposableArchitecture
 import KakaoSDKAuth
 import KakaoSDKCommon
+import KeychainAccess
 
 import SwiftUI
 
@@ -82,7 +83,7 @@ public struct LoginView: View {
 //                        .padding(.bottom, Constants.Sizes.loginButtonBottomPadding)
                         
                         SignInWithAppleButton(.continue) { request in
-                            request.requestedScopes = []
+                            request.requestedScopes = [.fullName, .email]
                         } onCompletion: { result in
                             self.handleAppleLoginResult(result: result) { (identityToken: String) in
                                 viewStore.send(.successAppleLogin(identityToken, ""))
@@ -178,6 +179,8 @@ public struct LoginView: View {
             case let appleIDCredential as ASAuthorizationAppleIDCredential:
                 if let tokenData = appleIDCredential.identityToken,
                    let identityToken = String(data: tokenData, encoding: .utf8) {
+                    try? Keychain().set(appleIDCredential.email ?? "", key: "EMAIL")
+                    try? Keychain().set(appleIDCredential.fullName?.description ?? "", key: "NAME")
                     completion(identityToken)
                 }
             default:

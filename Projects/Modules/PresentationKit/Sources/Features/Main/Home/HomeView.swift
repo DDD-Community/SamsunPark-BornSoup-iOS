@@ -6,11 +6,10 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import ComposableArchitecture
 
+import SwiftUI
 import DomainKit
-
 import DesignSystemKit
 
 public struct HomeView: View {
@@ -48,6 +47,8 @@ public struct HomeView: View {
                             }
                         }
                         Spacer()
+                        
+                        //TODO: - 검색 기능 추가 예정
 //                        Button {
 //                            viewStore.send(.searchButtonTapped)
 //                        } label: {
@@ -100,13 +101,19 @@ public struct HomeView: View {
                     viewStore.send(.onAppear)
                 }
             }
-        } destination: {
-            switch $0 {
+        } destination: { (state: Home.Path.State) in
+            switch state {
             case .search:
                 CaseLet(
                     /Home.Path.State.search,
                      action: Home.Path.Action.search,
                      then: SearchView.init(store:)
+                )
+            case .contentsDetail:
+                CaseLet(
+                    /Home.Path.State.contentsDetail,
+                     action: Home.Path.Action.contentsDetail,
+                     then: ContentsDetailView.init(store:)
                 )
             }
         }

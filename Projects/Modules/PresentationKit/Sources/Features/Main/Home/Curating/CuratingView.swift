@@ -30,23 +30,26 @@ public struct CuratingView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 16))
                             .offset(x: CGFloat(index - currentIndex) * 346 + dragOffset, y: currentIndex == index ? 0 : 100)
                             .opacity(currentIndex == index ? 1.0 : 0.5)
+                            .gesture(
+                                DragGesture()
+                                    .onEnded({ value in
+                                        let threshold: CGFloat = 50
+                                        if value.translation.width > threshold {
+                                            withAnimation {
+                                                currentIndex = max(0, currentIndex - 1)
+                                            }
+                                        } else if value.translation.width < -threshold {
+                                            withAnimation {
+                                                currentIndex = min(viewStore.contentsList.count - 1, currentIndex + 1)
+                                            }
+                                        }
+                                    })
+                            )
+                            .onTapGesture {
+                                viewStore.send(.contentsTapped(contents))
+                            }
                     }
                 }
-                .gesture(
-                    DragGesture()
-                        .onEnded({ value in
-                            let threshold: CGFloat = 50
-                            if value.translation.width > threshold {
-                                withAnimation {
-                                    currentIndex = max(0, currentIndex - 1)
-                                }
-                            } else if value.translation.width < -threshold {
-                                withAnimation {
-                                    currentIndex = min(viewStore.contentsList.count - 1, currentIndex + 1)
-                                }
-                            }
-                        })
-                )
             }
         }
     }

@@ -21,12 +21,15 @@ public struct Curating: Reducer {
     
     public enum Action: Equatable {
         case onAppear
+        case contentsTapped(PreviewContentsModel)
     }
     
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                return .none
+            case .contentsTapped:
                 return .none
             }
         }

@@ -13,25 +13,25 @@ public struct ContentsModel: Codable, Hashable {
         area: "서울시",
         mainContactPhone: "02-313-4121",
         price: "3000",
-        detailUrl: "www",
-        detailContent1: "www",
+        detailUrl: "www.naver.com",
+        detailContent1: "www.naver.com",
         detailContentImg: "https://picsum.photos/400/600",
         reservationPeriod: "4.11(1차) 5.19(2차)",
         reservationPageName: "인터파크",
-        reservationLink: "string"
+        reservationLink: "www.naver.com"
     )
     
-   public var area: String
-   public var mainContactPhone: String
-   public var price: String
-   public var detailUrl: String
-   public var detailContent1: String
-   public var detailContentImg: String
-   public var reservationPeriod: String
-   public var reservationPageName: String
-   public var reservationLink: String
+    public var area: String?
+    public var mainContactPhone: String?
+    public var price: String?
+    public var detailUrl: String?
+    public var detailContent1: String?
+    public var detailContentImg: String?
+    public var reservationPeriod: String?
+    public var reservationPageName: String?
+    public var reservationLink: String?
     
-    static func from(_ response: ContentsResponseBody) -> ContentsModel {
+    public static func from(_ response: ContentsResponseBody) -> ContentsModel {
         return ContentsModel(
             area: response.area,
             mainContactPhone: response.mainContactPhone,

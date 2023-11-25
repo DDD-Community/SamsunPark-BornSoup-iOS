@@ -94,7 +94,19 @@ public struct Home: Reducer {
                 state.path.append(.search(.init(text: "", recentSearches: [], searchResultList: SearchResultList.State.init(contentsList: []))))
                 return .none
                 
+            case .curating(.contentsTapped(let contents)):
+                state.path.append(.contentsDetail(.init(
+                    previewContentsData: contents,
+                    contentsData: .mock
+                )))
+                return .none
+                
             case .curating:
+                return .none
+                
+            case .allContents(.contentsList(id: _, action: .contents(id: _, action: .contentsTapped(let contents)))):
+                print("contents === ", contents)
+                state.path.append(.contentsDetail(.init(previewContentsData: contents, contentsData: .mock)))
                 return .none
                 
             case .allContents:
@@ -173,15 +185,20 @@ public struct Home: Reducer {
     public struct Path: Reducer {
         public enum State: Equatable {
             case search(Search.State = .init(text: "", recentSearches: [], searchResultList: SearchResultList.State.init(contentsList: [])))
+            case contentsDetail(ContentsDetail.State = .init(previewContentsData: PreviewContentsModel.mock, contentsData: ContentsModel.mock))
         }
         
         public enum Action: Equatable {
             case search(Search.Action)
+            case contentsDetail(ContentsDetail.Action)
         }
         
         public var body: some Reducer<State, Action> {
             Scope(state: /State.search, action: /Action.search) {
                 Search()
+            }
+            Scope(state: /State.contentsDetail, action: /Action.contentsDetail) {
+                ContentsDetail()
             }
         }
     }

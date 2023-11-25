@@ -12,9 +12,9 @@ public struct OZDialogView: View {
     public init(
         title: String,
         message: String = "",
-        cancelString: String,
+        cancelString: String? = nil,
         confirmString: String,
-        cancelAction: @escaping () -> Void,
+        cancelAction: (() -> Void)? = {},
         confirmAction: @escaping () -> Void
     ) {
         self.content = message.isEmpty ? title : "\(title)\n\(message)"
@@ -25,7 +25,7 @@ public struct OZDialogView: View {
     }
     
     let content: String
-    let cancelString: String
+    let cancelString: String?
     let confirmString: String
     let cancelAction: (() -> Void)?
     let confirmAction: (() -> Void)?
@@ -40,8 +40,10 @@ public struct OZDialogView: View {
                     .foregroundColor(Color.orangeGray1)
                 
                 HStack(alignment: .top, spacing: 16) {
-                    SecondaryButton(title: cancelString, isActivated: true) {
-                        cancelAction?()
+                    if let cancelString {
+                        SecondaryButton(title: cancelString, isActivated: true) {
+                            cancelAction?()
+                        }
                     }
                     PrimaryButton(title: confirmString, isActivated: true) {
                         confirmAction?()

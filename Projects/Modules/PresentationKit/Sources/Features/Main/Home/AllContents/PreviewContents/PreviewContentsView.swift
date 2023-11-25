@@ -16,53 +16,58 @@ public struct PreviewContentsView: View {
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(alignment: .leading, spacing: 0) {
-                KFImage(URL(string: viewStore.contents.thumbnails[0]))
-                    .resizable()
-                    .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-                    .frame(width: 160, height: 226)
-                    .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
-                    .padding(.bottom, 16)
-                
-                Text(viewStore.contents.title)
-                    .lineLimit(2)
-                    .truncationMode(.tail)
-                    .font(.Body1.semiBold)
-                    .foregroundColor(.orangeGray1)
-                    .padding(.bottom, 8)
-                
-                HStack(alignment: .center, spacing: 0) {
-                    Text(viewStore.contents.category.rawValue)
+            Button(action: {
+                viewStore.send(.contentsTapped(viewStore.contents))
+            }, label: {
+                VStack(alignment: .leading, spacing: 0) {
+                    KFImage(URL(string: viewStore.contents.thumbnails[0]))
+                        .resizable()
+                        .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                        .frame(width: 160, height: 226)
+                        .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
+                        .padding(.bottom, 16)
+                    
+                    Text(viewStore.contents.title)
+                        .lineLimit(2)
+                        .truncationMode(.tail)
                         .font(.Body1.semiBold)
-                        .foregroundColor(.main1)
-                        .padding(.trailing, 8)
-                    Divider()
-                        .frame(maxHeight: 16)
-                        .padding(.trailing, 8)
-                    Text(viewStore.contents.city ?? "")
-                        .font(.Body1.regular)
-                        .foregroundColor(.orangeGray2) +
-                    Text(",")
-                        .font(.Body1.regular)
-                        .foregroundColor(.orangeGray2) +
-                    Text(viewStore.contents.town ?? "")
-                        .font(.Body1.regular)
-                        .foregroundColor(.orangeGray2)
+                        .foregroundColor(.orangeGray1)
+                        .padding(.bottom, 8)
+                    
+                    HStack(alignment: .center, spacing: 0) {
+                        Text(viewStore.contents.category.rawValue)
+                            .font(.Body1.semiBold)
+                            .foregroundColor(.main1)
+                            .padding(.trailing, 8)
+                        Divider()
+                            .frame(maxHeight: 16)
+                            .padding(.trailing, 8)
+                        Text(viewStore.contents.city ?? "")
+                            .font(.Body1.regular)
+                            .foregroundColor(.orangeGray2) +
+                        Text(",")
+                            .font(.Body1.regular)
+                            .foregroundColor(.orangeGray2) +
+                        Text(viewStore.contents.town ?? "")
+                            .font(.Body1.regular)
+                            .foregroundColor(.orangeGray2)
+                    }
+                    .padding(.bottom, 12)
+                    
+                    HStack(spacing: 0) {
+                        Text(viewStore.contents.startDate)
+                            .font(.Body1.regular)
+                            .foregroundColor(.orangeGray2) +
+                        Text("~")
+                            .font(.Body1.regular)
+                            .foregroundColor(.orangeGray2) +
+                        Text(viewStore.contents.endDate)
+                            .font(.Body1.regular)
+                            .foregroundColor(.orangeGray2)
+                    }
                 }
-                .padding(.bottom, 12)
-                
-                HStack(spacing: 0) {
-                    Text(viewStore.contents.startDate)
-                        .font(.Body1.regular)
-                        .foregroundColor(.orangeGray2) +
-                    Text("~")
-                        .font(.Body1.regular)
-                        .foregroundColor(.orangeGray2) +
-                    Text(viewStore.contents.endDate)
-                        .font(.Body1.regular)
-                        .foregroundColor(.orangeGray2)
-                }
-            }
+            })
+            
             .frame(maxWidth: 160)
         }
     }

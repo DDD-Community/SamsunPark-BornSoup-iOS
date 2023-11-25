@@ -23,7 +23,7 @@ public struct PreviewContents: Reducer {
     
     public enum Action: Equatable {
         case onAppear
-        case contentsTapped
+        case contentsTapped(PreviewContentsModel)
     }
     
     public var body: some Reducer<State, Action> {

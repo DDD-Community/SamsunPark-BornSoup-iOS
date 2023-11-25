@@ -13,7 +13,7 @@ public struct PreviewContentsModel: Codable, Hashable {
         id: 0,
         seq: 0,
         title:  "한양여성 문 밖을 나서다보다 긴 제목은 어떻게 나오나요 일단 trim 처리",
-        thumbnails: ["https://picsum.photos/160/226"],
+        thumbnails: ["https://picsum.photos/400/555", "https://picsum.photos/400/555", "https://picsum.photos/400/555"],
         startDate: "2023.04.13",
         endDate: "2023.06.04",
         category: ContentsType.palace,

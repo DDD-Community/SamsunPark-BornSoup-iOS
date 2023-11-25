@@ -14,44 +14,38 @@ public struct ContentsResponse: Codable, Equatable {
 }
 
 public struct ContentsResponseBody: Codable, Equatable {
-    public let id: Int
-    public let seq: String
-    public let mainImg: [String]
-    public let starRating: String
+    public let area: String
     public let mainContactPhone: String
     public let price: String
     public let detailUrl: String
-    public let gpsX: String
-    public let gpsY: String
     public let detailContent1: String
-    public let detailContent2: String
-    
+    public let detailContentImg: String
+    public let reservationPeriod: String
+    public let reservationPageName: String
+    public let reservationLink: String
+
     enum ContentsCodingKeys: String, CodingKey {
-        case id
-        case seq
-        case mainImg
-        case starRating
+        case area
         case mainContactPhone
         case price
         case detailUrl
-        case gpsX
-        case gpsY
-        case detailContent1
-        case detailContent2
+        case detailContent1Phone
+        case detailContentImg
+        case reservationPeriod
+        case reservationPageName
+        case reservationLink
     }
     
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: ContentsCodingKeys.self)
-        self.id = try container.decode(Int.self, forKey: .id)
-        self.seq = try container.decode(String.self, forKey: .seq)
-        self.mainImg = try container.decode([String].self, forKey: .mainImg)
-        self.starRating = try container.decode(String.self, forKey: .starRating)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.area = try container.decode(String.self, forKey: .area)
         self.mainContactPhone = try container.decode(String.self, forKey: .mainContactPhone)
         self.price = try container.decode(String.self, forKey: .price)
         self.detailUrl = try container.decode(String.self, forKey: .detailUrl)
-        self.gpsX = try container.decode(String.self, forKey: .gpsX)
-        self.gpsY = try container.decode(String.self, forKey: .gpsY)
         self.detailContent1 = try container.decode(String.self, forKey: .detailContent1)
-        self.detailContent2 = try container.decode(String.self, forKey: .detailContent2)
+        self.detailContentImg = try container.decode(String.self, forKey: .detailContentImg)
+        self.reservationPeriod = try container.decode(String.self, forKey: .reservationPeriod)
+        self.reservationPageName = try container.decode(String.self, forKey: .reservationPageName)
+        self.reservationLink = try container.decode(String.self, forKey: .reservationLink)
     }
 }

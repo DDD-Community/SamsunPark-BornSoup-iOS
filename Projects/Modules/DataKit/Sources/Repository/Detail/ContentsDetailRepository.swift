@@ -6,14 +6,28 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
+import Alamofire
+import DomainKit
+import NetworkKit
+import ComposableArchitecture
 
-struct ContentsDetailRepository: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+import Foundation
+
+public struct ContentsDetailRepository: ContentsDetailRepositoryProtocol {
+    private let baseAPIClient: BaseAPIClient = .init()
+    
+    public init() {}
+    
+    public func requestContentsDetail(seq: String) async throws -> ContentsResponse {
+        let request = try ContentsDetailAPIService.contentsDetail(seq).asQueryURLRequest()
+        request.log()
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        let decoder = JSONDecoder()
+        do {
+            return try decoder.decode(ContentsResponse.self, from: data)
+        } catch let error {
+            throw error
+        }
     }
-}
-
-#Preview {
-    ContentsDetailRepository()
 }

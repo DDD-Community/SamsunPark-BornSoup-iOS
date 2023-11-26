@@ -21,7 +21,8 @@ let frameworkTargets: [Target] = FrameworkFactory(
             .SPM.KakaoSDKAuth,
             .SPM.KakaoSDKUser,
             .SPM.KakaoSDKCommon,
-            .SPM.KeychainAccess
+            .SPM.KeychainAccess,
+            .SPM.SwiftJWT
         ],
         unitTestsDependencies: []
     )

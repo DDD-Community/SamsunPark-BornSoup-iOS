@@ -18,6 +18,8 @@ public enum ContentsType: String, Codable, Hashable, CaseIterable {
     case experience = "체험관"
     case museum = "박물관"
     case artGallery = "미술관"
+    case performance = "공연"
+    case etc = "기타"
     
     public func convertToListTitle() -> String {
         switch self {
@@ -39,6 +41,10 @@ public enum ContentsType: String, Codable, Hashable, CaseIterable {
             return "으로 떠나는 문화여행"
         case .artGallery:
             return "에서 \n과거 예술과들의 역작 모음"
+        case .performance:
+            return "\n이야기가 있는 예술 콘텐츠"
+        case .etc:
+            return  ""
         }
     }
 }

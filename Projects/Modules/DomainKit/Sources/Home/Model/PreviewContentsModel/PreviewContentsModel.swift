@@ -52,7 +52,7 @@ public struct PreviewContentsModel: Codable, Hashable {
             thumbnails: response.thumbnails,
             startDate: response.startDate,
             endDate: response.endDate,
-            category: ContentsType(rawValue: response.category) ?? .review,
+            category: ContentsType(rawValue: response.category) ?? .etc,
             city: response.city,
             town: response.town
         )

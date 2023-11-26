@@ -66,9 +66,11 @@ struct ContentsDetailView: View {
                             TabView {
                                 ForEach(viewStore.previewContentsData.thumbnails, id: \.self) { url in
                                     KFImage(URL(string: url))
-                                        .scaledToFill()
+                                        .resizable()
+                                        .scaledToFit()
                                 }
                             }
+                            .background(Color.black)
                             .tabViewStyle(.page)
                             .tabViewStyle(.page(indexDisplayMode: .always))
                             .frame(height: 555)
@@ -213,9 +215,15 @@ struct ContentsDetailView: View {
                                     .padding(.trailing, 8)
                                 Divider()
                                     .padding(.trailing, 8)
-                                Text("\(viewStore.previewContentsData.startDate) ~ \(viewStore.previewContentsData.endDate)")
-                                    .font(.Body1.regular)
-                                    .foregroundColor(.orangeGray1)
+                                if viewStore.previewContentsData.endDate == "상시전시" {
+                                    Text(viewStore.previewContentsData.endDate)
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                } else {
+                                    Text("\(viewStore.previewContentsData.startDate) ~ \(viewStore.previewContentsData.endDate)")
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                }
                                 Spacer()
                             }
                             
@@ -235,9 +243,15 @@ struct ContentsDetailView: View {
                                     .renderingMode(.template)
                                     .foregroundColor(.orangeGray6)
                                     .padding(.trailing, 12)
-                                Text(viewStore.contentsData.mainContactPhone ?? "전화번호 정보가 없습니다")
+                                if let mainContactPhone = viewStore.contentsData.mainContactPhone, !mainContactPhone.isEmpty {
+                                    Text(mainContactPhone)
                                     .font(.Body1.regular)
                                     .foregroundColor(.orangeGray1)
+                                } else {
+                                    Text("전화번호 정보가 없습니다")
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                }
                                 Spacer()
                             }
                             
@@ -246,9 +260,15 @@ struct ContentsDetailView: View {
                                     .renderingMode(.template)
                                     .foregroundColor(.orangeGray6)
                                     .padding(.trailing, 12)
-                                Text(viewStore.contentsData.detailUrl ?? "url 정보가 없습니다")
-                                    .font(.Body1.regular)
-                                    .foregroundColor(.orangeGray1)
+                                if let detailUrl = viewStore.contentsData.detailUrl, !detailUrl.isEmpty {
+                                    Text(detailUrl)
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                } else {
+                                    Text("url 정보가 없습니다")
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                }
                                 Spacer()
                             }
                             
@@ -257,9 +277,15 @@ struct ContentsDetailView: View {
                                     .renderingMode(.template)
                                     .foregroundColor(.orangeGray6)
                                     .padding(.trailing, 12)
-                                Text(viewStore.contentsData.price ?? "가격 정보가 없습니다")
+                                if let price = viewStore.contentsData.price, !price.isEmpty {
+                                    Text(price)
                                     .font(.Body1.regular)
                                     .foregroundColor(.orangeGray1)
+                                } else {
+                                    Text( "가격 정보가 없습니다")
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                }
                                 Spacer()
                             }
                         }
@@ -268,47 +294,58 @@ struct ContentsDetailView: View {
                         
                         Divider()
                         
-                        VStack(spacing: 0) {
-                            HStack(spacing: 0) {
-                                Text(Constants.reservation)
-                                    .font(.Title2.semiBold)
-                                    .foregroundColor(.orangeGray5)
-                                Spacer()
+                        if let reservationPeriod = viewStore.contentsData.reservationPeriod, let reservationPageName = viewStore.contentsData.reservationPageName, !reservationPeriod.isEmpty, !reservationPageName.isEmpty {
+                            VStack(spacing: 0) {
+                                HStack(spacing: 0) {
+                                    Text(Constants.reservation)
+                                        .font(.Title2.semiBold)
+                                        .foregroundColor(.orangeGray5)
+                                    Spacer()
+                                }
+                                .padding(.bottom, 30)
+                                
+                                HStack(spacing: 0) {
+                                    DesignSystemKitAsset.icDate2pt.swiftUIImage
+                                        .renderingMode(.template)
+                                        .foregroundColor(.orangeGray6)
+                                        .padding(.trailing, 12)
+                                    
+                                    Text(reservationPeriod)
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.bottom, 20)
+                                
+                                HStack(spacing: 0) {
+                                    DesignSystemKitAsset.icReservation2pt.swiftUIImage
+                                        .renderingMode(.template)
+                                        .foregroundColor(.orangeGray6)
+                                        .padding(.trailing, 12)
+                                    
+                                    Text(reservationPageName)
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.bottom, 20)
+                                if let reservationLink = viewStore.contentsData.reservationLink, let reservationUrl = URL(string: reservationLink), !reservationLink.isEmpty, reservationLink.hasPrefix("https://") {
+                                    Link(destination: reservationUrl) {
+                                        PrimaryButton(title: Constants.moveToReservation) { }
+                                            .disabled(true)
+                                    }
+                                } else {
+                                    PrimaryButton(title: Constants.moveToReservation) {
+                                        viewStore.send(.emitErrorMessage(.homepageLinkNotFound))
+                                    }
+                                }
                             }
-                            .padding(.bottom, 30)
-                            
-                            HStack(spacing: 0) {
-                                DesignSystemKitAsset.icDate2pt.swiftUIImage
-                                    .renderingMode(.template)
-                                    .foregroundColor(.orangeGray6)
-                                    .padding(.trailing, 12)
-                                Text(viewStore.contentsData.reservationPeriod ?? "예약기간 정보가 없습니다")
-                                    .font(.Body1.regular)
-                                    .foregroundColor(.orangeGray1)
-                                Spacer()
-                            }
-                            .padding(.bottom, 20)
-                            
-                            HStack(spacing: 0) {
-                                DesignSystemKitAsset.icReservation2pt.swiftUIImage
-                                    .renderingMode(.template)
-                                    .foregroundColor(.orangeGray6)
-                                    .padding(.trailing, 12)
-                                Text(viewStore.contentsData.reservationPageName ?? "예약에 대한 정보가 없습니다")
-                                    .font(.Body1.regular)
-                                    .foregroundColor(.orangeGray1)
-                                Spacer()
-                            }
-                            .padding(.bottom, 20)
-                            
-                            PrimaryButton(title: Constants.moveToReservation) {
-                                viewStore.send(.moveToReservationPageTapped)
-                            }
+                            .padding(.vertical, 30)
+                            .padding(.horizontal, 16)
+                            Divider()
                         }
-                        .padding(.vertical, 30)
-                        .padding(.horizontal, 16)
-                        
-                        Divider()
                         
                         VStack(spacing: 0) {
                             HStack(spacing: 0) {

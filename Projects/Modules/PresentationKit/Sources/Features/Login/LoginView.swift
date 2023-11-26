@@ -179,8 +179,11 @@ public struct LoginView: View {
             case let appleIDCredential as ASAuthorizationAppleIDCredential:
                 if let tokenData = appleIDCredential.identityToken,
                    let identityToken = String(data: tokenData, encoding: .utf8) {
+                    let lastName = appleIDCredential.fullName?.familyName ?? ""
+                    let firstName = appleIDCredential.fullName?.givenName ?? ""
+                    let name = "\(lastName)\(firstName)"
                     try? Keychain().set(appleIDCredential.email ?? "", key: "EMAIL")
-                    try? Keychain().set(appleIDCredential.fullName?.description ?? "", key: "NAME")
+                    try? Keychain().set(name, key: "NAME")
                     completion(identityToken)
                 }
             default:

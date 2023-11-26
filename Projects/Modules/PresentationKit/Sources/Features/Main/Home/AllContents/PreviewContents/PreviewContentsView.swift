@@ -55,15 +55,21 @@ public struct PreviewContentsView: View {
                     .padding(.bottom, 12)
                     
                     HStack(spacing: 0) {
-                        Text(viewStore.contents.startDate)
-                            .font(.Body1.regular)
-                            .foregroundColor(.orangeGray2) +
-                        Text("~")
-                            .font(.Body1.regular)
-                            .foregroundColor(.orangeGray2) +
-                        Text(viewStore.contents.endDate)
-                            .font(.Body1.regular)
-                            .foregroundColor(.orangeGray2)
+                        if viewStore.contents.endDate == "상시전시" {
+                            Text(viewStore.contents.endDate)
+                                .font(.Body1.regular)
+                                .foregroundColor(.orangeGray2)
+                        } else {
+                            Text(viewStore.contents.startDate)
+                                .font(.Body1.regular)
+                                .foregroundColor(.orangeGray2) +
+                            Text("~")
+                                .font(.Body1.regular)
+                                .foregroundColor(.orangeGray2) +
+                            Text(viewStore.contents.endDate)
+                                .font(.Body1.regular)
+                                .foregroundColor(.orangeGray2)
+                        }
                     }
                 }
             })

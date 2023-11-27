@@ -6,4 +6,18 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+import MapKit
+
+struct SearchNearView: View {
+        
+    var body: some View {
+        VStack {
+            
+        }
+    }
+}
+
+#Preview {
+    SearchNearView()
+}

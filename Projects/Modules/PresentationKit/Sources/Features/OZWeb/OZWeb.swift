@@ -15,7 +15,10 @@ public struct OZWeb: Reducer {
     public init() {}
     
     public struct State: Equatable {
-        public init() {}
+        var url: String = ""
+        public init(url: String) {
+            self.url = url
+        }
     }
     
     public enum Action: Equatable {

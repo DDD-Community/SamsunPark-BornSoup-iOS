@@ -37,7 +37,7 @@ public struct OZWebView: View {
     
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            OZWebViewWrapped(urlToLoad: "https://www.naver.com")
+            OZWebViewWrapped(urlToLoad: viewStore.url)
                 .navigationBarBackButtonHidden()
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -56,9 +56,15 @@ public struct OZWebView: View {
 #if DEBUG
 struct OZWebView_Previews: PreviewProvider {
     static var previews: some View {
-        OZWebView(store: .init(initialState: OZWeb.State()) {
-            OZWeb()
-        })
+        OZWebView(
+            store: .init(
+                initialState: OZWeb.State(
+                    url: "https://scutiuy.github.io/ServiceTerm.github.io/"
+                )
+            ) {
+                OZWeb()
+            }
+        )
     }
 }
 #endif

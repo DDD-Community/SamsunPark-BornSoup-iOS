@@ -44,12 +44,15 @@ public struct OnboardingInterestedContents: Reducer {
     }
     
     @Dependency(\.authUseCase) var authUseCase
+    @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .didTapBackButton:
-                return .none
+                return .run { send in
+                    await self.dismiss()
+                }
                 
             case ._didTapConfirmButton:
                 let selectedCategories: String = state.selectedContents

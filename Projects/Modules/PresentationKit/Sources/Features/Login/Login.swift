@@ -133,10 +133,10 @@ public struct Login: Reducer {
                 state.path.append(.onboardingInterestedPlace(.init(email: email, nickname: nickname)))
                 return .none
             case .path(.element(id: _, action: .privacyPolicy(.didTapPrivacyPolicyDetail))):
-                state.path.append(.ozWeb(.init()))
+                state.path.append(.ozWeb(.init(url: "https://scutiuy.github.io/PrivateInfo.github.io/")))
                 return .none
             case .path(.element(id: _, action: .privacyPolicy(.didTapServicePolicyDetail))):
-                state.path.append(.ozWeb(.init()))
+                state.path.append(.ozWeb(.init(url: "https://scutiuy.github.io/ServiceTerm.github.io/")))
                 return .none
                 
 //            case let .path(.element(id: _, action: .onboardingEmail(.didTapConfirmButton(email)))):

@@ -14,9 +14,13 @@ import Foundation
 struct DefaultHeader {
     static var headers: HTTPHeaders {
         let token: String = (try? Keychain().get("ACCESS_TOKEN")) ?? ""
-        return [
-            .init(name: "Content-Type", value: "application/json"),
-            .init(name: "Authorization", value: token.isEmpty ? "" : "Bearer \(token)")
-        ]
+        if token.isEmpty {
+            return [ .init(name: "Content-Type", value: "application/json") ]
+        } else {
+            return [
+                .init(name: "Content-Type", value: "application/json"),
+                .init(name: "Authorization", value: "Bearer \(token)")
+            ]
+        }
     }
 }

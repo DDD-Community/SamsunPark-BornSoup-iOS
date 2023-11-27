@@ -9,6 +9,8 @@
 import ComposableArchitecture
 import KeychainAccess
 
+import Foundation
+
 public struct Resign: Reducer {
     public init() {}
     
@@ -16,11 +18,16 @@ public struct Resign: Reducer {
         public init() {}
     
         var showResignPopup: Bool = false
+        
+        var serviceResignCompleted: Bool = false
+        var appleResignCompleted: Bool = false
     }
     
     public enum Action: Equatable {
         case didTapBackButton
         case didTapResignButton
+        case didCompletedServiceResigning
+        case didCompletedAppleResigning
         case didCompletedResigning
         case didTapConfirmResign
         case didTapCancelResign
@@ -51,8 +58,22 @@ public struct Resign: Reducer {
                     }
                     print(response)
                     try? Keychain().removeAll()
-                    await send(.didCompletedResigning)
+                    await send(.didCompletedServiceResigning)
                 }
+                
+            case .didCompletedServiceResigning:
+                state.serviceResignCompleted = true
+                if state.appleResignCompleted {
+                    return .send(.didCompletedResigning)
+                }
+                return .none
+                
+            case .didCompletedAppleResigning:
+                state.appleResignCompleted = true
+                if state.serviceResignCompleted {
+                    return .send(.didCompletedResigning)
+                }
+                return .none
                 
             case .didTapCancelResign:
                 state.showResignPopup = false

@@ -28,8 +28,7 @@ public struct AuthRepository: AuthRepositoryProtocol {
             method: .post,
             parameters: [
                 "socialType": socialType.rawValue,
-                "socialToken": accessToken,
-                "idToken": idToken
+                "socialToken": accessToken
             ],
             headers: DefaultHeader.headers
         )

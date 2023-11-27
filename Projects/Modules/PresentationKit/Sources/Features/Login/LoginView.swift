@@ -6,8 +6,10 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
+import Alamofire
 import AuthenticationServices
 import ComposableArchitecture
+import SwiftJWT
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KeychainAccess
@@ -177,20 +179,108 @@ public struct LoginView: View {
         case .success(let authResults):
             switch authResults.credential {
             case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                if let tokenData = appleIDCredential.identityToken,
-                   let identityToken = String(data: tokenData, encoding: .utf8) {
-                    let lastName = appleIDCredential.fullName?.familyName ?? ""
-                    let firstName = appleIDCredential.fullName?.givenName ?? ""
-                    let name = "\(lastName)\(firstName)"
-                    try? Keychain().set(appleIDCredential.email ?? "", key: "EMAIL")
-                    try? Keychain().set(name, key: "NAME")
-                    completion(identityToken)
+                guard let tokenData = appleIDCredential.identityToken,
+                      let identityToken = String(data: tokenData, encoding: .utf8) else {
+                    return
                 }
+                let lastName = appleIDCredential.fullName?.familyName ?? ""
+                let firstName = appleIDCredential.fullName?.givenName ?? ""
+                let name = "\(lastName)\(firstName)"
+                try? Keychain().set(appleIDCredential.email ?? "", key: "EMAIL")
+                try? Keychain().set(name, key: "NAME")
+                
+                if let authorizationCode = appleIDCredential.authorizationCode {
+                    let code = String(decoding: authorizationCode, as: UTF8.self)
+                    print("Code - \(code)")
+                    self.getAppleRefreshToken(code: code) { data in
+                        print("🚧 \(data ?? "-")")
+                        UserDefaults.standard.set(data, forKey: "AppleRefreshToken")
+                    }
+                } else {
+                    print("🚧 authorizationCode is nil")
+                }
+                completion(identityToken)
             default:
                 break
             }
         case .failure(let error):
             Logger.log(error.localizedDescription, "\(Self.self)", #function)
+        }
+    }
+    
+    func makeJWT() -> String {
+        let myHeader = Header(kid: "SQLLWGJ48N")
+        
+        // MARK: - client_secret(JWT) 발급 응답 모델
+        struct MyClaims: Claims {
+            let iss: String
+            let iat: Int
+            let exp: Int
+            let aud: String
+            let sub: String
+        }
+
+        var dateComponent = DateComponents()
+        dateComponent.month = 6
+        let iat = Int(Date().timeIntervalSince1970)
+        let exp = iat + 3600
+        let myClaims = MyClaims(iss: "92NGUT4BRA",
+                                iat: iat,
+                                exp: exp,
+                                aud: "https://appleid.apple.com",
+                                sub: "kr.ddd.ozeon.OZeon")
+
+        var myJWT = JWT(header: myHeader, claims: myClaims)
+
+        guard let url = Bundle.main.url(forResource: "AuthKey_SQLLWGJ48N", withExtension: "p8"),
+              let privateKey: Data = try? Data(contentsOf: url, options: .alwaysMapped),
+              let signedJWT = try? myJWT.sign(using: JWTSigner.es256(privateKey: privateKey))
+        else {
+            return ""
+        }
+        
+        UserDefaults.standard.set(signedJWT, forKey: "AppleClientSecret")
+        print("🗝 singedJWT - \(signedJWT)")
+        return signedJWT
+    }
+    
+    func getAppleRefreshToken(code: String, completionHandler: @escaping (String?) -> Void) {
+        let secret = makeJWT()
+        let bundleID = "kr.ddd.ozeon.OZeon"
+        let url = "https://appleid.apple.com/auth/token"
+          let header: HTTPHeaders = ["Content-Type": "application/x-www-form-urlencoded"]
+          let parameters: Parameters = [
+              "client_id": bundleID,
+              "client_secret": secret,
+              "code": code,
+              "grant_type": "authorization_code"
+          ]
+
+        print("🗝 clientSecret - \(UserDefaults.standard.string(forKey: "AppleClientSecret") ?? "")")
+        print("🗝 authCode - \(code)")
+        
+        _ = AF.request(
+            url,
+            method: .post,
+            parameters: parameters,
+            headers: header
+        )
+        .validate(statusCode: 200..<500)
+        .responseData { response in
+            print("🗝 response - \(response.description)")
+            switch response.result {
+            case .success(let output):
+                let decoder = JSONDecoder()
+                if let decodedData = try? decoder.decode(AppleTokenResponse.self, from: output) {
+                    if decodedData.refresh_token == nil {
+                        print("if decodedData.refresh_token == nil")
+                    } else {
+                        completionHandler(decodedData.refresh_token)
+                    }
+                }
+            case .failure:
+                print("애플 토큰 발급 실패 - \(response.error.debugDescription)")
+            }
         }
     }
 }

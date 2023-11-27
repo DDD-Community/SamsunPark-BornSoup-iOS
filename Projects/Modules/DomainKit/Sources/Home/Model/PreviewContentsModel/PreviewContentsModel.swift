@@ -12,7 +12,7 @@ public struct PreviewContentsModel: Codable, Hashable {
     public static let mock = PreviewContentsModel(
         id: 0,
         seq: 0,
-        title:  "한양여성 문 밖을 나서다보다 긴 제목은 어떻게 나오나요 일단 trim 처리",
+        title: "한양여성 문 밖을 나서다보다 긴 제목은 어떻게 나오나요 일단 trim 처리",
         thumbnails: ["https://picsum.photos/400/555", "https://picsum.photos/400/555", "https://picsum.photos/400/555"],
         startDate: "2023.04.13",
         endDate: "2023.06.04",
@@ -24,7 +24,7 @@ public struct PreviewContentsModel: Codable, Hashable {
     public static let mock1 = PreviewContentsModel(
         id: 0,
         seq: 0,
-        title:  "한양여성 문 밖을 나서다",
+        title: "한양여성 문 밖을 나서다",
         thumbnails: ["https://picsum.photos/160/226"],
         startDate: "2023.04.13",
         endDate: "2023.06.04",
@@ -42,7 +42,6 @@ public struct PreviewContentsModel: Codable, Hashable {
     public let category: ContentsType
     public let city: String?
     public let town: String?
-    
     
     public static func from(_ response: PreviewContentsResponse) -> PreviewContentsModel {
         return PreviewContentsModel(

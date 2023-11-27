@@ -74,7 +74,6 @@ public struct MyPageView: View {
                     viewStore.send(.onAppear)
                 }
             }
-            ._printChanges()
             .fullScreenCover(
                 store: store.scope(
                     state: \.$login,

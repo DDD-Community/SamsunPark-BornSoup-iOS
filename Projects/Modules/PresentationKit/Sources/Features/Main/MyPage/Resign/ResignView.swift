@@ -6,6 +6,7 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
+import Alamofire
 import ComposableArchitecture
 
 import SwiftUI
@@ -93,12 +94,54 @@ public struct ResignView: View {
                     OZDialogView(title: "탈퇴 하시겠습니까?", cancelString: "취소", confirmString: "탈퇴") {
                         viewStore.send(.didTapCancelResign)
                     } confirmAction: {
+                        self.tabbedWithdrawalBtn()
                         viewStore.send(.didTapConfirmResign)
                     }
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
+        }
+    }
+    
+    private func tabbedWithdrawalBtn() {
+        guard let clientSecret = UserDefaults.standard.string(forKey: "AppleClientSecret"),
+              let refreshToken = UserDefaults.standard.string(forKey: "AppleRefreshToken") else {
+//            self.store.send(.didTapBackButton)
+            return
+        }
+        print("Client_Secret - \(clientSecret)")
+        print("refresh_token - \(refreshToken)")
+        self.revokeAppleToken(clientSecret: clientSecret, token: refreshToken) {
+            self.store.send(.didCompletedAppleResigning)
+        }
+    }
+}
+
+struct AppleTokenResponse: Codable {
+    var access_token: String?
+    var token_type: String?
+    var expires_in: Int?
+    var refresh_token: String?
+    var id_token: String?
+}
+
+extension ResignView {
+    func revokeAppleToken(clientSecret: String, token: String, completionHandler: @escaping () -> Void) {
+        let bundleID = "kr.ddd.ozeon.OZeon"
+        let url = "https://appleid.apple.com/auth/revoke?client_id=\(bundleID)&client_secret=\(clientSecret)&token=\(token)&token_type_hint=refresh_token"
+        let header: HTTPHeaders = ["Content-Type": "application/x-www-form-urlencoded"]
+
+        AF.request(url,
+                   method: .post,
+                   headers: header)
+        .validate(statusCode: 200..<600)
+        .responseData { response in
+            guard let statusCode = response.response?.statusCode else { return }
+            if statusCode == 200 {
+                print("애플 토큰 삭제 성공!")
+                completionHandler()
+            }
         }
     }
 }

@@ -64,11 +64,15 @@ public struct OnboardingInterestedPlace: Reducer {
         case selectPlace(Int)
     }
     
+    @Dependency(\.dismiss) var dismiss
+    
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .didTapBackButton:
-                return .none
+                return .run { send in
+                    await self.dismiss()
+                }
                 
             case ._didTapConfirmButton:
                 let selectedPlaces = state.selectedPlaceIndices.filter({ $0 != 0 })

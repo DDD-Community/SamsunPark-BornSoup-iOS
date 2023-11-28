@@ -245,8 +245,8 @@ struct ContentsDetailView: View {
                                     .padding(.trailing, 12)
                                 if let mainContactPhone = viewStore.contentsData.mainContactPhone, !mainContactPhone.isEmpty {
                                     Text(mainContactPhone)
-                                    .font(.Body1.regular)
-                                    .foregroundColor(.orangeGray1)
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
                                 } else {
                                     Text("전화번호 정보가 없습니다")
                                         .font(.Body1.regular)
@@ -279,8 +279,8 @@ struct ContentsDetailView: View {
                                     .padding(.trailing, 12)
                                 if let price = viewStore.contentsData.price, !price.isEmpty {
                                     Text(price)
-                                    .font(.Body1.regular)
-                                    .foregroundColor(.orangeGray1)
+                                        .font(.Body1.regular)
+                                        .foregroundColor(.orangeGray1)
                                 } else {
                                     Text( "가격 정보가 없습니다")
                                         .font(.Body1.regular)
@@ -356,9 +356,10 @@ struct ContentsDetailView: View {
                             }
                             .padding(.bottom, 30)
                             
-                            if let contentsImg = viewStore.contentsData.detailContentImg {
-                                KFImage(URL(string: contentsImg))
+                            if let contentsImg = viewStore.contentsData.detailContentImg, let url = URL(string: contentsImg) {
+                                KFImage(url)
                                     .resizable()
+                                    .scaledToFit()
                             }
                             if let detailContents = viewStore.contentsData.detailContent1, !detailContents.isEmpty {
                                 Text(detailContents)

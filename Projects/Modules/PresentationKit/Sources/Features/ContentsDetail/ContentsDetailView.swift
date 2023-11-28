@@ -16,7 +16,7 @@ import DesignSystemKit
 struct ContentsDetailView: View {
     let store: StoreOf<ContentsDetail>
     var body: some View {
-        WithViewStore(self.store, observe:  { $0 }) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack {
                 VStack(spacing: 0) {
                     VStack {

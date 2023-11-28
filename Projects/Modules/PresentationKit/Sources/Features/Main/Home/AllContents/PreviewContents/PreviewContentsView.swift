@@ -55,7 +55,7 @@ public struct PreviewContentsView: View {
                     .padding(.bottom, 12)
                     
                     HStack(spacing: 0) {
-                        if viewStore.contents.endDate == "상시전시" {
+                        if viewStore.contents.endDate == "상시전시" || viewStore.contents.endDate == "99991231" {
                             Text(viewStore.contents.endDate)
                                 .font(.Body1.regular)
                                 .foregroundColor(.orangeGray2)

@@ -9,17 +9,16 @@
 import Foundation
 
 public class OZDateFormatter {
-        
     public static func convertStringToDate(date: String) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYYMMDD"
+        dateFormatter.dateFormat = "yyyyMMdd"
         
         return dateFormatter.date(from: date)
     }
     
     public static func convertDateToString(date: Date) -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY. MM. DD"
+        dateFormatter.dateFormat = "yyyy. MM. dd"
         
         return dateFormatter.string(from: date)
     }
@@ -29,7 +28,7 @@ public class OZDateFormatter {
             return nil
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY. MM. DD"
+        dateFormatter.dateFormat = "yyy. MM. dd"
         return dateFormatter.string(from: convertedDate)
     }
 }

@@ -50,8 +50,7 @@ public struct PreviewContentsModel: Codable, Hashable {
             title: response.title,
             thumbnails: response.thumbnails,
             startDate: OZDateFormatter.convertStringToDateString(date: response.startDate) ?? "",
-            endDate: response.endDate == "99999999" ? "상시전시" :
-                "\(String(describing: OZDateFormatter.convertStringToDateString(date: response.startDate)?.split(separator: " ")[1] ?? "")) \(String(describing: OZDateFormatter.convertStringToDateString(date: response.startDate)?.split(separator: " ")[2] ?? ""))",
+            endDate: response.endDate == "99991231" ? "상시전시" : OZDateFormatter.convertStringToDateString(date: response.endDate) ?? "",
             category: ContentsType(rawValue: response.category) ?? .etc,
             city: response.city,
             town: response.town

@@ -6,7 +6,7 @@ let appName: String = "OZeon"
 
 let infoPlist: [String: InfoPlist.Value] = [
     "CFBundleExecutable": "$(EXECUTABLE_NAME)",
-    "CFBundleShortVersionString": "1.0.1",
+    "CFBundleShortVersionString": "1.0.2",
     "CFBundleVersion": "1",
     "CFBundleIdentifier": "$(PRODUCT_BUNDLE_IDENTIFIER)",
     "CFBundleDisplayName": "오전",

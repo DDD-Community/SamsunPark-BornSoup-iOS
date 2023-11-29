@@ -6,10 +6,9 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import ComposableArchitecture
-
 import DesignSystemKit
+import SwiftUI
 
 struct SearchView: View {
     let store: StoreOf<Search>

@@ -7,11 +7,11 @@
 //
 
 import ComposableArchitecture
+import DesignSystemKit
+import DomainKit
 import Kingfisher
 
 import SwiftUI
-import DomainKit
-import DesignSystemKit
 
 struct ContentsDetailView: View {
     let store: StoreOf<ContentsDetail>
@@ -52,8 +52,7 @@ struct ContentsDetailView: View {
                                     }
                                 }
                                 
-                                //TODO: - 추후 딥링크 작업 예정
-                                
+                                // TODO: - 추후 딥링크 작업 예정
                             }
                         }
                         .padding(.top, 17)
@@ -164,7 +163,7 @@ struct ContentsDetailView: View {
                                         .foregroundColor(.orangeGray3)
                                 }
                                 
-                                //TODO: - 회원 연동 안됨 좋아요 기능 추후 예정
+                                // TODO: - 회원 연동 안됨 좋아요 기능 추후 예정
                                 //                            Spacer()
                                 //                            VStack(spacing: 0) {
                                 //                                Button(action: {
@@ -227,7 +226,7 @@ struct ContentsDetailView: View {
                                 Spacer()
                             }
                             
-                            //TODO: - 영업시간 추후 작업 필요
+                            // TODO: - 영업시간 추후 작업 필요
                             //                        HStack(spacing: 6.5) {
                             //                            DesignSystemKitAsset.icTime2pt.swiftUIImage
                             //                                .renderingMode(.template)

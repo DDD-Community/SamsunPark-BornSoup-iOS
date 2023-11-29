@@ -6,8 +6,8 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct SearchNearView: View {
         

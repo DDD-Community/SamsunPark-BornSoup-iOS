@@ -6,8 +6,8 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import Foundation
 import ComposableArchitecture
+import Foundation
 
 public struct Search: Reducer {
     public struct State: Equatable {
@@ -51,7 +51,7 @@ public struct Search: Reducer {
                 return .none
                 
             case .dismissButtonTapped:
-                return .run { send in
+                return .run { _ in
                     await self.dismiss()
                 }
             }

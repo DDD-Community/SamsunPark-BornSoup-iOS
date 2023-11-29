@@ -70,7 +70,7 @@ public struct OnboardingInterestedPlace: Reducer {
         Reduce { state, action in
             switch action {
             case .didTapBackButton:
-                return .run { send in
+                return .run { _ in
                     await self.dismiss()
                 }
                 

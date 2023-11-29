@@ -5,10 +5,10 @@
 //  Created by 신의연 on 2023/09/30.
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
-import ComposableArchitecture
 
-import Foundation
+import ComposableArchitecture
 import DomainKit
+import Foundation
 
 public struct Curating: Reducer {
     public struct State: Equatable {

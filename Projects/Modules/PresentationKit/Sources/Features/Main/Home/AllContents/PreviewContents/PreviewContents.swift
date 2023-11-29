@@ -6,10 +6,9 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import Foundation
 import ComposableArchitecture
-
 import DomainKit
+import Foundation
 
 public struct PreviewContents: Reducer {
     public struct State: Hashable, Identifiable {

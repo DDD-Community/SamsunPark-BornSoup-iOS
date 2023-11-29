@@ -27,7 +27,7 @@ public struct ContentsHorizontalListView: View {
                     }
                     Spacer()
                     
-//TODO: - 전체보기 추후 업데이트 예정
+// TODO: - 전체보기 추후 업데이트 예정
 //                    Text(Constants.primaryButtonTitle)
 //                        .font(.Body1.regular)
 //                        .foregroundColor(.orangeGray5)

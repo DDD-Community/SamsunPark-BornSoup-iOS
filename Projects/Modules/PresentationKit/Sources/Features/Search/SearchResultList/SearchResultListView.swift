@@ -6,9 +6,9 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import ComposableArchitecture
 import Kingfisher
+import SwiftUI
 
 struct SearchResultListView: View {
     let store: StoreOf<SearchResultList>
@@ -18,7 +18,7 @@ struct SearchResultListView: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewStore.contentsList, id: \.self) { contents in
                     HStack(spacing: 20) {
-                        KFImage(URL(string:  contents.thumbnails[0]))
+                        KFImage(URL(string: contents.thumbnails[0]))
                             .frame(maxWidth: 96, maxHeight: 96)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             
@@ -38,7 +38,7 @@ struct SearchResultListView: View {
                                     .foregroundColor(.orangeGray2)
                                 Divider()
                                     .frame(height: 12)
-                                Text("\(contents.startDate) ~ \(String(contents.endDate.split(separator:".")[1])).\(String(contents.endDate.split(separator: ".")[2]))")
+                                Text("\(contents.startDate) ~ \(String(contents.endDate.split(separator: ".")[1])).\(String(contents.endDate.split(separator: ".")[2]))")
                                     .font(.Body3.regular)
                                     .foregroundColor(.orangeGray2)
                             }

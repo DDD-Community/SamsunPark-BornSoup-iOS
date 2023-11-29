@@ -7,10 +7,9 @@
 //
 
 import ComposableArchitecture
-
-import SwiftUI
-import DomainKit
 import DesignSystemKit
+import DomainKit
+import SwiftUI
 
 public struct HomeView: View {
     let store: StoreOf<Home>
@@ -48,7 +47,7 @@ public struct HomeView: View {
                         }
                         Spacer()
                         
-                        //TODO: - 검색 기능 추가 예정
+                        // TODO: - 검색 기능 추가 예정
 //                        Button {
 //                            viewStore.send(.searchButtonTapped)
 //                        } label: {

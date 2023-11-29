@@ -7,10 +7,10 @@
 //
 
 import ComposableArchitecture
-
-import SwiftUI
 import DesignSystemKit
 import DomainKit
+
+import SwiftUI
 
 public struct CuratingView: View {
     let store: StoreOf<Curating>

@@ -7,9 +7,9 @@
 //
 
 import Alamofire
+import ComposableArchitecture
 import DomainKit
 import NetworkKit
-import ComposableArchitecture
 
 import Foundation
 
@@ -21,7 +21,7 @@ public struct ContentsDetailRepository: ContentsDetailRepositoryProtocol {
     public func requestContentsDetail(seq: String) async throws -> ContentsResponse {
         let request = try ContentsDetailAPIService.contentsDetail(seq).asQueryURLRequest()
         request.log()
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
         
         let decoder = JSONDecoder()
         do {

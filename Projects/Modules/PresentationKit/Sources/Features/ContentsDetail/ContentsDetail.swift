@@ -7,10 +7,9 @@
 //
 
 import ComposableArchitecture
-
-import UIKit
-import SwiftUI
 import DomainKit
+
+import SwiftUI
 
 public struct ContentsDetail: Reducer {
     public enum ErrorMessage: String {

@@ -15,4 +15,3 @@ public protocol HomeRepositoryProtocol {
     func requestContentsList(page: Int, size: Int) async throws -> ContentsListResponse?
     func requestContentsListOrderByReviewCount() async throws -> ContentsListResponse?
 }
-

@@ -91,7 +91,7 @@ public extension URLRequest {
        \(encoding)
        HOST: \(host)\n
        """
-        for (key,value) in self.allHTTPHeaderFields ?? [:] {
+        for (key, value) in self.allHTTPHeaderFields ?? [:] {
             output += "\(key): \(value) \n"
         }
         if let body = self.httpBody {

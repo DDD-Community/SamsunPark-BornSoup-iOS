@@ -6,11 +6,11 @@
 //  Copyright © 2023 kr.ddd.ozeon. All rights reserved.
 //
 
-import SwiftUI
 import ComposableArchitecture
-
 import DomainKit
 import Kingfisher
+
+import SwiftUI
 
 struct CuratingContentsView: View {
     let contents: PreviewContentsModel
@@ -34,9 +34,8 @@ struct CuratingContentsView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer()
                 
-                
                 VStack(alignment: .leading, spacing: 0) {
-                    //TODO: - tag or badge 만들어서 merge 다시 해야 함
+                    // TODO: - tag or badge 만들어서 merge 다시 해야 함
                     Text(contents.category.rawValue)
                         .foregroundColor(Color.ozWhite)
                     

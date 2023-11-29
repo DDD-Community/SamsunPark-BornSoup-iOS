@@ -34,4 +34,3 @@ struct MainHistoryView_Previews: PreviewProvider {
     }
 }
 #endif
-

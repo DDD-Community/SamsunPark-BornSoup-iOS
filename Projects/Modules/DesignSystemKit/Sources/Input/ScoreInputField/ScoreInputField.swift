@@ -93,8 +93,7 @@ public struct ScoreInputField: View {
                                     .contentShape(Rectangle())
                             }
                             .frame(width: 8, height: 8)
-                            
-                            
+                                   
                             Spacer()
                             
                             ZStack {

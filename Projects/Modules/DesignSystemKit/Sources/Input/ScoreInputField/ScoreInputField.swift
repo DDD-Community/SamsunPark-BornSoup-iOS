@@ -16,7 +16,7 @@ public struct ScoreInputField: View {
     
     private let title: String
     private let isNecessaryField: Bool
-    private var score: Double = 1
+    @State var score: Int = 1
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -34,9 +34,28 @@ public struct ScoreInputField: View {
             }
             
             HStack(alignment: .center) {
-                DesignSystemKitAsset.icScoreFace0.swiftUIImage
-                    .frame(width: 30, height: 30)
-                    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 14))
+                switch score {
+                case 1:
+                    DesignSystemKitAsset.icScoreFace1.swiftUIImage
+                        .frame(width: 30, height: 30)
+                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 14))
+                case 2:
+                    DesignSystemKitAsset.icScoreFace2.swiftUIImage
+                        .frame(width: 30, height: 30)
+                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 14))
+                case 3:
+                    DesignSystemKitAsset.icScoreFace3.swiftUIImage
+                        .frame(width: 30, height: 30)
+                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 14))
+                case 4:
+                    DesignSystemKitAsset.icScoreFace4.swiftUIImage
+                        .frame(width: 30, height: 30)
+                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 14))
+                default:
+                    DesignSystemKitAsset.icScoreFace0.swiftUIImage
+                        .frame(width: 30, height: 30)
+                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 14))
+                }
 
                 ZStack {
                     GeometryReader { geometry in
@@ -51,7 +70,7 @@ public struct ScoreInputField: View {
                                     endPoint: UnitPoint(x: 0, y: 0.5)
                                 ))
                                 .frame(
-                                    maxWidth: score == 0 ? 0 : geometry.size.width * (score / 4) + 12,
+                                    maxWidth: score == 0 ? 0 : geometry.size.width * (CGFloat(score) / 4) + 12,
                                     alignment: .leading
                                 )
                                 .cornerRadius(100)
@@ -59,53 +78,90 @@ public struct ScoreInputField: View {
                         .frame(maxWidth: .infinity, maxHeight: 16, alignment: .leading)
                         
                         HStack(alignment: .center) {
-                            Circle()
-                                .fill(Color.orangeGray7)
-                                .frame(width: 8, height: 8)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    print("1점")
-                                }
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 50, height: 50)
+                                    .opacity(0.001)
+                                    .onTapGesture {
+                                        print("1점")
+                                        self.score = 0
+                                    }
+                                
+                                Circle()
+                                    .fill(Color.orangeGray7)
+                                    .frame(width: 8, height: 8)
+                                    .contentShape(Rectangle())
+                            }
+                            .frame(width: 8, height: 8)
+                            
                             
                             Spacer()
                             
-                            Circle()
-                                .fill(Color.orangeGray7)
-                                .frame(width: 8, height: 8)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    print("2점")
-                                }
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 50, height: 50)
+                                    .opacity(0.001)
+                                    .onTapGesture {
+                                        self.score = 1
+                                    }
+                                
+                                Circle()
+                                    .fill(Color.orangeGray7)
+                                    .frame(width: 8, height: 8)
+                                    .contentShape(Rectangle())
+                            }
+                            .frame(width: 8, height: 8)
                             
                             Spacer()
                             
-                            Circle()
-                                .fill(Color.orangeGray7)
-                                .frame(width: 8, height: 8)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    print("3점")
-                                }
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 50, height: 50)
+                                    .opacity(0.001)
+                                    .onTapGesture {
+                                        self.score = 2
+                                    }
+                                
+                                Circle()
+                                    .fill(Color.orangeGray7)
+                                    .frame(width: 8, height: 8)
+                                    .contentShape(Rectangle())
+                            }
+                            .frame(width: 8, height: 8)
                             
                             Spacer()
                             
-                            Circle()
-                                .fill(Color.orangeGray7)
-                                .frame(width: 8, height: 8)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    print("4점")
-                                }
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 50, height: 50)
+                                    .opacity(0.001)
+                                    .onTapGesture {
+                                        self.score = 3
+                                    }
+                                
+                                Circle()
+                                    .fill(Color.orangeGray7)
+                                    .frame(width: 8, height: 8)
+                                    .contentShape(Rectangle())
+                            }
+                            .frame(width: 8, height: 8)
                             
                             Spacer()
                             
-                            Circle()
-                                .fill(Color.orangeGray7)
-                                .frame(width: 8, height: 8)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    print("5점")
-                                }
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 50, height: 50)
+                                    .opacity(0.001)
+                                    .onTapGesture {
+                                        self.score = 4
+                                    }
+                                
+                                Circle()
+                                    .fill(Color.orangeGray7)
+                                    .frame(width: 8, height: 8)
+                                    .contentShape(Rectangle())
+                            }
+                            .frame(width: 8, height: 8)
                         }
                         .padding(4)
                         .frame(maxWidth: .infinity, alignment: .leading)

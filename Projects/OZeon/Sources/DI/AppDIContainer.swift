@@ -32,6 +32,7 @@ public final class AppDIContainer {
         registerHomeUseCase()
         registerContentsDetailUseCase()
         registerMyPageUseCase()
+        registerSearchUseCase()
     }
     
     private func registerAuthUseCase() {
@@ -58,12 +59,19 @@ public final class AppDIContainer {
         }
     }
     
+    private func registerSearchUseCase() {
+        diContainer.register(SearchUseCaseProtocol.self) { resolver in
+            SearchUseCase(repository: resolver.resolve(SearchRepositoryProtocol.self)!)
+        }
+    }
+    
     // MARK: - Repositories
     private func registerRepositories() {
         registerAuthRepository()
         registerHomeRepository()
         registerMyPageRepository()
         registerContentsDetailRepository()
+        registerSearchRepository()
     }
     
     private func registerAuthRepository() {
@@ -85,6 +93,12 @@ public final class AppDIContainer {
     private func registerMyPageRepository() {
         diContainer.register(MyPageRepositoryProtocol.self) { _ in
             MyPageRepository()
+        }
+    }
+    
+    private func registerSearchRepository() {
+        diContainer.register(SearchRepositoryProtocol.self) { _ in
+            SearchRepository()
         }
     }
 }

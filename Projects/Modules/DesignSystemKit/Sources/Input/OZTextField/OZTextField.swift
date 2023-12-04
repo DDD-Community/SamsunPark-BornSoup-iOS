@@ -60,21 +60,31 @@ public struct OZTextField: View {
     @Binding var text: String
     @Binding var invalidation: Bool
     @State private var changingValue: Bool = false
+    var onCommit: ((String) -> Void)?
     
     public init(
         title: any StringProtocol,
         text: Binding<String>,
-        invalidation: Binding<Bool> = .constant(false)
+        invalidation: Binding<Bool> = .constant(false),
+        onCommit: ((String) -> Void)? = nil
     ) {
         self.title = title
         self._text = text
         self._invalidation = invalidation
+        self.onCommit = onCommit
     }
     
     public var body: some View {
-        TextField(title, text: $text) { changed in
-            changingValue = changed
-        }
+        TextField(title, text: $text, onCommit: {
+            self.onCommit?(text)
+        })
+        
+        /*
+         { changed in
+             print(changed)
+             changingValue = changed
+         }
+         */
         .cornerRadius(Constants.textFieldCornerRadius)
         .overlay(
             Group {

@@ -21,8 +21,8 @@ public struct SearchResultList: Reducer {
         }
     }
     
-    public enum Action {
-        case cellTapped
+    public enum Action: Equatable {
+        case cellTapped(PreviewContentsModel)
     }
     
     public var body: some Reducer<State, Action> {

@@ -32,15 +32,19 @@ public struct WriteHistoryView: View {
                             HStack(alignment: .bottom) {
                                 PhotosPicker(
                                     selection: viewStore.$pickerItems,
+                                    maxSelectionCount: 5,
                                     selectionBehavior: .ordered,
                                     matching: .images,
                                     photoLibrary: .shared()
                                 ) {
-                                    ImageUploadButton(totalCount: 5, currentCount: 0)
+                                    ImageUploadButton(
+                                        totalCount: viewStore.totalCount,
+                                        currentCount: viewStore.selectedAlbumImages.count
+                                    )
                                 }
-                                ForEach(viewStore.selectedAlbumImages, id: \.self) { image in
-                                    ImageButtonContent(image: image.image) {
-                                        print("tap image \(image.id)")
+                                ForEach(viewStore.selectedAlbumImages.indices, id: \.self) { index in
+                                    ImageButtonContent(image: viewStore.selectedAlbumImages[index].image) {
+                                        viewStore.send(.didTapImage(index))
                                     }
                                 }
                             }
@@ -48,17 +52,40 @@ public struct WriteHistoryView: View {
                             .frame(maxWidth: .infinity, alignment: .topLeading)
                         }
                         
-                        ShortTextField(title: "전통콘텐츠명", isNecessaryField: true)
-                            .onTapGesture {
-                                print("전통콘텐츠명")
-                            }
+                        ShortTextField(
+                            title: viewStore.selectedContents?.title ?? "전통콘텐츠명",
+                            isNecessaryField: true
+                        )
+                        .onTapGesture {
+                            viewStore.send(.didTapContent)
+                        }
                         
                         ScoreInputField(title: "만족도", isNecessaryField: true)
                         
-                        ShortTextField(title: "날짜를 선택해주세요", isNecessaryField: true)
-                            .onTapGesture {
-                                print("날짜를 선택해주세요")
-                            }
+                        ShortTextField(
+                            title: viewStore.showCalendarFirst ?
+                            getDateString(viewStore.selectedDate)
+                            : "날짜를 선택해주세요",
+                            isNecessaryField: true
+                        )
+                        .onTapGesture {
+                            viewStore.send(.didTapShowCalendar)
+                        }
+                        
+                        if viewStore.showCalendar {
+                            DatePicker(
+                                "",
+                                selection: viewStore.$selectedDate,
+                                displayedComponents: .date
+                            )
+                            .labelsHidden()
+                            .datePickerStyle(.graphical)
+                            .frame(maxHeight: 400)
+                            .onChange(of: viewStore.$selectedDate, perform: { value in
+                                 print(value)
+                                viewStore.send(.didTapShowCalendar)
+                            })
+                        }
                         
                         ShortTextField(title: "함께한 사람이 있나요?", isNecessaryField: false)
                             .onTapGesture {
@@ -80,7 +107,7 @@ public struct WriteHistoryView: View {
                         .padding(.bottom, 56)
                     }
                     .padding(0)
-                .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity)
                 }
                 
                 Spacer()
@@ -101,6 +128,21 @@ public struct WriteHistoryView: View {
             .navigationBarBackButtonHidden()
             .toolbar(.hidden, for: .tabBar)
         }
+        .sheet(
+            store: store.scope(
+                state: \.$search,
+                action: WriteHistory.Action.search
+            ),
+            content: {
+                SearchView(store: $0)
+            }
+        )
+    }
+    
+    private func getDateString(_ date: Date) -> String {
+        let formatter: DateFormatter = .init()
+        formatter.dateFormat = "YYYY년 MM월 dd일"
+        return formatter.string(from: date)
     }
 }
 

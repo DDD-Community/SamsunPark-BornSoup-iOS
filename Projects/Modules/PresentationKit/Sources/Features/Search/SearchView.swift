@@ -10,20 +10,22 @@ import ComposableArchitecture
 import DesignSystemKit
 import SwiftUI
 
-struct SearchView: View {
-    let store: StoreOf<Search>
+public struct SearchView: View {
+    public let store: StoreOf<Search>
     
-    var body: some View {
+    public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(spacing: 0) {
                 VStack(spacing: 0) {
                     HStack {
-                        Button {
-                            viewStore.send(.dismissButtonTapped)
-                        } label: {
-                            DesignSystemKitAsset.icBack24.swiftUIImage
-                                .renderingMode(.template)
-                                .foregroundColor(.orangeGray5)
+                        if !viewStore.isBackButtonHidden {
+                            Button {
+                                viewStore.send(.dismissButtonTapped)
+                            } label: {
+                                DesignSystemKitAsset.icBack24.swiftUIImage
+                                    .renderingMode(.template)
+                                    .foregroundColor(.orangeGray5)
+                            }
                         }
                         OZTextField(
                             title: "콘텐츠명이나 지역구를 입력해보세요.",

@@ -19,6 +19,8 @@ public enum APIEndpoints {
     
     case fetchMyInfo
     
+    case searchWithTitle
+    
     public var baseURL: URL { URL(string: "https://oneul.store/")! }
     
     public var path: String {
@@ -32,6 +34,8 @@ public enum APIEndpoints {
         case .checkIsEmailDuplicated: return "signup/check/email"
             
         case .fetchMyInfo: return "mypage/infos"
+            
+        case .searchWithTitle: return "search/title"
         }
     }
 }

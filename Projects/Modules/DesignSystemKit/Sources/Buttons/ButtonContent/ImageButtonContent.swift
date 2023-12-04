@@ -32,7 +32,7 @@ public struct ImageButtonContent: View {
 #if DEBUG
 struct ImageButtonContent_Preview: PreviewProvider {
     static var previews: some View {
-        ImageButtonContent(image: Image(systemName: "xmark.app.fill")) {
+        ImageButtonContent(image: DesignSystemKitAsset.checkImagePlaceholder.swiftUIImage) {
             print("tap")
         }
     }

@@ -16,7 +16,7 @@ public struct ScoreInputField: View {
     
     private let title: String
     private let isNecessaryField: Bool
-    @State var score: Int = 1
+    @State var score: Int = 2
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {

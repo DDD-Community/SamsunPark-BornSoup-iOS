@@ -13,18 +13,31 @@ public struct WriteHistory: Reducer {
     
     public struct State: Equatable {
         public init() {}
+        
+        var isNextButtonActivated: Bool = false
+        
+        @BindingState var reviewText: String = ""
+        @BindingState var isReviewPublic: Bool = false
     }
     
-    public enum Action: Equatable {
+    public enum Action: BindableAction, Equatable {
+        case _didTapConfirmButton
         case didTapConfirmButton
         case didTapBackButton
+        
+        case binding(BindingAction<State>)
     }
     
     @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
+        BindingReducer()
+        
         Reduce { state, action in
             switch action {
+            case ._didTapConfirmButton:
+                return .none
+                
             case .didTapConfirmButton:
                 return .none
                 
@@ -32,6 +45,9 @@ public struct WriteHistory: Reducer {
                 return .run { _ async in
                     await self.dismiss()
                 }
+                
+            case .binding:
+                return .none
             }
         }
     }

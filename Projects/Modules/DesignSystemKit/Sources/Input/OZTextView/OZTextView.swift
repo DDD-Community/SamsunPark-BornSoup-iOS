@@ -18,10 +18,10 @@ public struct OZTextView: View {
     }
     
     @Binding var text: String
-    @State var placeholder: String = "placeholder"
+    @State var placeholder: String
     let textLimit: Int = 2000
     
-    public init(text: Binding<String>, placeholder: String) {
+    public init(text: Binding<String>, placeholder: String = "placeholder") {
         self._text = text
         self.placeholder = placeholder
     }
@@ -33,6 +33,7 @@ public struct OZTextView: View {
                     TextEditor(text: $text)
                         .foregroundColor(.orangeGray1)
                         .font(.Body1.regular)
+                        .scrollContentBackground(.hidden)
                         .onChange(of: text) { newValue in
                             if newValue.count > textLimit {
                                 text = String(newValue.prefix(textLimit))
@@ -44,9 +45,9 @@ public struct OZTextView: View {
                             .disabled(true)
                             .foregroundColor(Color.gray)
                             .font(.Body1.regular)
+                            .scrollContentBackground(.hidden)
                     }
                 }
-                
             }
             .padding(.top, 12)
             .padding(.horizontal, 16)
@@ -64,6 +65,7 @@ public struct OZTextView: View {
             .padding(.bottom, 12)
             .padding(.horizontal, 12)
         }
+        .background(Color.orangeGray9)
         .overlay(
             Group {
                 RoundedRectangle(cornerRadius: Constant.cornerRadius)

@@ -8,6 +8,7 @@
 
 import ComposableArchitecture
 
+import PhotosUI
 import SwiftUI
 
 public struct WriteHistoryView: View {
@@ -27,9 +28,21 @@ public struct WriteHistoryView: View {
                 
                 ScrollView(.vertical) {
                     VStack(alignment: .leading, spacing: 8) {
-                        ScrollView(.horizontal) {
+                        ScrollView(.horizontal, showsIndicators: false) {
                             HStack(alignment: .bottom) {
-                                ImageUploadButton(totalCount: 5, currentCount: 0)
+                                PhotosPicker(
+                                    selection: viewStore.$pickerItems,
+                                    selectionBehavior: .ordered,
+                                    matching: .images,
+                                    photoLibrary: .shared()
+                                ) {
+                                    ImageUploadButton(totalCount: 5, currentCount: 0)
+                                }
+                                ForEach(viewStore.selectedAlbumImages, id: \.self) { image in
+                                    ImageButtonContent(image: image.image) {
+                                        print("tap image \(image.id)")
+                                    }
+                                }
                             }
                             .padding(.horizontal, 16)
                             .frame(maxWidth: .infinity, alignment: .topLeading)

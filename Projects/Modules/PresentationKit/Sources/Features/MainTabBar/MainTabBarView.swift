@@ -33,14 +33,11 @@ public struct MainTabBarView: View {
 //                        Text("주변 탐색")
 //                    }
 //                
-//                HistoryRootView(store: .init(
-//                    initialState: .init(),
-//                    reducer: { HistoryRoot() }
-//                ))
-//                .tabItem {
-//                    DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
-//                    Text("관람기록")
-//                }
+                HistoryRootView(store: self.store.scope(state: \.history, action: MainTabBar.Action.history))
+                .tabItem {
+                    DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
+                    Text("관람기록")
+                }
                 
                 MyPageView(store: self.store.scope(state: \.myPage, action: MainTabBar.Action.myPage))
                 .tabItem {

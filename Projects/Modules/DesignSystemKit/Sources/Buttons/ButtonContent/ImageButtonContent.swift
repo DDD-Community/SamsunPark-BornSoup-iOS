@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct ImageButtonContent {
+public struct ImageButtonContent: View {
     public init(image: Image, action: @escaping () -> Void) {
         self.image = image
         self.action = action
@@ -16,4 +16,25 @@ public struct ImageButtonContent {
     
     public let image: Image
     public let action: () -> Void
+    
+    public var body: some View {
+        image
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 90, height: 90)
+            .clipShape(.circle)
+            .onTapGesture {
+                self.action()
+            }
+    }
 }
+
+#if DEBUG
+struct ImageButtonContent_Preview: PreviewProvider {
+    static var previews: some View {
+        ImageButtonContent(image: Image(systemName: "xmark.app.fill")) {
+            print("tap")
+        }
+    }
+}
+#endif

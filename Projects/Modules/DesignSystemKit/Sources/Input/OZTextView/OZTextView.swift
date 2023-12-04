@@ -18,7 +18,7 @@ public struct OZTextView: View {
     }
     
     @Binding var text: String
-    @State var placeholder: String
+    var placeholder: String
     let textLimit: Int = 2000
     
     public init(text: Binding<String>, placeholder: String = "placeholder") {
@@ -41,11 +41,16 @@ public struct OZTextView: View {
                         }
                     
                     if text.isEmpty {
-                        TextEditor(text: $placeholder)
-                            .disabled(true)
-                            .foregroundColor(Color.gray)
-                            .font(.Body1.regular)
-                            .scrollContentBackground(.hidden)
+                        VStack {
+                            Text(placeholder)
+                                .foregroundColor(Color.gray)
+                                .font(.Body1.regular)
+                                .disabled(true)
+                                .allowsHitTesting(false)
+                                .padding(.top, 8)
+                                .padding(.leading, 4)
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -82,8 +87,14 @@ public struct OZTextView: View {
 struct OZTextView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            OZTextView(text: .constant("sample text"), placeholder: "placeholder")
-                .padding()
+            OZTextView(
+                text: .init(
+                    get: { "" },
+                    set: { _ in }
+                ),
+                placeholder: "placeholder"
+            )
+            .padding()
         }
     }
 }

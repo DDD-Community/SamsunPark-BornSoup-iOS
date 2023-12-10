@@ -31,7 +31,11 @@ let infoPlist: [String: InfoPlist.Value] = [
     ],
     "LSApplicationQueriesSchemes": ["kakaokompassauth", "kakaolink", "kakao$(KAKAO_APP_KEY)"],
     "KAKAO_REST_KEY": "$(KAKAO_REST_KEY)",
-    "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)"
+    "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)",
+    "OTHER_LDFLAGS": "-ObjC",
+    "HEADER_SEARCH_PATHS": """
+$(inherited) $(SRCROOT)/Tuist/Dependencies/SwiftPackageManager/.build/checkouts/GoogleSignIn-iOS/GoogleSignIn/Sources/Public $(SRCROOT)/Tuist/Dependencies/SwiftPackageManager/.build/checkouts/AppAuth-iOS/Source/AppAuth $(SRCROOT)/Tuist/Dependencies/SwiftPackageManager/.build/checkouts/AppAuth-iOS/Source/AppAuthCore $(SRCROOT)/Tuist/Dependencies/SwiftPackageManager/.build/checkouts/gtm-session-fetcher/Sources/Core/Public $(SRCROOT)/Tuist/Dependencies/SwiftPackageManager/.build/checkouts/GoogleSignIn-iOS/GoogleSignIn/Sources/../../ $(SRCROOT)/Tuist/Dependencies/SwiftPackageManager/.build/checkouts/GTMAppAuth/GTMAppAuth/Sources/Public/GTMAppAuth")
+"""
 ]
 
 // MARK: - App

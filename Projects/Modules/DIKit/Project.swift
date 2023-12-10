@@ -6,7 +6,7 @@ let frameworkName: String = "DIKit"
 
 let frameworkTargets: [Target] = FrameworkFactory(
     dependency: .init(
-        frameworkDependencies: [.SPM.Swinject],
+        frameworkDependencies: [Dep.Project.CoreKit],
         unitTestsDependencies: []
     )
 ).build(

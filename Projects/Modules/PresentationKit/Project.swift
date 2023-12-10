@@ -25,7 +25,7 @@ let frameworkTargets: [Target] = FrameworkFactory(
     payload: .init(
         name: frameworkName,
         platform: .iOS,
-        product: .framework
+        product: .staticLibrary
     )
 )
 

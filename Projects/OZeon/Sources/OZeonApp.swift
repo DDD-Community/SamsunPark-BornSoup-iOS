@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Firebase
 import KakaoSDKAuth
 import KakaoSDKCommon
 
@@ -8,6 +9,7 @@ import SwiftUI
 struct OZeonApp: App {
     init() {
         initializeKakao()
+        initializeFirebase()
         registerDependencies()
     }
     
@@ -29,6 +31,10 @@ struct OZeonApp: App {
             return
         }
         KakaoSDK.initSDK(appKey: kakaoAppKey)
+    }
+    
+    private func initializeFirebase() {
+        FirebaseApp.configure()
     }
     
     private func registerDependencies() {

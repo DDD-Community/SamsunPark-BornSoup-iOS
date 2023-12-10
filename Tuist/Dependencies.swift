@@ -9,7 +9,8 @@ let spm = SwiftPackageManagerDependencies([
     .remote(url: "https://github.com/Alamofire/Alamofire", requirement: .upToNextMajor(from: "5.7.0")),
     .remote(url: "https://github.com/kakao/kakao-ios-sdk", requirement: .upToNextMinor(from: "2.18.0")),
     .remote(url: "https://github.com/kishikawakatsumi/KeychainAccess", requirement: .upToNextMajor(from: "4.2.2")),
-    .remote(url: "https://github.com/Kitura/Swift-JWT", requirement: .upToNextMajor(from: "4.0.0"))
+    .remote(url: "https://github.com/Kitura/Swift-JWT", requirement: .upToNextMajor(from: "4.0.0")),
+    .remote(url: "https://github.com/firebase/firebase-ios-sdk", requirement: .upToNextMajor(from: "10.0.0"))
 ])
 
 let dependencies = Dependencies(

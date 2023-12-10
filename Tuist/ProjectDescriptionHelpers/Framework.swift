@@ -50,6 +50,7 @@ public struct FrameworkFactory {
     }
     
     public func build(payload: Payload) -> [Target] {
+        let setting: SettingsDictionary = ["OTHER_LDFLAGS" : "$(inherited) -ObjC -all_load"]
         
         let sourceTarget = Target(
             name: payload.name,
@@ -61,7 +62,8 @@ public struct FrameworkFactory {
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             scripts: [.SwiftLintString],
-            dependencies: self.dependency.frameworkDependencies
+            dependencies: self.dependency.frameworkDependencies,
+            settings: .settings(base: setting, defaultSettings: .recommended)
         )
         
         let testTarget = Target(

@@ -23,10 +23,12 @@ public struct ProjectFactory {
         
         let name: String
         let organizationName: String
+        let packages: [Package]
         
-        public init(name: String, organizationName: String) {
+        public init(name: String, organizationName: String, packages: [Package] = []) {
             self.name = name
             self.organizationName = organizationName
+            self.packages = packages
         }
     }
     
@@ -41,6 +43,7 @@ public struct ProjectFactory {
         return Project(
             name: payload.name,
             organizationName: payload.organizationName,
+            packages: payload.packages,
             settings: .settings(
                 configurations: [
                     .debug(name: "Debug", xcconfig: .relativeToRoot("BuildConfigurations/Debug.xcconfig")),

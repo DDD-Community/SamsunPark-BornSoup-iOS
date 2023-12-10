@@ -22,6 +22,9 @@ public extension TargetDependency.SPM {
     static let KeychainAccess = Self.external("KeychainAccess")
     static let SwiftJWT = Self.external("SwiftJWT")
     
+    // Firebase
+   static let FirebaseStorage = Self.external("FirebaseStorage")
+    
     private static func external(_ name: String) -> TargetDependency {
         return TargetDependency.external(name: name)
     }

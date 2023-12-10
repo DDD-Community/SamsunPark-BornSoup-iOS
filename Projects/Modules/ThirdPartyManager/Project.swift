@@ -22,7 +22,8 @@ let frameworkTargets: [Target] = FrameworkFactory(
             .SPM.KakaoSDKUser,
             .SPM.KakaoSDKCommon,
             .SPM.KeychainAccess,
-            .SPM.SwiftJWT
+            .SPM.SwiftJWT,
+            .SPM.FirebaseStorage
         ],
         unitTestsDependencies: []
     )
@@ -30,7 +31,7 @@ let frameworkTargets: [Target] = FrameworkFactory(
     payload: .init(
         name: frameworkName,
         platform: .iOS,
-        product: .framework
+        product: .staticFramework
     )
 )
 

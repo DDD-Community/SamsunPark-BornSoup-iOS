@@ -13,14 +13,14 @@ let frameworkName: String = "NetworkKit"
 
 let frameworkTargets: [Target] = FrameworkFactory(
     dependency: .init(
-        frameworkDependencies: [Dep.Project.ThirdPartyManager],
+        frameworkDependencies: [Dep.Project.CoreKit],
         unitTestsDependencies: []
     )
 ).build(
     payload: .init(
         name: frameworkName,
         platform: .iOS,
-        product: .framework,
+        product: .staticLibrary,
         infoPlist: ["TEST_FACT_API_KEY": "$(TEST_FACT_API_KEY)"]
     )
 )

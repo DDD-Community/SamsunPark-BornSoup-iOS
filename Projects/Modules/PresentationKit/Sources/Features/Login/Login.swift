@@ -8,6 +8,7 @@
 
 import Alamofire
 import ComposableArchitecture
+import DomainKit
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
@@ -179,7 +180,7 @@ public struct Login: Reducer {
     private func loginWithSocialToken(
         _ accessToken: String,
         _ idToken: String,
-        socialType: SocialType
+        socialType: DomainKit.SocialType
     ) -> Effect<Login.Action> {
         return .run { send async in
             let (response, error) = await authUseCase.loginWithSocialToken(

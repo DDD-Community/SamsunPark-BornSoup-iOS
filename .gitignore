@@ -74,3 +74,4 @@ Tuist/master.key
 Tuist/Signing
 BuildConfigurations
 *.p8
+Projects/OZeon/Resources/GoogleService-Info.plist

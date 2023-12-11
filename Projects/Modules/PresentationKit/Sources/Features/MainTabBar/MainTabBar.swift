@@ -21,12 +21,13 @@ public struct MainTabBar: Reducer {
             allContents: AllContents.State(contentsList: []),
             allContentsFilter: AllContentsFilter.State(filterList: [])
         )
-        
+        var neighborhood = Neighborhood.State()
         var myPage: MyPage.State = .init()
     }
     
     public enum Action {
         case home(Home.Action)
+        case neighborhood(Neighborhood.Action)
         case myPage(MyPage.Action)
     }
     
@@ -39,6 +40,9 @@ public struct MainTabBar: Reducer {
         }
         Scope(state: \.homeState, action: /Action.home) {
             Home()
+        }
+        Scope(state: \.neighborhood, action: /Action.neighborhood) {
+            Neighborhood()
         }
         Scope(state: \.myPage, action: /Action.myPage) {
             MyPage()

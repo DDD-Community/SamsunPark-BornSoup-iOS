@@ -22,31 +22,34 @@ public struct MainTabBarView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             TabView {
                 HomeView(store: self.store.scope(state: \.homeState, action: MainTabBar.Action.home))
-                .tabItem {
-                    DesignSystemKitAsset.icNaviHomeOn.swiftUIImage.renderingMode(.template)
-                    Text("홈")
-                }
+                    .tabItem {
+                        DesignSystemKitAsset.icNaviHomeOn.swiftUIImage.renderingMode(.template)
+                        Text("홈")
+                    }
                 
-//                Text("주변 탐색")
-//                    .tabItem {
-//                        DesignSystemKitAsset.icNaviLocationOn.swiftUIImage.renderingMode(.template)
-//                        Text("주변 탐색")
-//                    }
-//                
-//                HistoryRootView(store: .init(
-//                    initialState: .init(),
-//                    reducer: { HistoryRoot() }
-//                ))
-//                .tabItem {
-//                    DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
-//                    Text("관람기록")
-//                }
+                NeighborhoodView(store: self.store.scope(state: \.neighborhood, action: MainTabBar.Action.neighborhood))
+                
+                    .tabItem {
+                        DesignSystemKitAsset.icNaviLocationOn.swiftUIImage.renderingMode(.template)
+                        Text("주변 탐색")
+                    }
+                
+                
+                //                
+                //                HistoryRootView(store: .init(
+                //                    initialState: .init(),
+                //                    reducer: { HistoryRoot() }
+                //                ))
+                //                .tabItem {
+                //                    DesignSystemKitAsset.icNaviMyrecordOn.swiftUIImage.renderingMode(.template)
+                //                    Text("관람기록")
+                //                }
                 
                 MyPageView(store: self.store.scope(state: \.myPage, action: MainTabBar.Action.myPage))
-                .tabItem {
-                    DesignSystemKitAsset.icNaviMypageOn.swiftUIImage.renderingMode(.template)
-                    Text("내 정보")
-                }
+                    .tabItem {
+                        DesignSystemKitAsset.icNaviMypageOn.swiftUIImage.renderingMode(.template)
+                        Text("내 정보")
+                    }
             }
             .tint(.orangeGray1)
             .onAppear {

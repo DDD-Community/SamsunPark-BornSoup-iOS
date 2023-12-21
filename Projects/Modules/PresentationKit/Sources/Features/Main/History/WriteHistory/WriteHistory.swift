@@ -129,33 +129,3 @@ public struct WriteHistory: Reducer {
         return try? await imageSelection.loadTransferable(type: AlbumImage.self)
     }
 }
-
-public struct AlbumImage: Transferable, Identifiable, Hashable {
-    public var id: UUID = .init()
-    public let image: Image
-    
-    public static var transferRepresentation: some TransferRepresentation {
-        DataRepresentation(importedContentType: .image) { data in
-            guard let uiImage = UIImage(data: data) else {
-                throw TransferError.importFailed
-            }
-            let image = Image(uiImage: uiImage)
-            return AlbumImage(image: image)
-        }
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-    }
-}
-
-public enum ImageState {
-    case empty
-    case loading(Progress)
-    case success(Image)
-    case failure(Error)
-}
-
-public enum TransferError: Error {
-    case importFailed
-}

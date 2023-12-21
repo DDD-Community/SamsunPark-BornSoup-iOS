@@ -50,8 +50,11 @@ public struct FrameworkFactory {
     }
     
     public func build(payload: Payload) -> [Target] {
-        let setting: SettingsDictionary = ["OTHER_LDFLAGS" : "$(inherited) -ObjC -all_load"]
-        
+        let setting: SettingsDictionary = [
+            "OTHER_LDFLAGS" : "$(inherited) -ObjC -all_load",
+            "HEADER_SEARCH_PATHS": SettingValue(stringLiteral: "$(inherited) $(SRCROOT)/../../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/gtm-session-fetcher/Sources/Core/Public/")
+        ]
+
         let sourceTarget = Target(
             name: payload.name,
             platform: payload.platform,

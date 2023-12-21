@@ -50,6 +50,7 @@ public struct WriteHistory: Reducer {
     }
     
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.uploadImageUseCase) var uploadImageUseCase
     
     public var body: some ReducerOf<Self> {
         BindingReducer()

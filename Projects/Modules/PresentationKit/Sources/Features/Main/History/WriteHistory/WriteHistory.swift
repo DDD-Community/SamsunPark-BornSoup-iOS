@@ -27,6 +27,7 @@ public struct WriteHistory: Reducer {
         var showCalendar: Bool = false
         
         @BindingState var reviewText: String = ""
+        @BindingState var reviewScore: Int = 2
         @BindingState var isReviewPublic: Bool = false
         @BindingState var pickerItems: [PhotosPickerItem] = []
         @BindingState var selectedDate: Date = .init()

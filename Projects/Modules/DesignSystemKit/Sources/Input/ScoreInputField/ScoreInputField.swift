@@ -9,14 +9,19 @@
 import SwiftUI
 
 public struct ScoreInputField: View {
-    public init(title: String, isNecessaryField: Bool) {
+    public init(
+        score: Binding<Int>,
+        title: String,
+        isNecessaryField: Bool
+    ) {
+        self._score = score
         self.title = title
         self.isNecessaryField = isNecessaryField
     }
     
     private let title: String
     private let isNecessaryField: Bool
-    @State var score: Int = 2
+    @Binding var score: Int
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -183,7 +188,7 @@ public struct ScoreInputField: View {
 #if DEBUG
 struct ScoreInputField_Previews: PreviewProvider {
     static var previews: some View {
-        ScoreInputField(title: "만족도", isNecessaryField: true)
+        ScoreInputField(score: .constant(2), title: "만족도", isNecessaryField: true)
     }
 }
 #endif

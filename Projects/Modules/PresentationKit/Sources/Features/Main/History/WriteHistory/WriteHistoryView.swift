@@ -60,7 +60,11 @@ public struct WriteHistoryView: View {
                             viewStore.send(.didTapContent)
                         }
                         
-                        ScoreInputField(title: "만족도", isNecessaryField: true)
+                        ScoreInputField(
+                            score: viewStore.$reviewScore,
+                            title: "만족도",
+                            isNecessaryField: true
+                        )
                         
                         ShortTextField(
                             title: viewStore.showCalendarFirst ?

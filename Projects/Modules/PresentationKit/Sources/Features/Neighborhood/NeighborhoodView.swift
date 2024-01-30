@@ -83,7 +83,7 @@ struct NeighborhoodView: View {
                     )
                 }
             } else {
-                Text("unavaible")
+                Text("iOS 최신 버전 업데이트가 필요합니다(17.0 이상)")
             }
         }
     }

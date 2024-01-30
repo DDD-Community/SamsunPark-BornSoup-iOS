@@ -63,8 +63,34 @@ public struct Neighborhood: Reducer {
             )
         )
         var visibleRect: MKMapRect = .init()
-        var contentsAnnotationList: [ContentsAnnotation] = []
-        var selectableCategories: [SelectableCategory] = []
+        var contentsAnnotationList: [ContentsAnnotation] = [
+            ContentsAnnotation(
+                name: "gangnam",
+                coordinate: .init(latitude: 37.49797616957218, longitude: 127.02764665816525),
+                category: .artGallery
+            ),
+            ContentsAnnotation(
+                name: "gyeongbokgung",
+                coordinate: .init(latitude: 37.578611, longitude: 126.977222),
+                category: .palace
+            ),
+            ContentsAnnotation(
+                name: "국립현대미술관",
+                coordinate: .init(latitude: 37.578628, longitude: 126.980261),
+                category: .artGallery
+            ),
+            
+            ContentsAnnotation(
+                name: "Lola's Place",
+                coordinate: .init(latitude: -32.4, longitude: 115.7),
+                category: .location
+            )
+        ]
+        var selectableCategories: [SelectableCategory] = [
+            SelectableCategory(category: .artGallery, isSelected: false),
+            SelectableCategory(category: .craft, isSelected: false),
+            SelectableCategory(category: .dance, isSelected: false)
+        ]
         var text: String = ""
         
         var search: Search.State = .init(text: "", recentSearches: [], searchResultList: .init(contentsList: []))
